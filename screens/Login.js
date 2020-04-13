@@ -17,6 +17,7 @@ class Login extends Component {
         this.state = {
             email: '',
             password: '',
+            incPassword: '',
             error: {
                 emailError: '',
                 passwordError: '',
@@ -29,8 +30,16 @@ class Login extends Component {
         const { error } = this.state;
         const isValidated = await validator(name, text);
 
-        this.setState(prevState => { return ({ ...prevState, [name]: text, error: { ...error, [`${name}Error`]: isValidated } }); });
+        await this.setState(prevState => { return ({ ...prevState, [name]: text, error: { ...error, [`${name}Error`]: isValidated } }); });
+        if (name === 'password') {
+            let incPassword = text;
+            const arr = incPassword.split('');
+            // eslint-disable-next-line no-return-assign
+            const newarr = await arr.map(e => e = '*').join('');
 
+            console.log(newarr);
+            this.setState({ incPassword: newarr });
+        }
     }
     checkValidate = () => {
         const { email, error, password } = this.state;
@@ -51,11 +60,11 @@ class Login extends Component {
 
     }
     handleSubmit = async () => {
-        const {email,password} = this.state;
+        const { email, password } = this.state;
         const formValid = await this.checkValidate();
 
         if (formValid) {
-            const postObj = {t_email:email,t_password:password};
+            const postObj = { t_email: email, t_password: password };
             console.log(postObj);
             this.setState({ loader: true });
         } else {
@@ -67,7 +76,7 @@ class Login extends Component {
         alert('will redirect to password reset');
     }
     render() {
-        const { error, loader } = this.state;
+        const { error, loader, password, incPassword } = this.state;
         return (
             <>
                 {loader && <Loader top="70%" left="47%">
@@ -93,7 +102,7 @@ class Login extends Component {
                         <InputGroup >
                             <InputLogo source={passwordIcon} />
                             <InputBox >
-                                <Input placeholder="Your Password" onChangeText={(text) => this.handleChange(text, 'password')} />
+                                <Input placeholder="Your Password" value={incPassword} onChangeText={(text) => this.handleChange(text, 'password')} />
                                 {error.passwordError !== '' ? <ErrorText>{error.passwordError}</ErrorText> : null}
                             </InputBox>
                         </InputGroup>
