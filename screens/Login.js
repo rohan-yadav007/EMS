@@ -4,7 +4,7 @@ import { View, ActivityIndicator } from 'react-native';
 import Gap from '../components/Gap';
 import {
     WebsiteWrapper, WebsiteLogo, ErrorText, InputBox, LoginForm, InputGroup, LoginButton, ForgotLink, Input,
-    InputLogo, CustomText,Loader
+    InputLogo, CustomText, Loader,
 }
     from '../css/login.css';
 import validator from '../components/validation';
@@ -21,35 +21,45 @@ class Login extends Component {
                 emailError: '',
                 passwordError: '',
             },
-            loader:false
+            loader: false,
         };
     }
 
     handleChange = async (text, name) => {
         const { error } = this.state;
         const isValidated = await validator(name, text);
+
         this.setState(prevState => { return ({ ...prevState, [name]: text, error: { ...error, [`${name}Error`]: isValidated } }); });
-        console.log(this.state);
+
     }
     checkValidate = () => {
-        const { email, password } = this.state;
+        const { email, error, password } = this.state;
+        const errorObj = error;
         if (email === '' || password === '') {
+            if (email === '') {
+                Object.assign(errorObj, { emailError: 'Required' });
+            }
+            if (password === '') {
+                Object.assign(errorObj, { passwordError: 'Required' });
+            }
+            this.setState({ error: errorObj });
             return false;
         } else {
             return true;
         }
+
+
     }
     handleSubmit = async () => {
-        const { email, password } = this.state;
-
+        const {email,password} = this.state;
         const formValid = await this.checkValidate();
-        console.log(formValid);
+
         if (formValid) {
-            const obj = { email: email, password: password };
-            this.setState({loader:true})
-            console.log(obj);
+            const postObj = {t_email:email,t_password:password};
+            console.log(postObj);
+            this.setState({ loader: true });
         } else {
-            this.setState(prevState => { return ({ ...prevState, error: { emailError: 'Required!', passwordError: 'Required!' } }); });
+
         }
     }
     handleForgot = () => {
@@ -57,7 +67,7 @@ class Login extends Component {
         alert('will redirect to password reset');
     }
     render() {
-        const { error , loader } = this.state;
+        const { error, loader } = this.state;
         return (
             <>
                 {loader && <Loader top="70%" left="47%">
