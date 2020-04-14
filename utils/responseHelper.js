@@ -1,15 +1,16 @@
-const base_url = require('./baseUrl').base_url;
+import {base_url} from 'react-native-dotenv';
+
 const fetch = require('node-fetch');
-const Get = getUrl => {
-  const url = base_url.concat(getUrl);
-  console.log(url);
-  fetch(url)
+
+export const Get = async getUrl => {
+  const url = `${base_url.concat(getUrl)}`;
+
+  const data = await fetch(url)
     .then(response => {
       return response.json();
     })
-    .then(data => {
-      console.log(data);
+    .catch(err => {
+      console.log(err);
     });
+  return data;
 };
-
-Get('hello');

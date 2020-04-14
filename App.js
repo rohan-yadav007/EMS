@@ -6,40 +6,34 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {
-  SafeAreaView,
-  View,
-  ScrollView,
-  ImageBackground,
-  StyleSheet,
-  StatusBar,
-} from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
 import Login from './screens/Login';
+import Dashboard from './screens/Dashboard';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
     <>
-      <ImageBackground
-        style={styles.body}
-        source={require('./static/background.png')}>
-        <StatusBar barStyle="dark-content" />
-
-        <SafeAreaView>
-          <View>
-            <ScrollView>
-              <Login />
-            </ScrollView>
-          </View>
-        </SafeAreaView>
-      </ImageBackground>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{headerShown: false}}>
+          <Stack.Screen
+            name="Login"
+            component={Login}
+            options={{title: 'Login'}}
+          />
+          <Stack.Screen
+            name="Dashboard"
+            component={Dashboard}
+            options={{title: 'Dashboard'}}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </>
   );
 };
-const styles = StyleSheet.create({
-  body: {
-    flex: 1,
-    backgroundColor: '#8ec0f7',
-  },
-});
+
 export default App;

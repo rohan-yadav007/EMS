@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import styled from 'styled-components';
 
@@ -9,21 +9,12 @@ const Loading = styled.ActivityIndicator`
   z-index: 1;
 `;
 
-const Loader = props => {
+const LoaderModule = props => {
   return (
     <Loading top={props.top} left={props.left}>
       <ActivityIndicator size="large" color="#3875c3" />
     </Loading>
   );
 };
-//   async componentDidMount() {
-//     const {top, left} = this.props;
-//     if (top && left) {
-//       await this.setState({
-//         top: top,
-//         left: left,
-//       });
-//     }
-//   }
 
-export default Loader;
+export default LoaderModule;

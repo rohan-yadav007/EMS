@@ -10,7 +10,7 @@ const validator = (type, value) => {
         if (emailRegex.test(value)) {
           return '';
         } else {
-          return 'Invalid!';
+          return '';
         }
       }
 
