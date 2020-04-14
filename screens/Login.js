@@ -8,7 +8,7 @@ import {
     CustomText, Loader,
 } from '../css/login.css';
 import validator from '../components/validation';
-import { Get } from '../utils/responseHelper';
+import { GET } from '../utils/responseHelper';
 
 const emailIcon = require('../static/email.png');
 const passwordIcon = require('../static/password.png');
@@ -20,6 +20,7 @@ class Login extends Component {
             email: '',
             password: '',
             incPassword: '',
+            InvalidUser: '',
             error: {
                 emailError: '',
                 passwordError: '',
@@ -30,6 +31,7 @@ class Login extends Component {
 
     handleChange = async (text, name) => {
         const { error } = this.state;
+        this.setState({ InvalidUser: '' });
         const isValidated = await validator(name, text);
 
         await this.setState(prevState => { return ({ ...prevState, [name]: text, error: { ...error, [`${name}Error`]: isValidated } }); });
@@ -61,10 +63,13 @@ class Login extends Component {
             this.setState({ loader: true });
             const url = `UserLogin/loginByUserType?t_Email=${postObj.t_email}&t_Password=${postObj.t_password}`;
             try {
-                const data = await Get(url);
-                if (data){
+                const data = await GET(url);
+                if (data) {
                     this.setState({ loader: false });
                     this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
+                } else {
+                    this.setState({ loader: false, InvalidUser: 'Wrong Credentials!' });
+
                 }
 
 
@@ -116,6 +121,7 @@ class Login extends Component {
                                     </InputGroup>
 
                                     <ForgotLink >
+                                        <CustomText  color="red" >{this.state.InvalidUser}</CustomText>
                                         <CustomText ta="right" color="#fff" onPress={this.handleForgot}>Forgot Password?</CustomText>
                                     </ForgotLink>
 

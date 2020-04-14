@@ -60,6 +60,8 @@ export const LoginButton = styled.TouchableOpacity`
 `;
 export const ForgotLink = styled.View`
   position: relative;
+  flex-direction: row;
+  justify-content: space-between;
   margin-top: 15%;
   width: 100%;
 `;

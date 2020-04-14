@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, Text, FlatList, Button, SafeAreaView} from 'react-native';
+import {View, Text, Button, SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
+      user: [{name: 'rohan'}],
     };
   }
   static getDerivedStateFromProps(props, state) {
@@ -13,19 +14,36 @@ class Dashboard extends Component {
       return {user: props.route.params.user};
     }
   }
+  RenderList = () => {
+    const arr = Object.entries(this.state.user);
+    return arr.map((e, i) => {
+      return (
+        <Text key={i}>
+          {e[0]} : {e[1]}
+        </Text>
+      );
+    });
+  };
   render() {
     return (
       <>
-        <SafeAreaView>
-          <Button
-            style={{color: 'red'}}
-            title="Go to Login"
-            onPress={() =>
-              this.props.navigation.navigate('Login', {name: 'Login'})
-            }
-          />
-          <View style={{flex: 1}}>
-            <Text style={{color: 'black'}}>Dashboard</Text>
+        <SafeAreaView style={{flex: 1}}>
+          <ScrollView>
+            <View style={{flex: 1}}>
+              <View>
+                <Text style={{color: 'black'}}>Dashboard</Text>
+              </View>
+              <View>{this.RenderList()}</View>
+            </View>
+          </ScrollView>
+          <View style={{position: 'absolute', width: '100%', bottom: 0}}>
+            <Button
+              style={{color: 'red'}}
+              title="Go to Login"
+              onPress={() =>
+                this.props.navigation.navigate('Login', {name: 'Login'})
+              }
+            />
           </View>
         </SafeAreaView>
       </>
