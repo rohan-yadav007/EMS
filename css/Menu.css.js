@@ -9,4 +9,5 @@ export const Menuleft = styled.View`
   background-color:#fff;
   max-width:280px;
   padding:20px;
+  height:1000px;
 `;

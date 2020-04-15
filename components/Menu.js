@@ -41,7 +41,6 @@ export default class Menu extends Component {
 
 const styles = StyleSheet.create({
   body: {
-    flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: 'red',
   },
 });

@@ -29,27 +29,18 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{flex: 1,backgroundColor:'yellow'}}>
-          <View style={{position: 'absolute', width: '70%', top: 0, flex: 1}}>
-            {/* <Button
-              style={{ color: 'red' }}
-              title="Go to Login"
-              onPress={() =>
-                this.props.navigation.navigate('Login', { name: 'Login' })
-              } */}
+      <SafeAreaView style={{flex:1,flexDirection:'row' ,backgroundColor:'red'}}>
+       
+        <View style={{flex:1,position:'relative' ,backgroundColor:'yellow'}}>
+          <Text style={{color: 'black'}}>Dashboard</Text>
+        </View>
 
-            {/* /> */}
-            <Menu />
-          </View>
-          <ScrollView style={{ flex: 1 }}>
-            <View >
-              <View>
-                {/* <Text style={{ color: 'black' }}>Dashboard</Text> */}
-              </View>
-              {/* <View>{this.RenderList()}</View> */}
-            </View>
-          </ScrollView>
-        </SafeAreaView>
+        <View style={{position: 'absolute',width:'70%',alignSelf:'stretch'}}>
+          <Menu />
+        </View>
+
+      </SafeAreaView>
+        
       </>
     );
   }
