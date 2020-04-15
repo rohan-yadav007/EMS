@@ -1,6 +1,8 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {View, Text, Button, SafeAreaView} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
+import Menu from '../components/Menu';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -27,24 +29,26 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{flex: 1}}>
-          <ScrollView>
-            <View style={{flex: 1}}>
-              <View>
-                <Text style={{color: 'black'}}>Dashboard</Text>
-              </View>
-              <View>{this.RenderList()}</View>
-            </View>
-          </ScrollView>
-          <View style={{position: 'absolute', width: '100%', bottom: 0}}>
-            <Button
-              style={{color: 'red'}}
+        <SafeAreaView style={{flex: 1,backgroundColor:'yellow'}}>
+          <View style={{position: 'absolute', width: '70%', top: 0, flex: 1}}>
+            {/* <Button
+              style={{ color: 'red' }}
               title="Go to Login"
               onPress={() =>
-                this.props.navigation.navigate('Login', {name: 'Login'})
-              }
-            />
+                this.props.navigation.navigate('Login', { name: 'Login' })
+              } */}
+
+            {/* /> */}
+            <Menu />
           </View>
+          <ScrollView style={{ flex: 1 }}>
+            <View >
+              <View>
+                {/* <Text style={{ color: 'black' }}>Dashboard</Text> */}
+              </View>
+              {/* <View>{this.RenderList()}</View> */}
+            </View>
+          </ScrollView>
         </SafeAreaView>
       </>
     );
