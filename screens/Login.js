@@ -9,6 +9,7 @@ import {
 } from '../css/login.css';
 import validator from '../components/validation';
 import { GET } from '../utils/responseHelper';
+import { storeData, getData } from '../utils/AsyncStorage';
 
 const emailIcon = require('../static/email.png');
 const passwordIcon = require('../static/password.png');
@@ -21,6 +22,7 @@ class Login extends Component {
             password: '',
             incPassword: '',
             InvalidUser: '',
+
             error: {
                 emailError: '',
                 passwordError: '',
@@ -28,6 +30,7 @@ class Login extends Component {
             loader: false,
         };
     }
+
 
     handleChange = async (text, name) => {
         const { error } = this.state;
@@ -54,6 +57,7 @@ class Login extends Component {
 
 
     }
+
     handleSubmit = async () => {
         const { email, password } = this.state;
         const formValid = await this.checkValidate();
@@ -66,7 +70,8 @@ class Login extends Component {
                 const data = await GET(url);
                 if (data) {
                     this.setState({ loader: false });
-                    this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
+                    await storeData('LoggedIn', 'true');
+                    // this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
                 } else {
                     this.setState({ loader: false, InvalidUser: 'Wrong Credentials!' });
 
@@ -87,55 +92,62 @@ class Login extends Component {
 
     render() {
         const { error, loader, password } = this.state;
-        return (
-            <>
-                <ImageBackground style={styles.body} source={require('../static/background.png')}>
-                    <View>
-                        <ScrollView>
-                            {loader && <Loader top="70%" left="47%">
-                                <ActivityIndicator size="large" color="#3875c3" />
-                            </Loader>}
-                            <View>
 
-                                <WebsiteWrapper>
-                                    <WebsiteLogo source={require('../static/logo.png')} />
-                                </WebsiteWrapper>
 
-                                <Gap />
+            return (
+                <>
 
-                                <LoginForm>
-                                    <InputGroup >
-                                        <InputLogo source={emailIcon} />
-                                        <InputBox >
-                                            <Input placeholder="Your Email" value={this.state.value} onChangeText={(text) => this.handleChange(text, 'email')} />
-                                            {error.emailError !== '' ? <ErrorText>{error.emailError}</ErrorText> : null}
-                                        </InputBox>
-                                    </InputGroup>
+                    <ImageBackground style={styles.body} source={require('../static/background.png')}>
 
-                                    <InputGroup >
-                                        <InputLogo source={passwordIcon} />
-                                        <InputBox >
-                                            <Input placeholder="Your Password" value={password} onChangeText={(text) => this.handleChange(text, 'password')} />
-                                            {error.passwordError !== '' ? <ErrorText>{error.passwordError}</ErrorText> : null}
-                                        </InputBox>
-                                    </InputGroup>
+                        <View>
+                            <ScrollView>
+                                {loader && <Loader top="70%" left="47%">
+                                    <ActivityIndicator size="large" color="#3875c3" />
+                                </Loader>}
+                                <View>
 
-                                    <ForgotLink >
-                                        <CustomText  color="red" >{this.state.InvalidUser}</CustomText>
-                                        <CustomText ta="right" color="#fff" onPress={this.handleForgot}>Forgot Password?</CustomText>
-                                    </ForgotLink>
+                                    <WebsiteWrapper>
+                                        <WebsiteLogo source={require('../static/logo.png')} />
+                                    </WebsiteWrapper>
 
-                                    <LoginButton onPress={this.handleSubmit}>
-                                        <CustomText ta="center" color="#fff" >Login</CustomText>
-                                    </LoginButton>
-                                </LoginForm>
-                            </View>
-                        </ScrollView>
-                    </View>
-                </ImageBackground>
-            </>
-        );
-    }
+                                    <Gap />
+
+                                    <LoginForm>
+                                        <InputGroup >
+                                            <InputLogo source={emailIcon} />
+                                            <InputBox >
+                                                <Input placeholder="Your Email" value={this.state.value} onChangeText={(text) => this.handleChange(text, 'email')} />
+                                                {error.emailError !== '' ? <ErrorText>{error.emailError}</ErrorText> : null}
+                                            </InputBox>
+                                        </InputGroup>
+
+                                        <InputGroup >
+                                            <InputLogo source={passwordIcon} />
+                                            <InputBox >
+                                                <Input placeholder="Your Password" value={password} onChangeText={(text) => this.handleChange(text, 'password')} />
+                                                {error.passwordError !== '' ? <ErrorText>{error.passwordError}</ErrorText> : null}
+                                            </InputBox>
+                                        </InputGroup>
+
+                                        <ForgotLink >
+                                            <CustomText color="red" >{this.state.InvalidUser}</CustomText>
+                                            <CustomText ta="right" color="#fff" onPress={this.handleForgot}>Forgot Password?</CustomText>
+                                        </ForgotLink>
+
+                                        <LoginButton onPress={this.handleSubmit}>
+                                            <CustomText ta="center" color="#fff" >Login</CustomText>
+                                        </LoginButton>
+                                    </LoginForm>
+                                </View>
+                            </ScrollView>
+                        </View>
+                    </ImageBackground>
+                </>
+            );
+        }
+
+
+
 }
 const styles = StyleSheet.create({
     body: {

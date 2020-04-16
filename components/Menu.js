@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, {Component} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import {Menubackground, Menuleft} from '../css/Menu.css';
+import {removeItem} from '../utils/AsyncStorage';
 
 export default class Menu extends Component {
   constructor(props) {
@@ -9,29 +10,29 @@ export default class Menu extends Component {
     this.state = {};
   }
 
+  Logout = async () => {
+    await removeItem('LoggedIn');
+    this.props.navigation.navigate('Login', {name: 'Login', mounted: true});
+  };
   render() {
     return (
       <Menubackground style={styles.body}>
         <Menuleft>
-        <View>
-        
+          <View>
             <Text>Home Page1</Text>
-         
-        </View>
+          </View>
           <View>
-
             <Text>Home Page2</Text>
-
           </View>
           <View>
-
             <Text>Home Page3</Text>
-
           </View>
           <View>
-
-            <Text>Home Page4</Text>
-
+            <TouchableOpacity
+              style={{height: 30, backgroundColor: 'red'}}
+              onPress={() => this.Logout()}>
+              <Text>Logout</Text>
+            </TouchableOpacity>
           </View>
         </Menuleft>
       </Menubackground>
@@ -42,5 +43,6 @@ export default class Menu extends Component {
 const styles = StyleSheet.create({
   body: {
     backgroundColor: 'red',
+    maxWidth: 300,
   },
 });
