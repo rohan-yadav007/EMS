@@ -8,6 +8,7 @@ import {
   BackHandler,
   SafeAreaView,
 } from 'react-native';
+import Header from '../components/Header';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -28,13 +29,19 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <SafeAreaView
-          style={{flex: 1, flexDirection: 'row', backgroundColor: 'red'}}>
+        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+          <Header openMenu={this.props.navigation.openDrawer} />
+
           <View
-            style={{flex: 1, position: 'relative', backgroundColor: 'yellow'}}>
-            <TouchableOpacity onPress={this.toggler}>
-              <Text style={{color: 'black'}}>Dashboard</Text>
-            </TouchableOpacity>
+            style={{
+              flex: 1,
+              position: 'relative',
+              padding: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#fff',
+            }}>
+            <Text style={{color: 'black'}}>Dashboard</Text>
           </View>
         </SafeAreaView>
       </>

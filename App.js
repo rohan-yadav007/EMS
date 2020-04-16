@@ -4,23 +4,56 @@ import * as React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {NavigationContainer} from '@react-navigation/native';
 import Dashboard from './screens/Dashboard';
+import {TouchableOpacity, Image, Text, View} from 'react-native';
 import Login from './screens/Login';
 import AttendencePage from './screens/AttendencePage';
 
 const Drawer = createDrawerNavigator();
-
+function LogoTitle() {
+  return (
+    <Image
+      style={{width: 50, height: 50}}
+      source={require('./static/email.png')}
+    />
+  );
+}
 export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
-      <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Navigator
+        initialRouteName="Login"
+        headerMode="screen"
+        options={{headerTitle: props => <LogoTitle {...props} />}}>
         <Drawer.Screen name="Login" component={Login} />
-        <Drawer.Screen name="Dashboard" component={Dashboard} />
+        <Drawer.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{
+            title: 'Dashboard',
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
         <Drawer.Screen name="AttendencePage" component={AttendencePage} />
       </Drawer.Navigator>
     </NavigationContainer>
   );
 }
-
+const appDrawerStructure = ({navigation}) => {
+  return (
+    <View style={{flexDirection: 'row'}}>
+      <TouchableOpacity>
+        {/*Donute Button Image */}
+        <Image
+          source={require('./static/email.png')}
+          style={{width: 25, height: 25, marginLeft: 5}}
+        />
+      </TouchableOpacity>
+    </View>
+  );
+};
 const MyTheme = {
   dark: false,
   colors: {

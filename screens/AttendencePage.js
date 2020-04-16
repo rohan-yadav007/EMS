@@ -8,6 +8,7 @@ import {
   BackHandler,
   SafeAreaView,
 } from 'react-native';
+import Header from '../components/Header';
 
 class AttendencePage extends Component {
   constructor(props) {
@@ -18,9 +19,20 @@ class AttendencePage extends Component {
   render() {
     return (
       <>
-        <SafeAreaView>
-          <View>
-            <Text>AttendencePage</Text>
+        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+          <Header openMenu={this.props.navigation.openDrawer} />
+
+          <View
+            style={{
+              flex: 1,
+              width: '100%',
+              position: 'relative',
+              padding: 20,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#fff',
+            }}>
+            <Text style={{color: 'black'}}>Attendence Page</Text>
           </View>
         </SafeAreaView>
       </>
