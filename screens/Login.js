@@ -7,6 +7,7 @@ import {
     WebsiteWrapper, WebsiteLogo, ErrorText, InputBox, LoginForm, InputGroup, LoginButton, ForgotLink, Input, InputLogo,
     CustomText, Loader,
 } from '../css/login.css';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import validator from '../components/validation';
 import { GET } from '../utils/responseHelper';
 import { storeData, getData } from '../utils/AsyncStorage';
@@ -65,13 +66,13 @@ class Login extends Component {
         if (formValid) {
             const postObj = { t_email: email, t_password: password };
             this.setState({ loader: true });
-            const url = `UserLogin/loginByUserType?t_Email=${postObj.t_email}&t_Password=${postObj.t_password}`;
+            const url = `CorporateRecruitment/UserLogin/loginByUserType?t_Email=${postObj.t_email}&t_Password=${postObj.t_password}`;
             try {
                 const data = await GET(url);
                 if (data) {
                     this.setState({ loader: false });
                     await storeData('LoggedIn', 'true');
-                    // this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
+                    this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
                 } else {
                     this.setState({ loader: false, InvalidUser: 'Wrong Credentials!' });
 
@@ -114,7 +115,8 @@ class Login extends Component {
 
                                     <LoginForm>
                                         <InputGroup >
-                                            <InputLogo source={emailIcon} />
+                                        <InputLogo><Icon name="envelope" size={27} color="#000" /></InputLogo>
+                                        
                                             <InputBox >
                                                 <Input placeholder="Your Email" value={this.state.value} onChangeText={(text) => this.handleChange(text, 'email')} />
                                                 {error.emailError !== '' ? <ErrorText>{error.emailError}</ErrorText> : null}
@@ -122,7 +124,7 @@ class Login extends Component {
                                         </InputGroup>
 
                                         <InputGroup >
-                                            <InputLogo source={passwordIcon} />
+                                        <InputLogo><Icon name="lock" size={40} color="#000" /></InputLogo>
                                             <InputBox >
                                                 <Input placeholder="Your Password" value={password} onChangeText={(text) => this.handleChange(text, 'password')} />
                                                 {error.passwordError !== '' ? <ErrorText>{error.passwordError}</ErrorText> : null}

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Header from '../components/Header';
 
-class Dashboard extends Component {
+class LeaveMaster extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,11 +18,6 @@ class Dashboard extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-  //     return true, BackHandler.exitApp();
-  //   });
-  // }
   toggler = () => {
     this.props.navigation.toggleDrawer();
   };
@@ -41,7 +36,7 @@ class Dashboard extends Component {
               alignItems: 'center',
               backgroundColor: '#fff',
             }}>
-            <Text style={{color: 'black'}}>Dashboard</Text>
+            <Text style={{color: 'black'}}>Leave Master</Text>
           </View>
         </SafeAreaView>
       </>
@@ -49,4 +44,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default LeaveMaster;

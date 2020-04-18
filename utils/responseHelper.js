@@ -17,6 +17,7 @@ export const GET = async getUrl => {
 
 export const POST = async (posturl, data) => {
   const url = `${base_url.concat(posturl)}`;
+  console.log(url);
   const Data = JSON.stringify(data);
   const ResponseData = await fetch(url, {
     method: 'POST',

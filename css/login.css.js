@@ -44,7 +44,7 @@ export const InputBox = styled.View`
   border-bottom-color: #fff;
   flex: 7;
 `;
-export const InputLogo = styled.Image`
+export const InputLogo = styled.View`
   margin-top: 10px;
   margin-right: 5px;
 `;
