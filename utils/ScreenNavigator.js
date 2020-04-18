@@ -7,9 +7,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import AttendencePage from '../screens/AttendencePage';
-import Employee from '../screens/Employee';
-import LeaveMaster from '../screens/LeaveMaster';
-import Organization from '../screens/Organization';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
@@ -115,9 +112,6 @@ export default class CustomNavigator extends React.Component {
           <Drawer.Screen name="Login" component={Login} />
           <Drawer.Screen name="Dashboard" component={Dashboard} />
           <Drawer.Screen name="AttendencePage" component={AttendencePage} />
-          <Drawer.Screen name="Organization" component={Organization} />
-          <Drawer.Screen name="Employee" component={Employee} />
-          <Drawer.Screen name="Leave Master" component={LeaveMaster} />
         </Drawer.Navigator>
       </NavigationContainer>
     );
