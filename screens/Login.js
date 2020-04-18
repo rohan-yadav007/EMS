@@ -70,8 +70,10 @@ class Login extends Component {
             try {
                 const data = await GET(url);
                 if (data) {
+                    
                     this.setState({ loader: false });
                     await storeData('LoggedIn', 'true');
+                    await storeData('UserId', `${data.n_UserId}`);
                     this.props.navigation.navigate('Dashboard', { name: 'Dashboard', user: data });
                 } else {
                     this.setState({ loader: false, InvalidUser: 'Wrong Credentials!' });
