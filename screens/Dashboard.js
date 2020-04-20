@@ -1,13 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {
-  View,
-  Text,
-  Button,
-  TouchableOpacity,
-  BackHandler,
-  SafeAreaView,
-} from 'react-native';
+import {View, Text, SafeAreaView} from 'react-native';
 import Header from '../components/Header';
 
 class Dashboard extends Component {
@@ -18,11 +11,6 @@ class Dashboard extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-  //     return true, BackHandler.exitApp();
-  //   });
-  // }
   toggler = () => {
     this.props.navigation.toggleDrawer();
   };
@@ -30,7 +18,7 @@ class Dashboard extends Component {
     return (
       <>
         <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-          <Header openMenu={this.props.navigation.openDrawer} />
+          <Header />
 
           <View
             style={{

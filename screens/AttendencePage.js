@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import { Calendar } from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 import {
   View,
   Text,
@@ -40,8 +40,6 @@ class AttendencePage extends Component {
               onDayLongPress={day => {
                 console.log('selected day', day);
               }}
-         
-             
               // Hide month navigation arrows. Default = false
               hideArrows={true}
               // Replace default arrows with custom ones (direction can be 'left' or 'right')

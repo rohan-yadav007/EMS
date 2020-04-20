@@ -33,8 +33,6 @@ export const InputGroup = styled.View`
 `;
 export const Input = styled.TextInput`
   padding: 5px;
-  /* border-bottom-width: 1px;
-  border-bottom-color: #fff; */
   flex: 8;
 `;
 export const InputBox = styled.View`
