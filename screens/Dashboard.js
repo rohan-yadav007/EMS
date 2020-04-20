@@ -10,7 +10,7 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import { BalanceLeaves, Module, CustomText, Module2} from '../css/Dashboard.css';
+import {BalanceLeaves, Module, CustomText, Module2} from '../css/Dashboard.css';
 
 import Header from '../components/Header';
 
@@ -38,41 +38,63 @@ class Dashboard extends Component {
                 style={{
                   flexDirection: 'row',
                   flex: 1,
-
+                  marginTop: '12%',
                   justifyContent: 'space-evenly',
                 }}>
-                <View style={{ width: 100,}}>
+                <View>
                   <ImageBackground
                     source={require('../static/balance_bg.png')}
-                    style={{flex: 1, height: 123, width: 223, padding: 15, borderRadius: 10, borderRadius: 30,}}>
-                    <View style={{alignItems: 'center'}}>
-                      <Module>
-                        <CustomText fs={'40px'}>40</CustomText>
-                        <Module2>
-                        <Text>Balance Leaves</Text>
-                        </Module2>
-                      </Module>
-                      
+                    style={{
+                      flex: 1,
+                      height: 123,
+                      width: 180,
+                      padding: 15,
+                      borderRadius: 10,
+                      borderRadius: 30,
+                    }}>
+                    <View style={{width: '100%'}}>
+                      <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
+                        40
+                      </CustomText>
+                      <CustomText style={{alignSelf: 'center'}} fs={'20px'}>
+                        Balance Leaves
+                      </CustomText>
+                      {/* <Module2>
+                          <Text>Balance Leaves</Text>
+                        </Module2> */}
                     </View>
                   </ImageBackground>
                 </View>
-                <View style={{ width: 100, }}>
-                <ImageBackground
-                  source={require('../static/reapppbg.png')}
-                  style={{ flex: 1, height: 123, width: 223, padding: 15, borderRadius: 10, borderRadius: 30, }}>
-                  <Module>
-                    <CustomText fs={'40px'}>40</CustomText>
-                    <Module2>
-                      <Text>Balance Leaves</Text>
-                    </Module2>
-                  </Module>
-                </ImageBackground>
+                <View>
+                  <ImageBackground
+                    source={require('../static/reapppbg.png')}
+                    style={{
+                      flex: 1,
+                      height: 123,
+                      width: 180,
+                      padding: 15,
+                      borderRadius: 10,
+                      borderRadius: 30,
+                    }}>
+                    <View style={{width: '100%'}}>
+                      <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
+                        40
+                      </CustomText>
+                      <CustomText style={{alignSelf: 'center'}} fs={'20px'}>
+                        Balance Leaves
+                      </CustomText>
+                      {/* <Module2>
+                       <Text>Balance Leaves</Text>
+                     </Module2> */}
+                    </View>
+                  </ImageBackground>
                 </View>
               </View>
+
               <View
                 style={{
                   flexDirection: 'row',
-                  flex: 2,
+                  flex: 3,
                   backgroundColor: 'yellow',
                   justifyContent: 'space-around',
                 }}>

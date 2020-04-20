@@ -11,7 +11,7 @@ font-size:18px;
 export const CustomText = styled.Text`
   font-size: ${props => props.fs || '40px'};
   /* justify-content:'center'; */
-  text-align: center;
+  /* text-align: center; */
   font-weight: bold;
   color:#fff;
 `;
