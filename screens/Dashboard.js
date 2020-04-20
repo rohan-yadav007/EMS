@@ -4,10 +4,14 @@ import {
   View,
   Text,
   Button,
+  ImageBackground,
   TouchableOpacity,
   BackHandler,
+  StyleSheet,
   SafeAreaView,
 } from 'react-native';
+import { BalanceLeaves, Module, CustomText, Module2} from '../css/Dashboard.css';
+
 import Header from '../components/Header';
 
 class Dashboard extends Component {
@@ -29,21 +33,91 @@ class Dashboard extends Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-          <Header openMenu={this.props.navigation.openDrawer} />
+        <ImageBackground
+          style={{flex: 1}}
+          source={require('../static/background2.png')}>
+          <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+            <Header openMenu={this.props.navigation.openDrawer} />
+            <View style={{flex: 1, flexDirection: 'column'}}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flex: 1,
 
-          <View
-            style={{
-              flex: 1,
-              position: 'relative',
-              padding: 20,
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#fff',
-            }}>
-            <Text style={{color: 'black'}}>Dashboard</Text>
-          </View>
-        </SafeAreaView>
+                  justifyContent: 'space-evenly',
+                }}>
+                <View style={{ width: 100,}}>
+                  <ImageBackground
+                    source={require('../static/balance_bg.png')}
+                    style={{flex: 1, height: 123, width: 223, padding: 15, borderRadius: 10, borderRadius: 30,}}>
+                    <View style={{alignItems: 'center'}}>
+                      <Module>
+                        <CustomText fs={'40px'}>40</CustomText>
+                        <Module2>
+                        <Text>Balance Leaves</Text>
+                        </Module2>
+                      </Module>
+                      
+                    </View>
+                  </ImageBackground>
+                </View>
+                <View style={{ width: 100, }}>
+                <ImageBackground
+                  source={require('../static/reapppbg.png')}
+                  style={{ flex: 1, height: 123, width: 223, padding: 15, borderRadius: 10, borderRadius: 30, }}>
+                  <Module>
+                    <CustomText fs={'40px'}>40</CustomText>
+                    <Module2>
+                      <Text>Balance Leaves</Text>
+                    </Module2>
+                  </Module>
+                </ImageBackground>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flex: 2,
+                  backgroundColor: 'yellow',
+                  justifyContent: 'space-around',
+                }}>
+                <View>
+                  <Text>First333</Text>
+                </View>
+                <View>
+                  <Text>scecond333</Text>
+                </View>
+              </View>
+            </View>
+
+            {/*
+            <View style={{ flex: 1 }}>
+              <View style={{ flex: 1 }}>
+                <View>
+                  <BalanceLeaves>
+                    <View>
+                      <ImageBackground
+                        source={require('../static/balance_bg.png')}
+                        style={{ width: '100%' }}>
+                        <Text>xjshjs</Text>
+                      </ImageBackground>
+                    </View>
+                    <View>
+                      <ImageBackground
+                        source={require('../static/balance_bg.png')}
+                        style={{ width: '100%' }}>
+                        <Text>xjshjs</Text>
+                      </ImageBackground>
+                    </View>
+                  </BalanceLeaves>
+                </View>
+                <View>
+                  <Text />
+                </View>
+              </View>
+            </View> */}
+          </SafeAreaView>
+        </ImageBackground>
       </>
     );
   }
