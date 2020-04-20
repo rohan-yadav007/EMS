@@ -22,11 +22,6 @@ class Dashboard extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   this.backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
-  //     return true, BackHandler.exitApp();
-  //   });
-  // }
   toggler = () => {
     this.props.navigation.toggleDrawer();
   };
