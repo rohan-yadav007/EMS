@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,14 @@ import {
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
-import {BalanceLeaves, Module, CustomText, Module2} from '../css/Dashboard.css';
+import {
+  BalanceLeaves,
+  Module,
+  CustomText,
+  ModuleBG,
+  Module2,
+  CustomText2,
+} from '../css/Dashboard.css';
 
 import Header from '../components/Header';
 
@@ -18,7 +25,7 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: [{name: 'rohan'}],
+      user: [{ name: 'rohan' }],
     };
   }
 
@@ -29,110 +36,110 @@ class Dashboard extends Component {
     return (
       <>
         <ImageBackground
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           source={require('../static/background2.png')}>
-          <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+          <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
             <Header openMenu={this.props.navigation.openDrawer} />
-            <View style={{flex: 1, flexDirection: 'column'}}>
+            <View style={{ flex: 1, flexDirection: 'column' }}>
               <View
                 style={{
                   flexDirection: 'row',
                   flex: 1,
-                  marginTop: '12%',
                   justifyContent: 'space-evenly',
                 }}>
-                <View>
-                  <ImageBackground
-                    source={require('../static/balance_bg.png')}
-                    style={{
-                      flex: 1,
-                      height: 123,
-                      width: 180,
-                      padding: 15,
-                      borderRadius: 10,
-                      borderRadius: 30,
-                    }}>
-                    <View style={{width: '100%'}}>
-                      <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
+                <View style={{ height: 123, alignSelf: 'center' }}>
+                  <ModuleBG source={require('../static/balance_bg.png')}>
+                    <View style={{ width: '100%' }}>
+                      <CustomText fw={900} fs={'40px'}>
                         40
                       </CustomText>
-                      <CustomText style={{alignSelf: 'center'}} fs={'20px'}>
-                        Balance Leaves
-                      </CustomText>
-                      {/* <Module2>
-                          <Text>Balance Leaves</Text>
-                        </Module2> */}
+                      <CustomText fs={'18px'}>Balance Leaves</CustomText>
                     </View>
-                  </ImageBackground>
+                  </ModuleBG>
                 </View>
-                <View>
-                  <ImageBackground
-                    source={require('../static/reapppbg.png')}
-                    style={{
-                      flex: 1,
-                      height: 123,
-                      width: 180,
-                      padding: 15,
-                      borderRadius: 10,
-                      borderRadius: 30,
-                    }}>
-                    <View style={{width: '100%'}}>
-                      <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
-                        40
+                <View style={{ height: 123, alignSelf: 'center' }}>
+                  <ModuleBG source={require('../static/Reimbursements_Approval_bg.png')}>
+                    <View style={{ width: '100%' }}>
+                      <CustomText style={{ alignSelf: 'center' }} fs={'40px'}>
+                        3
                       </CustomText>
-                      <CustomText style={{alignSelf: 'center'}} fs={'20px'}>
-                        Balance Leaves
+                      <CustomText style={{ alignSelf: 'center' }} fs={'18px'}>
+                  Pendin Approval
                       </CustomText>
-                      {/* <Module2>
-                       <Text>Balance Leaves</Text>
-                     </Module2> */}
                     </View>
-                  </ImageBackground>
+                  </ModuleBG>
                 </View>
               </View>
 
               <View
                 style={{
-                  flexDirection: 'row',
-                  flex: 3,
-                  backgroundColor: 'yellow',
+                  flexDirection: 'column',
+                  flex: 2,
+                  
                   justifyContent: 'space-around',
                 }}>
-                <View>
-                  <Text>First333</Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    flex: 1,
+                    marginTop: -160,
+                    justifyContent: 'space-around',
+                  }}>
+                  <View style={{ height: 123, alignSelf: 'center' }}>
+                    <ModuleBG source={require('../static/Markbg.png')}>
+                      <View style={{ width: '100%' }}>
+                        <CustomText fw={900} fs={'40px'}>
+                        3
+                        </CustomText>
+                        <CustomText fs={'18px'}>Pending  Approval</CustomText>
+                      </View>
+                    </ModuleBG>
+                  </View>
+                  <View style={{ height: 123, alignSelf: 'center' }}>
+                    <ModuleBG source={require('../static/Tasks_bg.png')}>
+                      <View style={{ width: '100%' }}>
+                        <CustomText style={{ alignSelf: 'center' }} fs={'40px'}>
+                          2
+                        </CustomText>
+                        <CustomText style={{ alignSelf: 'center' }} fs={'20px'}>
+                          Approval
+                        </CustomText>
+                      </View>
+                    </ModuleBG>
+                  </View>
                 </View>
-                <View>
-                  <Text>scecond333</Text>
+
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    flex: 1,
+                    marginTop:-250,
+                    justifyContent: 'space-around',
+                  }}>
+                  <View style={{ height: 123, alignSelf: 'center' }}>
+                    <ModuleBG source={require('../static/approval_bg.png')}>
+                      <View style={{ width: '100%' }}>
+                        <CustomText fw={900} fs={'40px'}>
+                          30
+                        </CustomText>
+                        <CustomText fs={'20px'}>Tasks  Progress</CustomText>
+                      </View>
+                    </ModuleBG>
+                  </View>
+                  <View style={{ height: 123,  alignSelf: 'center' }}>
+                    <ModuleBG source={require('../static/reapppbg.png')}>
+                      <View style={{ width: '100%', alignSelf: 'center', }}>
+                        <CustomText2 style={{ alignSelf: 'center', fontWeight:'bold', textTransform: "uppercase",    }} >
+                         
+                          Mark Attendance
+                        </CustomText2>
+                       
+                      </View>
+                    </ModuleBG>
+                  </View>
                 </View>
               </View>
             </View>
-
-            {/*
-            <View style={{ flex: 1 }}>
-              <View style={{ flex: 1 }}>
-                <View>
-                  <BalanceLeaves>
-                    <View>
-                      <ImageBackground
-                        source={require('../static/balance_bg.png')}
-                        style={{ width: '100%' }}>
-                        <Text>xjshjs</Text>
-                      </ImageBackground>
-                    </View>
-                    <View>
-                      <ImageBackground
-                        source={require('../static/balance_bg.png')}
-                        style={{ width: '100%' }}>
-                        <Text>xjshjs</Text>
-                      </ImageBackground>
-                    </View>
-                  </BalanceLeaves>
-                </View>
-                <View>
-                  <Text />
-                </View>
-              </View>
-            </View> */}
           </SafeAreaView>
         </ImageBackground>
       </>
