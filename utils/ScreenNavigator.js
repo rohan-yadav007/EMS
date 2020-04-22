@@ -166,13 +166,13 @@ class CustomNavigator extends React.Component {
         <Drawer.Navigator
           initialRouteName="Login"
           headerMode="screen"
-          // drawerContent={props => (
-          //   <CustomDrawerContent
-          //     {...props}
-          //     drawerData={this.state.drawerData}
-          //     isLoggedIn={this.state.isLoggedIn}
-          //   />
-          // )}
+          drawerContent={props => (
+            <CustomDrawerContent
+              {...props}
+              drawerData={this.state.drawerData}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+          )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
           {this.state.isLoggedIn === true ? (
@@ -242,7 +242,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
   },
   drawerStyle: {
-    backgroundColor: 'rgb(120, 172, 249)',
+    backgroundColor: '#3875c3',
   },
   subMenuText: {
     padding: 7,
