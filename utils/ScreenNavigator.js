@@ -167,11 +167,11 @@ class CustomNavigator extends React.Component {
           initialRouteName="Login"
           headerMode="screen"
           // drawerContent={props => (
-            // <CustomDrawerContent
-            //   {...props}
-            //   drawerData={this.state.drawerData}
-            //   isLoggedIn={this.state.isLoggedIn}
-            // />
+          //   <CustomDrawerContent
+          //     {...props}
+          //     drawerData={this.state.drawerData}
+          //     isLoggedIn={this.state.isLoggedIn}
+          //   />
           // )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
