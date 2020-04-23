@@ -16,6 +16,7 @@ export const getLogin = postObj => async dispatch => {
     const data = await GET(url);
     if (data) {
       await storeData('UserId', `${data.n_UserId}`);
+      await storeData('UserInfo', JSON.stringify(data));
       dispatchAction(dispatch, loginAction.LOGIN_SUCCESS, data, true, null, null);
       dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
     }
@@ -24,7 +25,7 @@ export const getLogin = postObj => async dispatch => {
       dispatchAction(dispatch, loginAction.LOGIN_FAILED, null, true, null, 'Invalid User!');
     }
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 

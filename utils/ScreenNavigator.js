@@ -39,7 +39,7 @@ class CustomDrawerContent extends Component {
         await this.setState({Menu: data});
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   static getDerivedStateFromProps(props, state) {
@@ -181,8 +181,7 @@ class CustomNavigator extends React.Component {
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
-              <Drawer.Screen name= "CreateTask" component ={CreateTask} />
-              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
+              <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
             </>
           ) : (

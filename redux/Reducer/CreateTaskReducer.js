@@ -20,7 +20,7 @@ const initialState = {
           case actions.HANDLE_CHANGE :
             const name = action.payload.target.name;
             const value = action.payload.target.value;
-            console.log("action name" ,name , value)
+            // console.log("action name" ,name , value)
             return {
               ...state,
               [name]: value

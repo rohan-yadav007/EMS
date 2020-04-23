@@ -7,7 +7,7 @@ import {handleLogout} from '../redux/Action/login.action';
 
 const Header = props => {
   const navigation = useNavigation();
-  console.log(props);
+  // console.log(props);
   return (
     <>
       <View style={styles.headerWrapper}>
