@@ -14,7 +14,7 @@ import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
 import ProjectList from '../screens/ProjectList';
-
+import CreateTask from '../screens/CreateTask';
 const Drawer = createDrawerNavigator();
 
 class CustomDrawerContent extends Component {
@@ -59,14 +59,15 @@ class CustomDrawerContent extends Component {
       const data = await GET(
         `CorporateRecruitment/ApplicationManagement/GetMenuDetails?n_ModuleId=${id}&n_EmployeeId=${n_Employee}`,
       );
+      //  console.log("gh",data)
       await this.setState({subMenu: data});
     }
   };
 
   // Function to handle navigation to submenu screen
   handleSubMenuNavigation = name => {
-    alert('this will navigate to the pressed screen');
-    // this.props.navigation.navigate(name);
+    let SubMenuName  = name.split(' ').join('');
+    this.props.navigation.navigate(`${SubMenuName}`);
   };
 
   render() {
@@ -166,13 +167,13 @@ class CustomNavigator extends React.Component {
         <Drawer.Navigator
           initialRouteName="Login"
           headerMode="screen"
-          // drawerContent={props => (
-          //   <CustomDrawerContent
-          //     {...props}
-          //     drawerData={this.state.drawerData}
-          //     isLoggedIn={this.state.isLoggedIn}
-          //   />
-          // )}
+          drawerContent={props => (
+            <CustomDrawerContent
+              {...props}
+              drawerData={this.state.drawerData}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+          )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
           {this.state.isLoggedIn === true ? (
@@ -180,6 +181,7 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
               <Drawer.Screen name="ProjectList" component={ProjectList} />
+              <Drawer.Screen name= "CreateTask" component ={CreateTask} />
             </>
           ) : (
             <>
