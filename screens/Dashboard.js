@@ -126,7 +126,11 @@ class Dashboard extends Component {
                       </View>
                     </ModuleBG>
                   </View>
-                  <View style={{height: 123, alignSelf: 'center'}}>
+                  <TouchableOpacity
+                    style={{height: 123, alignSelf: 'center'}}
+                    onPress={() =>
+                      this.props.navigation.navigate('AttendencePage')
+                    }>
                     <ModuleBG source={require('../static/reapppbg.png')}>
                       <View style={{width: '100%', alignSelf: 'center'}}>
                         <CustomText2
@@ -139,7 +143,7 @@ class Dashboard extends Component {
                         </CustomText2>
                       </View>
                     </ModuleBG>
-                  </View>
+                  </TouchableOpacity>
                 </View>
               </View>
             </View>

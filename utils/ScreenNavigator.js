@@ -13,8 +13,9 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
-import ProjectList from '../screens/ProjectList';
 import CreateTask from '../screens/CreateTask';
+import ViewProjects from '../screens/ViewProjects';
+
 const Drawer = createDrawerNavigator();
 
 class CustomDrawerContent extends Component {
@@ -167,21 +168,22 @@ class CustomNavigator extends React.Component {
         <Drawer.Navigator
           initialRouteName="Login"
           headerMode="screen"
-          drawerContent={props => (
-            <CustomDrawerContent
-              {...props}
-              drawerData={this.state.drawerData}
-              isLoggedIn={this.state.isLoggedIn}
-            />
-          )}
+          // drawerContent={props => (
+            // <CustomDrawerContent
+            //   {...props}
+            //   drawerData={this.state.drawerData}
+            //   isLoggedIn={this.state.isLoggedIn}
+            // />
+          // )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
-              <Drawer.Screen name="ProjectList" component={ProjectList} />
               <Drawer.Screen name= "CreateTask" component ={CreateTask} />
+              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
+              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
             </>
           ) : (
             <>
@@ -244,7 +246,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#fff',
   },
   drawerStyle: {
-    backgroundColor: 'rgb(120, 172, 249)',
+    backgroundColor: '#3875c3',
   },
   subMenuText: {
     padding: 7,

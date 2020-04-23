@@ -13,9 +13,6 @@ export const CustomText = styled.Text`
   align-self: center;
   font-weight: ${props => props.fw || 900};
   color: #fff;
- 
-
-
 `;
 export const CustomText2 = styled.Text`
 
@@ -24,10 +21,6 @@ export const CustomText2 = styled.Text`
   color: #fff;
   margin-top:35px;
   font-size:15px;
-
- 
-
-
 `;
 
 export const ModuleBG = styled.ImageBackground`
