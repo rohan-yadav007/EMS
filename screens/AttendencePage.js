@@ -1,74 +1,156 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {Calendar} from 'react-native-calendars';
 import {
-  View,
+  Alert,
+  StyleSheet,
   Text,
-  Button,
+  View,
   TouchableOpacity,
-  BackHandler,
   SafeAreaView,
 } from 'react-native';
-import Header from '../components/Header';
+import {Agenda, CalendarList} from 'react-native-calendars';
 
-class AttendencePage extends Component {
+// const testIDs = require('../testIDs');
+const testIDs = {
+  menu: {
+    CONTAINER: 'menu',
+    CALENDARS: 'calendars_btn',
+    CALENDAR_LIST: 'calendar_list_btn',
+    HORIZONTAL_LIST: 'horizontal_list_btn',
+    AGENDA: 'agenda_btn',
+    EXPANDABLE_CALENDAR: 'expandable_calendar_btn',
+    WEEK_CALENDAR: 'week_calendar_btn',
+  },
+  calendars: {
+    CONTAINER: 'calendars',
+    FIRST: 'first_calendar',
+    LAST: 'last_calendar',
+  },
+  calendarList: {CONTAINER: 'calendarList'},
+  horizontalList: {CONTAINER: 'horizontalList'},
+  agenda: {
+    CONTAINER: 'agenda',
+    ITEM: 'item',
+  },
+  expandableCalendar: {CONTAINER: 'expandableCalendar'},
+  weekCalendar: {CONTAINER: 'weekCalendar'},
+};
+
+export default class Calenders extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+
+    this.state = {
+      items: {},
+      showAgenda: false,
+      selectedDate: '',
+    };
+  }
+  loadItems(day) {
+    setTimeout(() => {
+      for (let i = -15; i < 85; i++) {
+        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
+        const strTime = this.timeToString(time);
+        if (!this.state.items[strTime]) {
+          this.state.items[strTime] = [];
+          const numItems = Math.floor(Math.random() * 3 + 1);
+          for (let j = 0; j < numItems; j++) {
+            this.state.items[strTime].push({
+              name: 'Item for ' + strTime + ' #' + j,
+              height: Math.max(50, Math.floor(Math.random() * 150)),
+            });
+          }
+        }
+      }
+      const newItems = {};
+      Object.keys(this.state.items).forEach(key => {
+        newItems[key] = this.state.items[key];
+      });
+      this.setState({
+        items: newItems,
+      });
+    }, 1000);
   }
 
-  render() {
+  renderItem(item) {
     return (
-      <>
-        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-          <Header openMenu={this.props.navigation.openDrawer} />
+      <TouchableOpacity
+        testID={testIDs.agenda.ITEM}
+        style={[styles.item, {height: item.height}]}
+        onPress={() => Alert.alert(item.name)}>
+        <Text>{item.name}</Text>
+      </TouchableOpacity>
+    );
+  }
 
-          <View>
-            <Calendar
-              // Initially visible month. Default = Date()
-              current={new Date()}
-              // Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-              minDate={new Date()}
-              // Maximum date that can be selected, dates after maxDate will be grayed out. Default = undefined
-              maxDate={new Date()}
-              // Handler which gets executed on day press. Default = undefined
-              onDayPress={day => {
-                console.log('selected day', day);
-              }}
-              // Handler which gets executed on day long press. Default = undefined
-              onDayLongPress={day => {
-                console.log('selected day', day);
-              }}
-              // Hide month navigation arrows. Default = false
-              hideArrows={true}
-              // Replace default arrows with custom ones (direction can be 'left' or 'right')
-              renderArrow={direction => <Arrow />}
-              // Do not show days of other months in month page. Default = false
-              hideExtraDays={true}
-              // If hideArrows=false and hideExtraDays=false do not switch month when tapping on greyed out
-              // day from another month that is visible in calendar page. Default = false
-              disableMonthChange={false}
-              // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday.
-              firstDay={1}
-              // Hide day names. Default = false
-              hideDayNames={false}
-              // Show week numbers to the left. Default = false
-              showWeekNumbers={false}
-              // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-              onPressArrowLeft={substractMonth => substractMonth()}
-              // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-              onPressArrowRight={addMonth => addMonth()}
-              // Disable left arrow. Default = false
-              disableArrowLeft={true}
-              // Disable right arrow. Default = false
-              disableArrowRight={true}
-            />
-          </View>
-        </SafeAreaView>
-      </>
+  renderEmptyDate() {
+    return (
+      <View style={styles.emptyDate}>
+        <Text>This is empty date!</Text>
+      </View>
+    );
+  }
+
+  rowHasChanged = (r1, r2) => {
+    return r1.name !== r2.name;
+  };
+
+  timeToString = time => {
+    const date = new Date(time);
+    return date.toISOString().split('T')[0];
+  };
+  toggleCalender = () => {};
+  render() {
+    const {showAgenda, selectedDate} = this.state;
+    return showAgenda ? (
+      <Agenda
+        onDayPress={async day => {
+          await this.setState({selectedDate: day, showAgenda: false});
+        }}
+        testID={testIDs.agenda.CONTAINER}
+        items={this.state.items}
+        hideKnob={true}
+        loadItemsForMonth={this.loadItems.bind(this)}
+        selected={selectedDate.dateString}
+        renderItem={this.renderItem.bind(this)}
+        renderEmptyDate={this.renderEmptyDate.bind(this)}
+        rowHasChanged={this.rowHasChanged.bind(this)}
+      />
+    ) : (
+      <SafeAreaView style={{flex: 1}}>
+        <View
+          style={{
+            padding: 15,
+            alignItems: 'center',
+            backgroundColor: '#3875c3',
+          }}>
+          <Text style={{fontSize: 20, color: '#fff', fontWeight: 'bold'}}>
+            Mark Attendence
+          </Text>
+
+          <View style={{flex: 1}} />
+        </View>
+        <CalendarList
+          onDayPress={async day => {
+            await this.setState({selectedDate: day, showAgenda: true});
+          }}
+        />
+      </SafeAreaView>
     );
   }
 }
 
-export default AttendencePage;
+const styles = StyleSheet.create({
+  item: {
+    backgroundColor: 'white',
+    flex: 1,
+    borderRadius: 5,
+    padding: 10,
+    marginRight: 10,
+    marginTop: 17,
+  },
+  emptyDate: {
+    height: 15,
+    flex: 1,
+    paddingTop: 30,
+  },
+});

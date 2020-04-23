@@ -37,7 +37,7 @@ export default connect(
 const styles = StyleSheet.create({
   headerWrapper: {
     borderBottomWidth: 1,
-    backgroundColor: 'rgb(120, 172, 249)',
+    backgroundColor: '#3875c3',
     borderBottomColor: '#53a8bf',
     justifyContent: 'space-between',
     flexDirection: 'row',
