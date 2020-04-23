@@ -41,19 +41,46 @@ const Item = ({item}) => {
               borderRadius: 10,
               marginTop: 280,
             }}>
-            <View style={{ flexDirection: 'column'}} />
+            <View style={{flexDirection: 'column'}} />
             <View
               tyle={{
                 flexDirection: 'row',
-               
+
                 justifyContent: 'space-evenly',
               }}
             />
-            <View style={{ backgroundColor: "#0072e6", borderRadius: 4, padding: 12, marginBottom: 15, }}>
-              <Text style={{textAlign:"center", color:"#fff", fontSize:15, textTransform:"uppercase",}}>Project View</Text>
+            <View
+              style={{
+                backgroundColor: '#0072e6',
+                borderRadius: 4,
+                padding: 12,
+                marginBottom: 15,
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#fff',
+                  fontSize: 15,
+                  textTransform: 'uppercase',
+                }}>
+                Project View
+              </Text>
             </View>
-            <View style={{ backgroundColor: "#246cb5", borderRadius: 4, padding: 12,}}>
-              <Text style={{ textAlign: "center", color: "#fff", fontSize: 15, textTransform: "uppercase", }}>Test List (4)</Text>
+            <View
+              style={{
+                backgroundColor: '#246cb5',
+                borderRadius: 4,
+                padding: 12,
+              }}>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  color: '#fff',
+                  fontSize: 15,
+                  textTransform: 'uppercase',
+                }}>
+                Test List (4)
+              </Text>
             </View>
           </View>
         </View>
