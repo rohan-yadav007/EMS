@@ -13,6 +13,7 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
+import CreateTask from '../screens/CreateTask';
 import ViewProjects from '../screens/ViewProjects';
 
 const Drawer = createDrawerNavigator();
@@ -38,7 +39,7 @@ class CustomDrawerContent extends Component {
         await this.setState({Menu: data});
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   static getDerivedStateFromProps(props, state) {
@@ -59,14 +60,15 @@ class CustomDrawerContent extends Component {
       const data = await GET(
         `CorporateRecruitment/ApplicationManagement/GetMenuDetails?n_ModuleId=${id}&n_EmployeeId=${n_Employee}`,
       );
+      //  console.log("gh",data)
       await this.setState({subMenu: data});
     }
   };
 
   // Function to handle navigation to submenu screen
   handleSubMenuNavigation = name => {
-    alert('this will navigate to the pressed screen');
-    // this.props.navigation.navigate(name);
+    let SubMenuName  = name.split(' ').join('');
+    this.props.navigation.navigate(`${SubMenuName}`);
   };
 
   render() {
@@ -178,7 +180,8 @@ class CustomNavigator extends React.Component {
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
-              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
+              <Drawer.Screen name="AttendencePage" component={AttendencePage} />
+              <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
             </>
           ) : (
