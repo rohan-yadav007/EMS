@@ -178,7 +178,7 @@ class CustomNavigator extends React.Component {
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
-              <Drawer.Screen name="AttendencePage" component={AttendencePage} />
+              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
               <Drawer.Screen name="ProjectList" component={ProjectList} />
             </>
           ) : (
