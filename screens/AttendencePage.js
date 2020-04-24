@@ -3,9 +3,12 @@ import {
   Text,
   View,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  ActivityIndicator
 } from 'react-native';
+import Header from '../components/Header';
 import { Calendar } from 'react-native-calendars';
+import {Loader} from '../css/common.css';
 import { MonthlyAttendence } from '../redux/Action/attendence.action';
 import { connect } from 'react-redux';
 
@@ -54,6 +57,7 @@ class AttendencePage extends Component {
 
   render() {
     const { showPunch, selectedDate, AttendenceData, d_InTime, d_OutTime } = this.state;
+    const {loading} = this.props;
     const date = {};
     const presentFilter = AttendenceData.filter(e => e.n_Attendence === 1);
     const absentFilter = AttendenceData.filter(e => e.n_Attendence !== 1);
@@ -63,20 +67,13 @@ class AttendencePage extends Component {
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
+        
+         <Header title={'Attendence'}  />
+         
         <ScrollView>
-          <View
-            style={{
-              padding: 15,
-              alignItems: 'center',
-              backgroundColor: '#3875c3',
-            }}>
-
-            <Text style={{ fontSize: 20, color: '#fff', fontWeight: 'bold' }}>
-              Mark Attendence
-          </Text>
-
-            <View style={{ flex: 1 }} />
-          </View>
+        {loading && <Loader top="55%" left="45%" >
+          <ActivityIndicator size="large" color="#3875c3" />
+        </Loader>}
           <Calendar
             onMonthChange={(month) => this.loadAttendenceData(month)}
             style={{ marginTop: '10%' }}
@@ -104,8 +101,9 @@ class AttendencePage extends Component {
   }
 }
 const mapStateToProps = state => {
-  const AttendenceData = state.AttendenceReducer.data
-  return { AttendenceData };
+  const AttendenceData = state.AttendenceReducer.data;
+  const loading = state.CommonReducer.loading;
+  return { AttendenceData, loading };
 }
 export default connect(mapStateToProps, { MonthlyAttendence })(AttendencePage);
 

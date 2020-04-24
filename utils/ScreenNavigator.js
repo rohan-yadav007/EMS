@@ -166,7 +166,7 @@ class CustomNavigator extends React.Component {
     return (
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName="Login"
+          initialRouteName="Dashboard"
           headerMode="screen"
           // drawerContent={props => (
           //   <CustomDrawerContent

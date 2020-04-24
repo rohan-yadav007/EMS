@@ -12,7 +12,6 @@ const AttendenceReducer = (state, action) => {
   switch (action.type) {
 
     case actions.MONTHLY_ATTENDENCE_SUCCESS:
-        console.log('action',action);
       return {
         data: action.data,
       };
