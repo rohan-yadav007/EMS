@@ -14,7 +14,7 @@ import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
 import CreateTask from '../screens/CreateTask';
-import ViewProjects from '../screens/ViewProjects';
+import Projects from '../screens/Projects';
 
 const Drawer = createDrawerNavigator();
 
@@ -180,9 +180,15 @@ class CustomNavigator extends React.Component {
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
+<<<<<<< HEAD
+              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
+              <Drawer.Screen name="Createtask" component={Createtask} />
+              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
+=======
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
               <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
-              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
+              <Drawer.Screen name="Projects" component={Projects} />
+>>>>>>> 5ecf7c500a32e2453f1931a3b09d0816ccf35ad2
             </>
           ) : (
             <>
