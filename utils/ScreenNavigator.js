@@ -14,7 +14,7 @@ import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
 import CreateTask from '../screens/CreateTask';
-import ViewProjects from '../screens/ViewProjects';
+import Projects from '../screens/Projects';
 
 const Drawer = createDrawerNavigator();
 
@@ -182,7 +182,7 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
               <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
-              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
+              <Drawer.Screen name="Projects" component={Projects} />
             </>
           ) : (
             <>
