@@ -78,11 +78,11 @@ class Login extends Component {
         return (
             <>
                 <ImageBackground style={styles.body} source={require('../static/background.png')}>
-                    <View>
-                        <ScrollView>
-                            {loading && <Loader top="70%" left="47%">
+                {loading && <Loader >
                                 <ActivityIndicator size="large" color="#3875c3" />
                             </Loader>}
+                    <View>
+                        <ScrollView>
                             <View>
                                 <WebsiteWrapper>
                                     <WebsiteLogo source={require('../static/logo.png')} />

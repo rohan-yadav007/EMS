@@ -39,7 +39,7 @@ class Dashboard extends Component {
           style={{flex: 1}}
           source={require('../static/background2.png')}>
           <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-            <Header openMenu={this.props.navigation.openDrawer} />
+            <Header title={'Dashboard'} />
             <View style={{flex: 1, flexDirection: 'column'}}>
               <View
                 style={{
@@ -47,7 +47,7 @@ class Dashboard extends Component {
                   flex: 1,
                   justifyContent: 'space-evenly',
                 }}>
-                <View style={{height: 123, alignSelf: 'center'}}>
+                <TouchableOpacity style={{height: 123, alignSelf: 'center'}}>
                   <ModuleBG source={require('../static/balance_bg.png')}>
                     <View style={{width: '100%'}}>
                       <CustomText fw={900} fs={'40px'}>
@@ -56,8 +56,9 @@ class Dashboard extends Component {
                       <CustomText fs={'18px'}>Balance Leaves</CustomText>
                     </View>
                   </ModuleBG>
-                </View>
-                <View style={{height: 123, alignSelf: 'center'}}>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{height: 123, alignSelf: 'center'}}>
                   <ModuleBG
                     source={require('../static/Reimbursements_Approval_bg.png')}>
                     <View style={{width: '100%'}}>
@@ -65,11 +66,12 @@ class Dashboard extends Component {
                         3
                       </CustomText>
                       <CustomText style={{alignSelf: 'center'}} fs={'18px'}>
-                        Pendin Approval
+                        Pending Approval
                       </CustomText>
                     </View>
                   </ModuleBG>
-                </View>
+                </TouchableOpacity>
+
               </View>
 
               <View
@@ -85,7 +87,7 @@ class Dashboard extends Component {
                     marginTop: -160,
                     justifyContent: 'space-around',
                   }}>
-                  <View style={{height: 123, alignSelf: 'center'}}>
+                  <TouchableOpacity style={{height: 123, alignSelf: 'center'}}>
                     <ModuleBG source={require('../static/Markbg.png')}>
                       <View style={{width: '100%'}}>
                         <CustomText fw={900} fs={'40px'}>
@@ -94,8 +96,9 @@ class Dashboard extends Component {
                         <CustomText fs={'18px'}>Pending Approval</CustomText>
                       </View>
                     </ModuleBG>
-                  </View>
-                  <View style={{height: 123, alignSelf: 'center'}}>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={{height: 123, alignSelf: 'center'}}>
                     <ModuleBG source={require('../static/Tasks_bg.png')}>
                       <View style={{width: '100%'}}>
                         <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
@@ -106,7 +109,8 @@ class Dashboard extends Component {
                         </CustomText>
                       </View>
                     </ModuleBG>
-                  </View>
+                  </TouchableOpacity>
+                  
                 </View>
 
                 <View
@@ -116,7 +120,7 @@ class Dashboard extends Component {
                     marginTop: -250,
                     justifyContent: 'space-around',
                   }}>
-                  <View style={{height: 123, alignSelf: 'center'}}>
+                  <TouchableOpacity style={{height: 123, alignSelf: 'center'}}>
                     <ModuleBG source={require('../static/approval_bg.png')}>
                       <View style={{width: '100%'}}>
                         <CustomText fw={900} fs={'40px'}>
@@ -125,7 +129,7 @@ class Dashboard extends Component {
                         <CustomText fs={'20px'}>Tasks Progress</CustomText>
                       </View>
                     </ModuleBG>
-                  </View>
+                  </TouchableOpacity>
                   <TouchableOpacity
                     style={{height: 123, alignSelf: 'center'}}
                     onPress={() =>

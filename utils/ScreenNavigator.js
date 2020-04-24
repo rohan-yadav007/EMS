@@ -13,8 +13,8 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
-import Createtask from '../screens/Createtask';
-import ViewProjects from '../screens/ViewProjects';
+import CreateTask from '../screens/CreateTask';
+import Projects from '../screens/Projects';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,7 +39,7 @@ class CustomDrawerContent extends Component {
         await this.setState({Menu: data});
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   static getDerivedStateFromProps(props, state) {
@@ -60,14 +60,15 @@ class CustomDrawerContent extends Component {
       const data = await GET(
         `CorporateRecruitment/ApplicationManagement/GetMenuDetails?n_ModuleId=${id}&n_EmployeeId=${n_Employee}`,
       );
+      //  console.log("gh",data)
       await this.setState({subMenu: data});
     }
   };
 
   // Function to handle navigation to submenu screen
   handleSubMenuNavigation = name => {
-    alert('this will navigate to the pressed screen');
-    // this.props.navigation.navigate(name);
+    let SubMenuName  = name.split(' ').join('');
+    this.props.navigation.navigate(`${SubMenuName}`);
   };
 
   render() {
@@ -165,23 +166,29 @@ class CustomNavigator extends React.Component {
     return (
       <NavigationContainer>
         <Drawer.Navigator
-          initialRouteName="Login"
+          initialRouteName="Dashboard"
           headerMode="screen"
           // drawerContent={props => (
-            // <CustomDrawerContent
-            //   {...props}
-            //   drawerData={this.state.drawerData}
-            //   isLoggedIn={this.state.isLoggedIn}
-            // />
+          //   <CustomDrawerContent
+          //     {...props}
+          //     drawerData={this.state.drawerData}
+          //     isLoggedIn={this.state.isLoggedIn}
+          //   />
           // )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
+<<<<<<< HEAD
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
               <Drawer.Screen name="Createtask" component={Createtask} />
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
+=======
+              <Drawer.Screen name="AttendencePage" component={AttendencePage} />
+              <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
+              <Drawer.Screen name="Projects" component={Projects} />
+>>>>>>> 5ecf7c500a32e2453f1931a3b09d0816ccf35ad2
             </>
           ) : (
             <>

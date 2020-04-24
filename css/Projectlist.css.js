@@ -13,3 +13,9 @@ export const TouchableOpacity = styled.View`
   position: absolute;
   top: 0;
 `;
+export const Loader = styled.View`
+  position: absolute;
+  top: ${props => props.top || '50%'};
+  left: ${props => props.left || '50%'};
+  z-index: 11;
+`;
