@@ -13,6 +13,7 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
+import Createtask from '../screens/Createtask';
 import ViewProjects from '../screens/ViewProjects';
 
 const Drawer = createDrawerNavigator();
@@ -179,6 +180,7 @@ class CustomNavigator extends React.Component {
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
+              <Drawer.Screen name="Createtask" component={Createtask} />
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
             </>
           ) : (

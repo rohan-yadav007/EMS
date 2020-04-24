@@ -1,354 +1,637 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component, useState} from 'react';
+import React, {Component} from 'react';
 import {
+  Text,
   View,
   SafeAreaView,
-  Text,
-  TouchableOpacity,
-  FlatList,
-  StyleSheet,
-  Modal,
+  ImageBackground,
+
+  ScrollView,
 } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import Icon from 'react-native-vector-icons/Entypo';
-import {Customborder, Customtext} from '../css/Projectlist.css';
-
 import Header from '../components/Header';
+import {Col, Grid} from 'react-native-easy-grid';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { Basiccontent, Basictext, Boxborders, Nextbutton} from '../css/ViewProjects.css';
 
-const DATA = [
-  {
-    Project_code: ' IIRIS/IR//0025',
-    Project_title: 'Covid-19',
-  },
-  // {
-  //   Project_code: ' IIRIS/IR//0026',
-  //   Project_title: 'Covid-17',
-  // },
-];
-
-const Item = ({item}) => {
-  const [showPopup, setShowPopup] = useState(false);
-  return (
-    <>
-      <Header />
-      <Modal transparent={true} visible={showPopup}>
-        <View style={{backgroundColor: '#000000aa', flex: 1}}>
-          <View
-            style={{
-              backgroundColor: '#fff',
-              margin: 30,
-              padding: 20,
-              borderRadius: 10,
-              marginTop: 280,
-            }}>
-            <View style={{flexDirection: 'column'}} />
-            <View
-              tyle={{
-                flexDirection: 'row',
-
-                justifyContent: 'space-evenly',
-              }}
-            />
-            <View
-              style={{
-                backgroundColor: '#0072e6',
-                borderRadius: 4,
-                padding: 12,
-                marginBottom: 15,
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: '#fff',
-                  fontSize: 15,
-                  textTransform: 'uppercase',
-                }}>
-                Project View
-              </Text>
-            </View>
-            <View
-              style={{
-                backgroundColor: '#246cb5',
-                borderRadius: 4,
-                padding: 12,
-              }}>
-              <Text
-                style={{
-                  textAlign: 'center',
-                  color: '#fff',
-                  fontSize: 15,
-                  textTransform: 'uppercase',
-                }}>
-                Test List (4)
-              </Text>
-            </View>
-          </View>
-        </View>
-      </Modal>
-      <SafeAreaView style={{padding: 12}}>
-        <TouchableOpacity onPress={() => setShowPopup(!showPopup)}>
-          <LinearGradient
-            style={{
-              paddingTop: 8,
-              paddingBottom: 14,
-              borderRadius: 4,
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}
-            colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-            <Customborder>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Customtext>
-                    <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                  </Customtext>
-                  {/* <Text>{item.Project_title}</Text> */}
-                </View>
-                <View>
-                  <Text>
-                    <Icon name="popup" size={20} color="#fff" />
-                  </Text>
-                </View>
-              </View>
-            </Customborder>
-          </LinearGradient>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => setShowPopup(!showPopup)}>
-          <LinearGradient
-            style={{
-              paddingTop: 8,
-              paddingBottom: 14,
-              borderRadius: 4,
-              paddingLeft: 10,
-              paddingRight: 10,
-              marginTop: 25,
-            }}
-            colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-            <Customborder>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Customtext>
-                    <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                  </Customtext>
-                  {/* <Text>{item.Project_title}</Text> */}
-                </View>
-                <View>
-                  <Text>
-                    <Icon name="popup" size={20} color="#fff" />
-                  </Text>
-                </View>
-              </View>
-            </Customborder>
-          </LinearGradient>
-        </TouchableOpacity>
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-        <LinearGradient
-          style={{
-            paddingTop: 8,
-            paddingBottom: 14,
-            borderRadius: 4,
-            paddingLeft: 10,
-            paddingRight: 10,
-            marginTop: 25,
-          }}
-          colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-          <Customborder>
-            <View style={{flexDirection: 'row'}}>
-              <View style={{flexDirection: 'row'}}>
-                <Customtext>
-                  <Text>IIRIS/IR//0025 ( Covid-19 ) </Text>
-                </Customtext>
-                {/* <Text>{item.Project_title}</Text> */}
-              </View>
-              <View>
-                <Text>
-                  <Icon name="popup" size={20} color="#fff" />
-                </Text>
-              </View>
-            </View>
-          </Customborder>
-        </LinearGradient>
-      </SafeAreaView>
-    </>
-  );
-};
-
-export default class ProjectList extends Component {
+export default class ViewProjects extends Component {
   constructor(props) {
     super(props);
   }
   render() {
     return (
-      <SafeAreaView>
-        <View>
-          <FlatList
-            data={DATA}
-            renderItem={({item}) => <Item item={item} />}
-            keyExtractor={item => item.Project_code}
-          />
-        </View>
-      </SafeAreaView>
+      <>
+        <ImageBackground
+          style={{flex: 1}}
+          source={require('../static/background2.png')}>
+          <Header />
+          <SafeAreaView style={{paddingLeft: 10, paddingRight: 10, paddingBottom:40,}}>
+            <ScrollView>
+              <Basiccontent>
+                <Basictext>
+                  <Text>Basic Project Details</Text>
+                </Basictext>
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Project Title
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Covid-19</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Project Ref No
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>C01</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Project Ref No
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>C01</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Status
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>In Progress</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        LOE Attachment
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>
+                        <Icon name="clouddownload" size={27} color="#06b136" />
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Remarks
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Coronaviruse</Text>
+                    </View>
+                  </Col>
+                </Grid>
+              </Basiccontent>
+
+              <Basiccontent>
+                <Basictext>
+                  <Text>Assign</Text>
+                </Basictext>
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Department
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>
+                        Sales & Marketing
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Designation
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Sale Head</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Spoc Person
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>C01</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Duration From
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>
+                        3/1/2020 12:00:00 AM
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        To
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>
+                        3/31/2020 12:00:00 AM
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+              </Basiccontent>
+
+              <Basiccontent>
+                <Basictext>
+                  <Text>Client Detail</Text>
+                </Basictext>
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Client
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>EliteMindz</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Segment
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Intellirisk</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Service
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Risk</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Client SPOC Name
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>PremPrakash</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Client SPOC Contact
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>7894561230</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Client SPOC Email
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center', textAlign: 'center'}}>
+                        PremPrakash@gmail.com
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+              </Basiccontent>
+
+              <Basiccontent>
+                <Basictext>
+                  <Text>Client Address Details</Text>
+                </Basictext>
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Country
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>India</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        State
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Delhi</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        City
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>delhi</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Address
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}} />
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Pin Code
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}} />
+                    </View>
+                  </Col>
+                </Grid>
+              </Basiccontent>
+
+              <Basiccontent>
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Contact Name
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>Layba</Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Contact No
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}}>9205629660</Text>
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Email Id
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center', textAlign: 'center'}}>
+                        mohdabidtab75@gmail.com
+                      </Text>
+                    </View>
+                  </Col>
+                </Grid>
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Location Name
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}} />
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Boxborders
+                  style={{
+                    borderBottomColor: '#d7dadb',
+                    borderBottomWidth: 1,
+                  }}
+                />
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Address
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}} />
+                    </View>
+                  </Col>
+                </Grid>
+
+                <Grid style={{margin: 15}}>
+                  <Col>
+                    <View>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                        Pin Code
+                      </Text>
+                    </View>
+                  </Col>
+                  <Col>
+                    <View>
+                      <Text style={{alignSelf: 'center'}} />
+                    </View>
+                  </Col>
+                </Grid>
+              </Basiccontent>
+              <Nextbutton><Text style={{color:"#fff", fontSize:20, textTransform:"uppercase", textAlign:"center",}}>Next</Text></Nextbutton>
+            </ScrollView>
+          </SafeAreaView>
+        </ImageBackground>
+      </>
     );
   }
 }
