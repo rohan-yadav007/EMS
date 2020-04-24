@@ -67,7 +67,7 @@ class CustomDrawerContent extends Component {
 
   // Function to handle navigation to submenu screen
   handleSubMenuNavigation = name => {
-    let SubMenuName  = name.split(' ').join('');
+    let SubMenuName = name.split(' ').join('');
     this.props.navigation.navigate(`${SubMenuName}`);
   };
 
@@ -180,20 +180,13 @@ class CustomNavigator extends React.Component {
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
-<<<<<<< HEAD
-              <Drawer.Screen name="AttendencePage" component={AttendencePage} />   
-              <Drawer.Screen name="Createtask" component={Createtask} />
-              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
-=======
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
-              <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
+              <Drawer.Screen name="CreateTask" component={CreateTask} />
               <Drawer.Screen name="Projects" component={Projects} />
->>>>>>> 5ecf7c500a32e2453f1931a3b09d0816ccf35ad2
-            </>
-          ) : (
-            <>
               <Drawer.Screen name="Login" component={Login} />
             </>
+          ) : (
+            <></>
           )}
         </Drawer.Navigator>
       </NavigationContainer>
