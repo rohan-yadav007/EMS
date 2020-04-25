@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {
   Text,
   View,
@@ -14,7 +14,7 @@ import { Loader} from '../css/Projectlist.css';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Basiccontent, Basictext, Boxborders, Nextbutton } from '../css/ViewProjects.css';
 import {connect} from 'react-redux';
-import { viewProjectDetail } from '../redux/Action/ViewProject.action';
+import { viewProjectDetail } from '../redux/Action/Projects.action';
 
  class ViewProjects extends Component {
   constructor(props) {
@@ -32,7 +32,7 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
     return (
       <>
         <ImageBackground
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           source={require('../static/background2.png')}>
           <Header />
           <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 40, }}>
@@ -45,10 +45,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   <Text>Basic Project Details</Text>
                 </Basictext>
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Project Title
                       </Text>
                     </View>
@@ -65,11 +65,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                     borderBottomWidth: 1,
                   }}
                 />
-
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Project Ref No
                       </Text>
                     </View>
@@ -91,14 +90,14 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                 {/* <Grid style={{ margin: 15 }}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Project Ref No
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>C01</Text>
+                      <Text style={{alignSelf: 'center'}}>C01</Text>
                     </View>
                   </Col>
                 </Grid> */}
@@ -109,10 +108,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Status
                       </Text>
                     </View>
@@ -131,10 +130,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         LOE Attachment
                       </Text>
                     </View>
@@ -156,10 +155,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Remarks
                       </Text>
                     </View>
@@ -177,10 +176,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   <Text>Assign</Text>
                 </Basictext>
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Department
                       </Text>
                     </View>
@@ -200,17 +199,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Designation
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Sale Head</Text>
+                      <Text style={{alignSelf: 'center'}}>Sale Head</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -222,17 +221,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Spoc Person
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>C01</Text>
+                      <Text style={{alignSelf: 'center'}}>C01</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -243,10 +242,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Duration From
                       </Text>
                     </View>
@@ -267,10 +266,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         To
                       </Text>
                     </View>
@@ -290,10 +289,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   <Text>Client Detail</Text>
                 </Basictext>
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Client
                       </Text>
                     </View>
@@ -311,17 +310,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Segment
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Intellirisk</Text>
+                      <Text style={{alignSelf: 'center'}}>Intellirisk</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -333,17 +332,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Service
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Risk</Text>
+                      <Text style={{alignSelf: 'center'}}>Risk</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -354,17 +353,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Client SPOC Name
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_FirstName}{projectDetail?.t_LastName}</Text> 
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_FirstName} {projectDetail?.t_LastName}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -376,10 +375,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Client SPOC Contact
                       </Text>
                     </View>
@@ -398,10 +397,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Client SPOC Email
                       </Text>
                     </View>
@@ -421,17 +420,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   <Text>Client Address Details</Text>
                 </Basictext>
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Country
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>India</Text>
+                      <Text style={{alignSelf: 'center'}}>India</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -442,17 +441,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         State
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Delhi</Text>
+                      <Text style={{alignSelf: 'center'}}>Delhi</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -464,17 +463,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         City
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>delhi</Text>
+                      <Text style={{alignSelf: 'center'}}>delhi</Text>
                     </View>
                   </Col>
                 </Grid>
@@ -485,17 +484,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Address
                       </Text>
                     </View>
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }} />
+                      <Text style={{alignSelf: 'center'}} />
                     </View>
                   </Col>
                 </Grid>
@@ -507,10 +506,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Pin Code
                       </Text>
                     </View>
@@ -526,10 +525,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
               </Basiccontent>
 
               <Basiccontent>
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Contact Name
                       </Text>
                     </View>
@@ -547,10 +546,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Contact No
                       </Text>
                     </View>
@@ -569,10 +568,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Email Id
                       </Text>
                     </View>
@@ -592,10 +591,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Location Name
                       </Text>
                     </View>
@@ -616,10 +615,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Address
                       </Text>
                     </View>
@@ -633,10 +632,10 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   </Col>
                 </Grid>
 
-                <Grid style={{ margin: 15 }}>
+                <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
                         Pin Code
                       </Text>
                     </View>
@@ -650,7 +649,17 @@ import { viewProjectDetail } from '../redux/Action/ViewProject.action';
                   </Col>
                 </Grid>
               </Basiccontent>
-              <Nextbutton><Text style={{ color: "#fff", fontSize: 20, textTransform: "uppercase", textAlign: "center", }}>Next</Text></Nextbutton>
+              <Nextbutton>
+                <Text
+                  style={{
+                    color: '#fff',
+                    fontSize: 20,
+                    textTransform: 'uppercase',
+                    textAlign: 'center',
+                  }}>
+                  Next
+                </Text>
+              </Nextbutton>
             </ScrollView>
           </SafeAreaView>
         </ImageBackground>

@@ -1,4 +1,4 @@
-import * as ViewProjectAction from '../actionType/ViewProject.actionType';
+import * as ProjectAction from '../actionType/Projects.actionType';
 import * as commonAction from '../actionType/common.actionType';
 import { GET } from '../../utils/responseHelper';
 import { getData} from '../../utils/AsyncStorage';
@@ -19,7 +19,7 @@ export const getProjectList = () => async dispatch => {
             try{
                 const data = await GET(url);
                 if(data && data.length>0){
-                    dispatchAction(dispatch , ViewProjectAction.GET_PROJECTLIST,data)
+                    dispatchAction(dispatch , ProjectAction.GET_PROJECTLIST,data)
                     dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
                 }
                 else{
@@ -35,7 +35,7 @@ export const getProjectList = () => async dispatch => {
             try{
                 const data = await GET(url);
                 if(data && data.length>0){
-                    dispatchAction(dispatch , ViewProjectAction.GET_PROJECTLIST,data)
+                    dispatchAction(dispatch , ProjectAction.GET_PROJECTLIST,data)
                     dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
                 }
                 else{

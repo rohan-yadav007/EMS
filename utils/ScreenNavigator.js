@@ -13,9 +13,9 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
-import CreateTask from '../screens/Createtask';
-import Projects from '../screens/Projects';
-import ViewProjects from '../screens/ViewProjects'
+import CreateTask from '../screens/CreateTask';
+import ProjectList from '../screens/Projects';
+import ViewProjects from '../screens/ViewProjects';
 
 const Drawer = createDrawerNavigator();
 
@@ -68,7 +68,7 @@ class CustomDrawerContent extends Component {
 
   // Function to handle navigation to submenu screen
   handleSubMenuNavigation = name => {
-    let SubMenuName  = name.split(' ').join('');
+    let SubMenuName = name.split(' ').join('');
     this.props.navigation.navigate(`${SubMenuName}`);
   };
 
@@ -182,9 +182,9 @@ class CustomNavigator extends React.Component {
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
-              <Drawer.Screen name= "CreateTask" component ={CreateTask} />  
-              <Drawer.Screen name="Projects" component={Projects} />
-              <Drawer.Screen name="ViewProjects" component ={ViewProjects}/>
+              <Drawer.Screen name="CreateTask" component={CreateTask} />
+              <Drawer.Screen name="Projects" component={ProjectList} />
+              <Drawer.Screen name="ViewProjects" component={ViewProjects} />
             </>
           ) : (
             <>

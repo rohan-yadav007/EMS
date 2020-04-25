@@ -1,4 +1,4 @@
-import * as actions from '../actionType/ViewProject.actionType';
+import * as actions from '../actionType/Projects.actionType';
 const initialState = {
     projectData : [],
     projectDetail:{},

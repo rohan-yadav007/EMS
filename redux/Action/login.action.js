@@ -15,7 +15,7 @@ export const getLogin = postObj => async dispatch => {
   try {
     const data = await GET(url);
     if (data) {
-      await storeData('UserId', `${data.n_UserId}`);
+      await storeData('UserId', `${data.a_EmployeeID}`);
       await storeData('UserInfo', JSON.stringify(data));
       dispatchAction(dispatch, loginAction.LOGIN_SUCCESS, data, true, null, null);
       dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
