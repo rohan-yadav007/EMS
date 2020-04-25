@@ -18,11 +18,11 @@ const Header = (props) => {
           <Icon name="indent-more" size={35} color="#fff" />
         </TouchableOpacity>
 
-        <TouchableOpacity>
-          <View style={styles.logoutButton}>
-            {title ? <Text style={styles.logoutText}>{title}</Text>:null}
-          </View>
-        </TouchableOpacity>
+        
+        <View style={styles.logoutButton}>
+          {title ? <Text style={styles.logoutText}>{title}</Text>:null}
+        </View>
+        
 
         <TouchableOpacity onPress={() => props.handleLogout()}>
         <Icon1 name="logout" size={30} style={{marginTop:12}} color="#fff" />
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     padding: 12,
-    marginLeft:'43%'
+    marginLeft:'33%'
   },
 });
