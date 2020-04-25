@@ -41,3 +41,13 @@ export const RemoveAll = async () => {
     console.log(e);
   }
 };
+
+export const getAll = async () => {
+  try {
+    await AsyncStorage.getAllKeys();
+    console.log('Done.');
+  } catch (e) {
+    // clear error
+    console.log(e);
+  }
+};

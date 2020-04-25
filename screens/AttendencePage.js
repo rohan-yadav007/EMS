@@ -6,6 +6,7 @@ import { Status_Wrapper, Punch_status, CustomText } from '../css/AttendencePage.
 import { MonthlyAttendence, MarkAttendence } from '../redux/Action/attendence.action';
 import { connect } from 'react-redux';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { getAll } from "../utils/AsyncStorage";
 // import { getUniqueId, getManufacturer } from 'react-native-device-info';
 
 class AttendencePage extends Component {
@@ -26,6 +27,8 @@ class AttendencePage extends Component {
   }
   async componentDidMount() {
     await this._onRefresh();
+    const data = await getAll();
+    console.log(data);
   }
 
   _onRefresh = async () => {
@@ -49,7 +52,7 @@ class AttendencePage extends Component {
 
   loadAttendenceData = async month => {
     await this.props.MonthlyAttendence(month);
-    this.setState({ month: month })
+    this.setState({ month: month, showPunch: false, })
   };
 
   punchTime = day => {
@@ -65,26 +68,26 @@ class AttendencePage extends Component {
         selectedDate: day.dateString,
       });
     } else {
-      return this.setState({ showPunch: true, d_InTime: 'N/A', d_OutTime: 'N/A', selectedDate: day.dateString, });
+      return this.setState({ showPunch: true, d_InTime: null, d_OutTime: null, selectedDate: day.dateString, });
     }
   };
 
   markAttendence = async () => {
+    const d = new Date();
+    const hour = d.getHours();
+    const minute = d.getMinutes();
+    const InTime = `${hour}:${minute}`;
+    const { PresentDate, month } = this.state;
     const postObj = {
-      "n_EmployeeId": 7,
-      "d_Date": "2020-04-25",
-      "d_InTime": "18:00",
+      "n_EmployeeId": 159,
+      "d_Date": PresentDate,
+      "d_InTime": InTime,
       "n_Attendence": 1,
-      "n_CreatedBy": 7,
+      "n_CreatedBy": 159,
       "t_CreatedIP": "192.168.1.185"
     };
-
     await this.props.MarkAttendence(postObj);
-    if (this.props.getMarkResult) {
-      const todayPunchIn = this.props.getMarkResult?.d_InTime;
-      const todayPunchOut = this.props.getMarkResult?.d_OutTime;
-      this.setState({ d_InTime: todayPunchIn, d_OutTime: todayPunchOut })
-    }
+    await this._onRefresh;
   }
 
   render() {
@@ -111,44 +114,42 @@ class AttendencePage extends Component {
               <Text>{selectedDate}</Text>
               <Punch_status>
                 <CustomText>Punch In</CustomText>
-                <CustomText>{d_InTime}</CustomText>
+                <CustomText>{d_InTime === null ? "N/A" : d_InTime}</CustomText>
               </Punch_status>
               <Punch_status bg="#ee3030">
                 <CustomText>Punch Out</CustomText>
-                <CustomText>{d_OutTime}</CustomText>
+                <CustomText>{d_OutTime === null ? "N/A" : d_OutTime}</CustomText>
               </Punch_status>
             </Status_Wrapper>
             ) : (
               <Status_Wrapper>
                 <Text>{selectedDate}</Text>
-                {!d_InTime || !d_OutTime ?
-                  <TouchableOpacity onPress={this.markAttendence}>
-                    {!d_InTime ?
-                      (
-                        <Punch_status >
-                          <CustomText>Tap to Punch In</CustomText>
-                          <Icon name="fingerprint" size={30} color="#fff" />
-                        </Punch_status>
-                      ) : (
-                        d_InTime && !d_OutTime ?
-                          <Punch_status bg="#ee3030">
-                            <CustomText>Tap to Punch Out</CustomText>
-                            <Icon name="fingerprint" size={30} color="#fff" />
-                          </Punch_status> : null
-                      )
-                    }
-                  </TouchableOpacity> : null
-                }
+                <TouchableOpacity onPress={this.markAttendence}>
+                  {!d_InTime ?
+                    (
+                      <Punch_status >
+                        <CustomText>Tap to Punch In</CustomText>
+                        <Icon name="fingerprint" size={30} color="#fff" />
+                      </Punch_status>
+                    ) : (
+                      <Punch_status bg="#ee3030">
+                        <CustomText>Tap to Punch Out</CustomText>
+                        <Icon name="fingerprint" size={30} color="#fff" />
+                      </Punch_status>
+                    )
+                  }
+                </TouchableOpacity>
+
 
                 {d_InTime ? <Punch_status>
                   <CustomText>Punch In</CustomText>
                   <CustomText>{d_InTime}</CustomText>
                 </Punch_status> : null}
 
-                {d_OutTime ? <Punch_status bg="#ee3030">
+                {PresentDate !== selectedDate ? (d_OutTime ? <Punch_status bg="#ee3030">
                   <CustomText>Punch Out</CustomText>
                   <CustomText>{d_OutTime}</CustomText>
-                </Punch_status> : null}
+                </Punch_status> : null) : null}
               </Status_Wrapper>)
           )}
         </ScrollView>

@@ -8,8 +8,8 @@ const dispatchAction = (dispatch, type, data, login, error, message) => {
 };
 
 export const MonthlyAttendence = (monthChange) => async dispatch => {
-  const UserId = await getData('UserId');
-  const url = `CorporateRecruitment/Attendence/GetEmployeeAttendence?EmployeeId=${UserId}&Month=${monthChange.month}&Year=${monthChange.year}`;
+  const EmployeeId = await getData('UserId');
+  const url = `CorporateRecruitment/Attendence/GetEmployeeAttendence?EmployeeId=${EmployeeId}&Month=${monthChange.month}&Year=${monthChange.year}`;
 
   try {
     const data = await GET(url);
@@ -23,6 +23,7 @@ export const MarkAttendence = (postObj) => async dispatch => {
   const url = 'CorporateRecruitment/Attendence/PosttblAttendence';
   try {
     const data = await POST(url,{...postObj});
+    console.log("action",data);
     await dispatchAction(dispatch, attendenceAction.MARK_ATTENDENCE_SUCCESS, data, null, null, 'Successful');
   } catch (error) {
     console.log(error);
