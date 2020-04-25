@@ -56,7 +56,7 @@ export const viewProjectDetail = (projectId) => async dispatch => {
     try{
         const data = await GET(url);
          if(data){
-            dispatchAction(dispatch , ViewProjectAction.GET_PROJECTDATA,data)
+            dispatchAction(dispatch , ProjectAction.GET_PROJECTDATA,data)
             dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
         }
         else{

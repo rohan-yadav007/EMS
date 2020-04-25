@@ -18,7 +18,7 @@ import { getProjectList } from '../redux/Action/Projects.action';
 import { connect } from 'react-redux';
 import { getData } from '../utils/AsyncStorage';
 
-const Item = ({ item }) => {
+const Item = ({item,props}) => {
   const [showPopup, setShowPopup] = useState(false);
   return (
     <>

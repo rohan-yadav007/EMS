@@ -669,7 +669,7 @@ import { viewProjectDetail } from '../redux/Action/Projects.action';
 }
 
 const mapStateToProps = (state) => {
-  const projectDetail = state.ViewProjectReducer.projectDetail;
+  const projectDetail = state.ProjectsReducer.projectDetail;
   const loading = state.CommonReducer.loading;
     return {projectDetail,loading};
 }
