@@ -18,15 +18,14 @@
     "react": "16.11.0",
     "react-dom": "^16.13.1",
     "react-native": "0.62.2",
-<<<<<<< HEAD
     "react-native-calendars": "^1.265.0",
+    "react-native-datepicker": "^1.7.2",
     "react-native-easy-grid": "^0.2.2",
-=======
->>>>>>> 5ecf7c500a32e2453f1931a3b09d0816ccf35ad2
     "react-native-gesture-handler": "^1.6.1",
     "react-native-linear-gradient": "^2.5.6",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.6.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^4.3.7",
     "react-redux": "^7.2.0",

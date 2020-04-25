@@ -15,9 +15,8 @@ import { Customborder, Customtext, Loader } from '../css/Projectlist.css';
 import Header from '../components/Header';
 import { getProjectList } from '../redux/Action/ViewProject.action';
 import { connect } from 'react-redux';
-import { getData } from '../utils/AsyncStorage';
 
-const Item = ({ item }) => {
+const Item = ({ item ,props}) => {
   const [showPopup, setShowPopup] = useState(false);
   return (
     <>
@@ -52,7 +51,8 @@ const Item = ({ item }) => {
                   color: '#fff',
                   fontSize: 15,
                   textTransform: 'uppercase',
-                }}>
+                }}
+                onPress = {()=> props.navigation.navigate('ViewProjects',{ProjectId:item.a_ProjectId})}>
                 Project View
               </Text>
             </View>
@@ -113,15 +113,11 @@ class ProjectList extends Component {
 
   }
   async componentDidMount() {
-    const UserInfo = await getData('UserInfo');
-    if (UserInfo) {
-      const postObj = JSON.parse(UserInfo);
-      await this.props.getProjectList(postObj.n_GroupId)
-    }
+   await this.props.getProjectList()
   }
 
   render() {
-const {loading} = this.props;
+  const {loading} = this.props;
     return (
       <SafeAreaView style={{flex:1}}>
         {loading && <Loader >
@@ -132,7 +128,7 @@ const {loading} = this.props;
           
           <FlatList
             data={this.props.projectData}
-            renderItem={({ item }) => <Item item={item} />}
+            renderItem={({ item }) => <Item item={item} props = {this.props}/>}
             keyExtractor={item => item.t_ProjectCode}
           />
         </View>
@@ -142,7 +138,6 @@ const {loading} = this.props;
 }
 
 const mapStateToProps = (state) => {
-  // const userData = state.LoginReducer.userData;
   const projectData = state.ViewProjectReducer.projectData;
   const loading = state.CommonReducer.loading;
   return { projectData, loading };

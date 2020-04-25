@@ -5,19 +5,30 @@ import {
   View,
   SafeAreaView,
   ImageBackground,
-
+  ActivityIndicator,
   ScrollView,
 } from 'react-native';
 import Header from '../components/Header';
 import { Col, Grid } from 'react-native-easy-grid';
+import { Loader} from '../css/Projectlist.css';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { Basiccontent, Basictext, Boxborders, Nextbutton } from '../css/ViewProjects.css';
+import {connect} from 'react-redux';
+import { viewProjectDetail } from '../redux/Action/ViewProject.action';
 
-export default class ViewProjects extends Component {
+ class ViewProjects extends Component {
   constructor(props) {
     super(props);
   }
+  async componentDidMount(){
+    console.log("projet id ", this.props.route.params.ProjectId)
+    const ProjectId = this.props.route.params.ProjectId;
+    await this.props.viewProjectDetail(ProjectId);
+    console.log("prjdetail",this.props.projectDetail)
+    console.log("info",this.props.projectDetail?.t_Location?.t_FirstName)
+  }
   render() {
+    const {loading,projectDetail} = this.props;
     return (
       <>
         <ImageBackground
@@ -25,6 +36,9 @@ export default class ViewProjects extends Component {
           source={require('../static/background2.png')}>
           <Header />
           <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 40, }}>
+          {loading && <Loader >
+          <ActivityIndicator size="large" color="#3875c3" />
+        </Loader>}
             <ScrollView>
               <Basiccontent>
                 <Basictext>
@@ -41,7 +55,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Covid-19</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_ProjectTitle} </Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -62,7 +76,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>C01</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_ProjectRefNo}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -74,7 +88,7 @@ export default class ViewProjects extends Component {
                   }}
                 />
 
-                <Grid style={{ margin: 15 }}>
+                {/* <Grid style={{ margin: 15 }}>
                   <Col>
                     <View>
                       <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
@@ -87,7 +101,7 @@ export default class ViewProjects extends Component {
                       <Text style={{ alignSelf: 'center' }}>C01</Text>
                     </View>
                   </Col>
-                </Grid>
+                </Grid> */}
                 <Boxborders
                   style={{
                     borderBottomColor: '#d7dadb',
@@ -105,7 +119,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>In Progress</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.n_status}In Progress</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -128,6 +142,7 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center' }}>
+                        {projectDetail?.t_AttachamentLOEFile}
                         <Icon name="clouddownload" size={27} color="#06b136" />
                       </Text>
                     </View>
@@ -151,7 +166,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Coronaviruse</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_ClientInfo}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -173,7 +188,7 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center' }}>
-                        Sales & Marketing
+                       {projectDetail?.t_ClientInfo} 
                       </Text>
                     </View>
                   </Col>
@@ -239,7 +254,7 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center' }}>
-                        3/1/2020 12:00:00 AM
+                       {projectDetail?.d_StartDate3} 
                       </Text>
                     </View>
                   </Col>
@@ -263,7 +278,7 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center' }}>
-                        3/31/2020 12:00:00 AM
+                       {projectDetail?.d_EndDate} 
                       </Text>
                     </View>
                   </Col>
@@ -285,7 +300,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>EliteMindz</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_ClientInfo}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -349,7 +364,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>PremPrakash</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_FirstName}{projectDetail?.t_LastName}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -371,7 +386,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>7894561230</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_Mobile}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -394,7 +409,7 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center', textAlign: 'center' }}>
-                        PremPrakash@gmail.com
+                       {projectDetail?.t_EmailId} 
                       </Text>
                     </View>
                   </Col>
@@ -502,7 +517,9 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }} />
+                      <Text style={{ alignSelf: 'center' }} >
+                       {projectDetail?.t_Pincode} 
+                      </Text>
                     </View>
                   </Col>
                 </Grid>
@@ -519,7 +536,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>Layba</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.XmlClientContactDetails}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -540,7 +557,7 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }}>9205629660</Text>
+                       <Text style={{ alignSelf: 'center' }}>{projectDetail?.t_Mobile}</Text> 
                     </View>
                   </Col>
                 </Grid>
@@ -563,8 +580,8 @@ export default class ViewProjects extends Component {
                   <Col>
                     <View>
                       <Text style={{ alignSelf: 'center', textAlign: 'center' }}>
-                        mohdabidtab75@gmail.com
-                      </Text>
+                       {projectDetail?.t_EmailId}       
+                       </Text>
                     </View>
                   </Col>
                 </Grid>
@@ -585,7 +602,9 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }} />
+                      <Text style={{ alignSelf: 'center' }} >
+                       {projectDetail?.t_Location2}       
+                       </Text>
                     </View>
                   </Col>
                 </Grid>
@@ -607,7 +626,9 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }} />
+                      <Text style={{ alignSelf: 'center' }} >
+                      {projectDetail?.t_CompleteAddress}       
+                       </Text>
                     </View>
                   </Col>
                 </Grid>
@@ -622,7 +643,9 @@ export default class ViewProjects extends Component {
                   </Col>
                   <Col>
                     <View>
-                      <Text style={{ alignSelf: 'center' }} />
+                      <Text style={{ alignSelf: 'center' }} >
+                      {projectDetail?.t_Pincode}      
+                       </Text>
                     </View>
                   </Col>
                 </Grid>
@@ -635,3 +658,11 @@ export default class ViewProjects extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const projectDetail = state.ViewProjectReducer.projectDetail;
+  const loading = state.CommonReducer.loading;
+    return {projectDetail,loading};
+}
+
+export default connect(mapStateToProps,{viewProjectDetail})(ViewProjects)

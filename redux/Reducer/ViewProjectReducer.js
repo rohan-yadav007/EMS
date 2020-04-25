@@ -1,6 +1,7 @@
 import * as actions from '../actionType/ViewProject.actionType';
 const initialState = {
     projectData : [],
+    projectDetail:{},
 }
 
 const ViewProjectReducer = (state,action) => {
@@ -12,6 +13,10 @@ const ViewProjectReducer = (state,action) => {
             return {
                 projectData : action.payload,
               
+            }
+        case actions.GET_PROJECTDATA:
+            return{
+                projectDetail : action.payload,
             }
         default:
             return state;
