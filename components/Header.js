@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
   },
   logoutButton: {
     padding: 12,
-    marginLeft:'45%'
+    marginLeft:'43%'
   },
 });
