@@ -52,6 +52,7 @@ class AttendencePage extends Component {
 
   loadAttendenceData = async month => {
     await this.props.MonthlyAttendence(month);
+    console.log(this.props.AttendenceData);
     this.setState({ month: month, showPunch: false, })
   };
 

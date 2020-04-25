@@ -10,9 +10,10 @@ const dispatchAction = (dispatch, type, data, login, error, message) => {
 export const MonthlyAttendence = (monthChange) => async dispatch => {
   const EmployeeId = await getData('UserId');
   const url = `CorporateRecruitment/Attendence/GetEmployeeAttendence?EmployeeId=${EmployeeId}&Month=${monthChange.month}&Year=${monthChange.year}`;
-
+console.log(url);
   try {
     const data = await GET(url);
+    console.log(data);
     dispatchAction(dispatch, attendenceAction.MONTHLY_ATTENDENCE_SUCCESS, data, null, null, null);
   } catch (error) {
     console.log(error);
