@@ -4,7 +4,7 @@ const initialState = {
     projectDetail:{},
 }
 
-const ViewProjectReducer = (state,action) => {
+const ProjectsReducer = (state,action) => {
     if(state === undefined){
         return (state = initialState);
     }
@@ -23,4 +23,4 @@ const ViewProjectReducer = (state,action) => {
     }
 };
 
-export default ViewProjectReducer;
+export default ProjectsReducer;
