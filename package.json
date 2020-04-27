@@ -14,16 +14,15 @@
     "@react-native-community/masked-view": "^0.1.8",
     "@react-navigation/drawer": "^5.4.1",
     "@react-navigation/native": "^5.1.5",
-    "@react-navigation/stack": "^5.2.10",
     "node-fetch": "^2.6.0",
-    "popup-ui": "^1.0.10",
     "react": "16.11.0",
     "react-native": "0.62.2",
     "react-native-calendars": "^1.265.0",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-device-info": "^5.5.6",
     "react-native-easy-grid": "^0.2.2",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-linear-gradient": "^2.5.6",
-    "react-native-popup-dialog": "^0.18.3",
     "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
@@ -49,4 +48,3 @@
     "preset": "react-native"
   }
 }
-

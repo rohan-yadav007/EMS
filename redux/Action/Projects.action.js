@@ -49,3 +49,22 @@ export const getProjectList = () => async dispatch => {
       }
    
 }
+
+export const viewProjectDetail = (projectId) => async dispatch => {
+    dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
+    const url = `CorporateRecruitment/CreateProject/GettblCreateProject?id=${projectId}`;
+    try{
+        const data = await GET(url);
+         if(data){
+            dispatchAction(dispatch , ProjectAction.GET_PROJECTDATA,data)
+            dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
+        }
+        else{
+            dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
+        }
+    }
+    catch(error){
+        console.log(error)
+    }  
+}
+

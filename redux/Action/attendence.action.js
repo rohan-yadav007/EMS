@@ -1,7 +1,6 @@
 
 import * as attendenceAction from '../actionType/attendence.actionType';
-import * as commonAction from '../actionType/common.actionType';
-import { GET } from '../../utils/responseHelper';
+import { GET, POST } from '../../utils/responseHelper';
 import { getData, RemoveAll, storeData } from '../../utils/AsyncStorage';
 
 const dispatchAction = (dispatch, type, data, login, error, message) => {
@@ -9,16 +8,25 @@ const dispatchAction = (dispatch, type, data, login, error, message) => {
 };
 
 export const MonthlyAttendence = (monthChange) => async dispatch => {
-  dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
-  const UserId = await getData('UserId');
-  const url = `CorporateRecruitment/Attendence/GetEmployeeAttendence?EmployeeId=159&Month=${monthChange.month}&Year=${monthChange.year}`;
-
+  const EmployeeId = await getData('UserId');
+  const url = `CorporateRecruitment/Attendence/GetEmployeeAttendence?EmployeeId=${EmployeeId}&Month=${monthChange.month}&Year=${monthChange.year}`;
+console.log(url);
   try {
     const data = await GET(url);
+    console.log(data);
     dispatchAction(dispatch, attendenceAction.MONTHLY_ATTENDENCE_SUCCESS, data, null, null, null);
-    dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
   } catch (error) {
-    dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null);
+    console.log(error);
+  }
+};
+
+export const MarkAttendence = (postObj) => async dispatch => {
+  const url = 'CorporateRecruitment/Attendence/PosttblAttendence';
+  try {
+    const data = await POST(url,{...postObj});
+    console.log("action",data);
+    await dispatchAction(dispatch, attendenceAction.MARK_ATTENDENCE_SUCCESS, data, null, null, 'Successful');
+  } catch (error) {
     console.log(error);
   }
 };

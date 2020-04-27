@@ -2,7 +2,7 @@ import * as actions from '../actionType/attendence.actionType';
 const initialState = {
  data: [],
  message:'',
-
+ attendence:{}
 };
 
 const AttendenceReducer = (state, action) => {
@@ -15,7 +15,11 @@ const AttendenceReducer = (state, action) => {
       return {
         data: action.data,
       };
-
+      case actions.MARK_ATTENDENCE_SUCCESS:
+        return {
+          attendence: action.data,
+          message:action.message
+        };
     default:
       return state;
   }
