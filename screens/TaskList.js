@@ -1,110 +1,110 @@
 import React, { Component } from 'react';
-import { Text, View, FlatList, ImageBackground,StyleSheet, StyleSheetScrollView, Button, TouchableOpacity } from 'react-native';
+import { Text, View, FlatList, ImageBackground, StyleSheet, RefreshControl } from 'react-native';
 import Header from '../components/Header';
-import {
-  Srnumber,
-  Tasklist1,
-  Taskboder,
-  Buttontext,
-  ButtonMedium,
-} from '../css/TaskList.css';
+import { Srnumber, Tasklist1, Taskboder, Buttontext, ButtonMedium, AddTask, AddTaskText } from '../css/TaskList.css';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import IconEdit from 'react-native-vector-icons/Feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Col, Grid } from 'react-native-easy-grid';
 import { getTaskList } from '../redux/Action/CreateTask.action';
 import { connect } from 'react-redux';
 
 const RenderTask = (props) => {
-const Task = props?.item
+  const Task = props?.item
+  console.log(props);
   return (
     <>
-      <Srnumber>
-        <Text>Sr No  </Text>
-      </Srnumber>
-      <Tasklist1>
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
-              <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_TaskTitle}</Text>
-            </Col>
-          </Grid>
-        </Taskboder>
+      <View>
+        <Srnumber >
+          <Text>Sr No {props.index + 1}  </Text>
+          <IconEdit name="edit" size={20} color="#fff" />
+        </Srnumber>
+        <Tasklist1>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
+                <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_TaskTitle}</Text>
+              </Col>
+            </Grid>
+          </Taskboder>
 
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
-              <Text style={{ fontWeight: 'bold' }}>Assignee</Text>
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.AssigneeName} </Text>
-            </Col>
-          </Grid>
-        </Taskboder>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
+                <Text style={{ fontWeight: 'bold' }}>Assignee</Text>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.AssigneeName} </Text>
+              </Col>
+            </Grid>
+          </Taskboder>
 
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
-              <Text style={{ fontWeight: 'bold' }}>Department</Text>
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <Text style={{ alignSelf: 'center', fontSize: 14 }}> {Task.DepartmentName} </Text>
-            </Col>
-          </Grid>
-        </Taskboder>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
+                <Text style={{ fontWeight: 'bold' }}>Department</Text>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}> {Task.DepartmentName} </Text>
+              </Col>
+            </Grid>
+          </Taskboder>
 
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
-              <Text style={{ fontWeight: 'bold' }}>Create Date</Text>
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.d_ReportSubmissionDate}</Text>
-            </Col>
-          </Grid>
-        </Taskboder>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
+                <Text style={{ fontWeight: 'bold' }}>Create Date</Text>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.d_ReportSubmissionDate}</Text>
+              </Col>
+            </Grid>
+          </Taskboder>
 
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
 
-              <Text style={{ fontWeight: 'bold' }}>Task Priority</Text>
+                <Text style={{ fontWeight: 'bold' }}>Task Priority</Text>
 
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <ButtonMedium>
-                <Text
-                  style={{
-                    alignSelf: 'center',
-                    color: '#fff',
-                    fontSize: 14,
-                  }}>
-                  {Task.TaskPriority}
-                </Text>
-              </ButtonMedium>
-            </Col>
-          </Grid>
-        </Taskboder>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <ButtonMedium>
+                  <Text
+                    style={{
+                      alignSelf: 'center',
+                      color: '#fff',
+                      fontSize: 14,
+                    }}>
+                    {Task.TaskPriority}
+                  </Text>
+                </ButtonMedium>
+              </Col>
+            </Grid>
+          </Taskboder>
 
-        <Taskboder>
-          <Grid>
-            <Col style={styles.ColKey}>
-              <View>
-                <Text style={{ fontWeight: 'bold' }}>Task Status</Text>
-              </View>
-            </Col>
-            <Col style={{ width: '60%' }}>
-              <Buttontext>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                  {Task.TaskStatus}
-                </Text>
-              </Buttontext>
-            </Col>
-          </Grid>
-        </Taskboder>
-      </Tasklist1>
+          <Taskboder>
+            <Grid>
+              <Col style={styles.ColKey}>
+                <View>
+                  <Text style={{ fontWeight: 'bold' }}>Task Status</Text>
+                </View>
+              </Col>
+              <Col style={{ width: '60%' }}>
+                <Buttontext>
+                  <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                    {Task.TaskStatus}
+                  </Text>
+                </Buttontext>
+              </Col>
+            </Grid>
+          </Taskboder>
+        </Tasklist1>
+      </View>
+
     </>
   )
 
@@ -114,19 +114,21 @@ class TaskList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      TaskList: []
+      TaskList: [],
+      refreshing: false,
     }
   }
   async componentDidMount() {
     await this._onRefresh();
   }
   _onRefresh = async () => {
+    this.setState({ refreshing: true })
     const params = await this.props.route.params;
     if (params) {
       const obj = { GroupId: params.GroupId, ProjectId: params.ProjectId };
       await this.props.getTaskList(obj);
     }
-    await this.setState({ TaskList: this.props.TaskList });
+    await this.setState({ TaskList: this.props.TaskList, refreshing: false });
   }
 
   handleCreateTask = () => {
@@ -136,13 +138,13 @@ class TaskList extends Component {
     return 1;
   }
   render() {
-    console.log("rohan", this.state.TaskList);
+    const { refreshing } = this.state;
     return (
       <>
         <ImageBackground
           style={{ flex: 1, paddingBottom: 10, }}
           source={require('../static/background2.png')}>
-          <Header title={TaskList} />
+          <Header title={"Task List"} />
           <SafeAreaView
             style={{
               paddingLeft: 10,
@@ -151,29 +153,19 @@ class TaskList extends Component {
             }}
           >
             <View >
-              <TouchableOpacity
-                style={{
-                  backgroundColor: '#000000b0',
-                  padding: 5,
-                  flexDirection: 'row',
-                  borderRadius: 4,
-                  width: '100%',
-                  marginTop: 5,
-                  justifyContent: 'center'
-                }}
-                onPress={() => this.handleCreateTask()}
-              >
-                <Icon name="add-circle" size={30} color="#fff" />
-                <Text style={{ textAlignVertical: 'center', fontSize: 17, color: '#fff', textTransform: 'uppercase' }}>
+              <AddTask onPress={() => this.handleCreateTask()} >
+                <Icon name="add-circle" size={25} color="#fff" />
+                <AddTaskText>
                   Add Task
-              </Text>
-              </TouchableOpacity>
+              </AddTaskText>
+              </AddTask>
             </View>
             {this.state.TaskList.length !== 0 &&
               (<FlatList
+                refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />}
                 data={this.state.TaskList}
-                renderItem={({ item },i) => <RenderTask item={item} index={i} />}
-                keyExtractor={item => item?.a_TaskId}
+                renderItem={({ item, index }) => <RenderTask item={item} index={index} />}
+                keyExtractor={item => `${item?.a_TaskId}`}
 
               />)
             }
@@ -193,6 +185,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps, { getTaskList })(TaskList)
 
 
-const styles= StyleSheet.create({
-  ColKey:{width: '40%'}
+const styles = StyleSheet.create({
+  ColKey: { width: '40%' }
 })

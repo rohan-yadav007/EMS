@@ -6,55 +6,32 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
   ActivityIndicator,
   Modal,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/Entypo';
 import Close from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Customborder, Customtext, Loader } from '../css/Projectlist.css';
+import { Customborder, Customtext, Loader, ModalTopContent, NavButton, CloseButton } from '../css/Projectlist.css';
 import Header from '../components/Header';
 import { getProjectList } from '../redux/Action/Projects.action';
 import { connect } from 'react-redux';
 import { getData } from '../utils/AsyncStorage';
 
-const Item = ({item,props}) => {
+const Item = ({ item, props }) => {
   const [showPopup, setShowPopup] = useState(false);
   return (
     <>
       <Modal transparent={true} visible={showPopup}>
         <View style={{ backgroundColor: '#000000aa', flex: 1 }}>
 
-          <View
-            style={{
-              backgroundColor: '#fff',
-              margin: 30,
-              padding: 40,
-              borderRadius: 10,
-              marginTop: 280,
-            }}>
-            <TouchableOpacity onPress={()=>setShowPopup(false)} style={{position:'absolute',right:0,margin:10}}>
+          <ModalTopContent>
+            <CloseButton onPress={() => setShowPopup(false)}>
               <Close name="close-circle" color='#0072e6' size={30} />
-            </TouchableOpacity>
+            </CloseButton>
 
-            <View style={{ flexDirection: 'column' }} />
-
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-evenly',
-              }}
-            />
-
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#0072e6',
-                borderRadius: 4,
-                padding: 12,
-                marginBottom: 15,
-              }}
-              onPress={() => props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId })}
-              >
+            <NavButton onPress={() => props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId })} >
               <Text
                 style={{
                   textAlign: 'center',
@@ -62,16 +39,11 @@ const Item = ({item,props}) => {
                   fontSize: 15,
                   textTransform: 'uppercase',
                 }}
-                >
+              >
                 Project View
               </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{
-                backgroundColor: '#246cb5',
-                borderRadius: 4,
-                padding: 12,
-              }}>
+            </NavButton>
+            <NavButton onPress={() => props.navigation.navigate('TaskList', { ProjectId: item.a_ProjectId, GroupId: item.n_GroupId })} >
               <Text
                 style={{
                   textAlign: 'center',
@@ -79,12 +51,12 @@ const Item = ({item,props}) => {
                   fontSize: 15,
                   textTransform: 'uppercase',
                 }}
-                onPress={() => props.navigation.navigate('TaskList', { ProjectId: item.a_ProjectId,GroupId:item.n_GroupId  })}
-                >
-                Test List
+
+              >
+               Task List
               </Text>
-            </TouchableOpacity>
-          </View>
+            </NavButton>
+          </ModalTopContent>
         </View>
       </Modal>
       <SafeAreaView style={{ padding: 12 }}>
@@ -125,23 +97,29 @@ const Item = ({item,props}) => {
 class ProjectList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      refreshing: false
+    }
   }
   async componentDidMount() {
-    await this.props.getProjectList()
+    await this._onRefresh();
+  }
+  _onRefresh = async () => {
+    this.setState({ refreshing: true })
+    await this.props.getProjectList();
+    this.setState({ refreshing: false })
   }
 
   render() {
     const { loading } = this.props;
+    const { refreshing } = this.state;
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        {loading && (
-          <Loader>
-            <ActivityIndicator size="large" color="#3875c3" />
-          </Loader>
-        )}
         <Header title={'Projects'} />
         <View style={{ marginBottom: 50 }}>
           <FlatList
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />}
+
             data={this.props.projectData}
             renderItem={({ item }) => <Item item={item} props={this.props} />}
             keyExtractor={item => item.t_ProjectCode}
@@ -153,7 +131,6 @@ class ProjectList extends Component {
 }
 
 const mapStateToProps = state => {
-  // const userData = state.LoginReducer.userData;
   const projectData = state.ProjectsReducer.projectData;
   const loading = state.CommonReducer.loading;
   return { projectData, loading };
