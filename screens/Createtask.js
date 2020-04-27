@@ -91,11 +91,7 @@ class CreateTask extends Component {
 
               <InputGroup>
                 <Text>Assignee</Text>
-                <Picker
-                  // selectedValue={selectedValue}
-                  style={{ height: 50, width: 150 }}
-                // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
-                >
+                <Picker style={{ height: 50, width: 150 }} >
                   <Picker.Item label="simran" value="simran" />
                   <Picker.Item label="rohan" value="rohan" />
                   <Picker.Item label="vipul" value="vipul" />
