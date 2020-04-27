@@ -39,7 +39,7 @@ export default class ViewProjects extends Component {
                 <Grid style={{margin: 15}}>
                   <Col>
                     <View>
-                      <Text style={{fontWeight: 'bold', alignSelf: 'center'}}>
+                      <Text style={{fontWeight: 'bold', alignSelf: 'center',}}>
                         Project Title
                       </Text>
                     </View>
