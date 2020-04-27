@@ -17,21 +17,41 @@ export default class TaskList extends Component {
     super(props);
   }
   handleCreateTask = () => {
-    return this.props.navigation.navigate('CreateTask');
+    this.props.navigation.navigate('CreateTask');
   };
   render() {
     return (
       <>
         <ImageBackground
-          style={{ flex: 1 }}
+          style={{ flex: 1, paddingBottom: 10, }}
           source={require('../static/background2.png')}>
           <Header title={TaskList} />
           <SafeAreaView
             style={{
               paddingLeft: 10,
               paddingRight: 10,
-              paddingBottom: 40,
-            }}>
+              flex: 1
+            }}
+          >
+            <View >
+              <TouchableOpacity
+                style={{
+                  backgroundColor: '#000000b0',
+                  padding: 5,
+                  flexDirection: 'row',
+                  borderRadius: 4,
+                  width: '100%',
+                  marginTop: 5,
+                  justifyContent: 'center'
+                }}
+                onPress={() => this.handleCreateTask()}
+              >
+                <Icon name="add-circle" size={30} color="#fff" />
+                <Text style={{ textAlignVertical: 'center', fontSize: 17, color: '#fff', textTransform: 'uppercase' }}>
+                  Add Task
+              </Text>
+              </TouchableOpacity>
+            </View>
             <ScrollView>
               <Srnumber>
                 <Text>Sr No 1</Text>
@@ -382,25 +402,7 @@ export default class TaskList extends Component {
               </Tasklist1>
             </ScrollView>
           </SafeAreaView>
-          <View style={{ flex: 1 }}>
-            <TouchableOpacity
-              style={{
-                position: 'absolute',
-                bottom: 688,
-                alignSelf: 'flex-end',
 
-                backgroundColor: '#161616',
-                padding: 9,
-                borderRadius: 4,
-                width: '40%',
-              }}
-              onPress={() => this.handleCreateTask()}
-            >
-              <Text style={{ alignSelf: 'center', fontSize: 17, color: '#fff', textTransform: 'uppercase' }}>
-                <Icon name="add-circle" size={20} color="#fff" /> Add Task
-              </Text>
-            </TouchableOpacity>
-          </View>
         </ImageBackground>
       </>
     );
