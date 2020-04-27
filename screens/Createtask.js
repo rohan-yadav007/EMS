@@ -160,7 +160,7 @@ class CreateTask extends Component {
                     borderRadius: 4,
                     marginTop: 10,
                   }}>
-                  <DateTimePicker value={new Date()} style={{width: '100%'}} />
+                  <DateTimePicker value={new Date()} style={{width: '100%'}} customStyles={myPickerTheme} />
                 </InputGroup>
                 <Text style={{marginTop: 15}}>Task Assign Date</Text>
                 <InputGroup
@@ -170,7 +170,7 @@ class CreateTask extends Component {
                     borderRadius: 4,
                     marginTop: 10,
                   }}>
-                  <DateTimePicker value={new Date()} style={{width: '100%'}} />
+                  <DateTimePicker  style={{width: '100%'}} customStyles={myPickerTheme} />
                 </InputGroup>
 
                 <InputGroup>

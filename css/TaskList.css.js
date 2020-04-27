@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-
+import { Col, Grid } from 'react-native-easy-grid';
 export const Srnumber = styled.Text`
   font-size: 14px;
   background-color: #06adcb;

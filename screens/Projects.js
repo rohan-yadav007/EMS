@@ -46,13 +46,15 @@ const Item = ({item,props}) => {
               }}
             />
 
-            <View
+            <TouchableOpacity
               style={{
                 backgroundColor: '#0072e6',
                 borderRadius: 4,
                 padding: 12,
                 marginBottom: 15,
-              }}>
+              }}
+              onPress={() => props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId })}
+              >
               <Text
                 style={{
                   textAlign: 'center',
@@ -60,11 +62,11 @@ const Item = ({item,props}) => {
                   fontSize: 15,
                   textTransform: 'uppercase',
                 }}
-                onPress={() => props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId })}>
+                >
                 Project View
               </Text>
-            </View>
-            <View
+            </TouchableOpacity>
+            <TouchableOpacity
               style={{
                 backgroundColor: '#246cb5',
                 borderRadius: 4,
@@ -76,10 +78,12 @@ const Item = ({item,props}) => {
                   color: '#fff',
                   fontSize: 15,
                   textTransform: 'uppercase',
-                }}>
-                Test List (4)
+                }}
+                onPress={() => props.navigation.navigate('TaskList', { ProjectId: item.a_ProjectId,GroupId:item.n_GroupId  })}
+                >
+                Test List
               </Text>
-            </View>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
