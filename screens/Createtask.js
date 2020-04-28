@@ -1,6 +1,6 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // import DateTimePicker  from '@react-native-community/datetimepicker';
 import DateTimePicker from 'react-native-datepicker';
 import {
@@ -23,8 +23,8 @@ import {
   Select,
 } from '../css/CreateTask.css';
 import Header from '../components/Header';
-import {connect} from 'react-redux';
-import {handlechangetask} from '../redux/Action/CreateTask.action';
+import { connect } from 'react-redux';
+import { handlechangetask } from '../redux/Action/CreateTask.action';
 
 const myPickerTheme = {
   dateIcon: {
@@ -56,7 +56,7 @@ class CreateTask extends Component {
     };
   }
   handleChange = async (text, name) => {
-    await this.setState({[name]: text});
+    await this.setState({ [name]: text });
   };
 
   onChange = (event, selectedDate) => {
@@ -69,7 +69,7 @@ class CreateTask extends Component {
   };
 
   showMode = currentMode => {
-    this.setState({show: true, mode: currentMode});
+    this.setState({ show: true, mode: currentMode });
   };
 
   showDatepicker = () => {
@@ -83,13 +83,13 @@ class CreateTask extends Component {
   render() {
     return (
       <>
-        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+        <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
           <Header title={'Create Task'} />
           <ImageBackground
-            style={{flex: 1}}
+            style={{ flex: 1 }}
             source={require('../static/background2.png')}>
             <ScrollView>
-              <View style={{paddingLeft: 10, paddingRight: 10}}>
+              <View style={{ paddingLeft: 10, paddingRight: 10 }}>
                 <InputGroup>
                   <Text>Task Name</Text>
                   <Input
@@ -107,7 +107,7 @@ class CreateTask extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Department</Text>
+                <Text style={{ marginTop: 15 }}>Department</Text>
                 <InputGroup
                   style={{
                     marginTop: 13,
@@ -115,13 +115,13 @@ class CreateTask extends Component {
                     borderRadius: 4,
                     height: 50,
                   }}>
-                  <Picker style={{height: 55, width: '100%'}}>
+                  <Picker style={{ height: 55, width: '100%' }}>
                     <Picker.Item label="IT" value="IT" />
                     <Picker.Item label="HR" value="HR" />
                   </Picker>
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Assignee</Text>
+                <Text style={{ marginTop: 15 }}>Assignee</Text>
 
                 <InputGroup
                   style={{
@@ -137,7 +137,7 @@ class CreateTask extends Component {
                   </Picker>
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>From Date</Text>
+                <Text style={{ marginTop: 15 }}>From Date</Text>
                 <InputGroup
                   style={{
                     backgroundColor: '#fff',
@@ -146,13 +146,13 @@ class CreateTask extends Component {
                     marginTop: 10,
                   }}>
                   <DateTimePicker
-                    style={{width: '100%', height: 55}}
+                    style={{ width: '100%', height: 55 }}
                     value={new Date()}
                     customStyles={myPickerTheme}
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>To Date</Text>
+                <Text style={{ marginTop: 15 }}>To Date</Text>
                 <InputGroup
                   style={{
                     backgroundColor: '#fff',
@@ -160,9 +160,9 @@ class CreateTask extends Component {
                     borderRadius: 4,
                     marginTop: 10,
                   }}>
-                  <DateTimePicker value={new Date()} style={{width: '100%'}} />
+                  <DateTimePicker value={new Date()} style={{ width: '100%' }} customStyles={myPickerTheme} />
                 </InputGroup>
-                <Text style={{marginTop: 15}}>Task Assign Date</Text>
+                <Text style={{ marginTop: 15 }}>Task Assign Date</Text>
                 <InputGroup
                   style={{
                     backgroundColor: '#fff',
@@ -170,7 +170,7 @@ class CreateTask extends Component {
                     borderRadius: 4,
                     marginTop: 10,
                   }}>
-                  <DateTimePicker value={new Date()} style={{width: '100%'}} />
+                  <DateTimePicker value={new Date()} style={{ width: '100%' }} customStyles={myPickerTheme} />
                 </InputGroup>
 
                 <InputGroup>
@@ -192,7 +192,7 @@ class CreateTask extends Component {
                     }
                   />
                 </InputGroup>
-                <Text style={{marginTop: 15}}>Task Priority</Text>
+                <Text style={{ marginTop: 15 }}>Task Priority</Text>
                 <InputGroup
                   style={{
                     marginTop: 13,
@@ -202,8 +202,8 @@ class CreateTask extends Component {
                   }}>
                   <Picker
                     // selectedValue={selectedValue}
-                    style={{height: 50, width: '100%'}}
-                    // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    style={{ height: 50, width: '100%' }}
+                  // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                   >
                     <Picker.Item label="Low" value="Low" />
                     <Picker.Item label="Medium" value="Medium" />
@@ -211,7 +211,7 @@ class CreateTask extends Component {
                   </Picker>
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Task Status</Text>
+                <Text style={{ marginTop: 15 }}>Task Status</Text>
                 <InputGroup
                   style={{
                     marginTop: 13,
@@ -221,8 +221,8 @@ class CreateTask extends Component {
                   }}>
                   <Picker
                     // selectedValue={selectedValue}
-                    style={{ width: '100%'}}
-                    // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
+                    style={{ width: '100%' }}
+                  // onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
                   >
                     <Picker.Item label="To do" value="To do" />
                     <Picker.Item label="Progress" value="Progress" />
@@ -230,7 +230,7 @@ class CreateTask extends Component {
                   </Picker>
                 </InputGroup>
 
-                <InputGroup style={{backgroundColor:'#fff'}}>
+                <InputGroup style={{ backgroundColor: '#fff' }}>
                   <Input
                     placeholder="Attachment"
                     value={this.state.taskName}
@@ -248,10 +248,10 @@ class CreateTask extends Component {
 
 const mapStateToProps = state => {
   const taskName = state.CreateTaskReducer.taskName;
-  return {taskName};
+  return { taskName };
 };
 
 export default connect(
   mapStateToProps,
-  {handlechangetask},
+  { handlechangetask },
 )(CreateTask);
