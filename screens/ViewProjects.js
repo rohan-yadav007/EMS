@@ -56,6 +56,13 @@ class ViewProjects extends Component {
     }
   }
   async componentDidMount() {
+    await this._onRefresh();
+
+
+  }
+
+  _onRefresh = async () => {
+    this.setState({ refreshing: true });
     const ProjectId = this.props.route.params.ProjectId;
     await this.props.viewProjectDetail(ProjectId);
     await this.setState({ projectDetail: this.props.projectDetail })
@@ -76,12 +83,7 @@ class ViewProjects extends Component {
     await this.props.getDesignation();
     await this.setState({ designationData: this.props.designationData })
     await this.getFinalData();
-
-  }
-
-  _onRefresh = async () => {
-    this.setState({ refreshing: true });
-    
+    await this.setState({ refreshing: false });
   }
 
   async getFinalData() {
@@ -99,10 +101,10 @@ class ViewProjects extends Component {
     const city = this.state.cityData.filter((city) => city.a_CityId === projectDetail.n_CityId
       && city.n_CountryId === projectDetail.n_CountryId
       && city.n_StateId === projectDetail.n_StateId)
-    if (city.length !== 0) {
-      const presentcity = city[0]
-      this.setState({ city: presentcity.t_CityName })
-    }
+      if (city.length !== 0) {
+        const presentcity = city[0]
+        this.setState({ city: presentcity.t_CityName })
+      }
     const departmentData = this.state.deparmentData.filter((department) => department.a_DepartmentId === projectDetail.n_DepartmentId)
     if (departmentData.length !== 0) {
       const department = departmentData[0]
@@ -149,8 +151,8 @@ class ViewProjects extends Component {
     const basicDetail = {
       "ProjectTitle": projectDetail?.t_ProjectTitle, "ProjectRefNo": projectDetail?.t_ProjectRefNo,
       "Status": projectDetail.n_status == 1 ? "In Progress" : projectDetail.n_status == 2 ? "Hold"
-        : projectDetail.n_status == 3 ? "Completed" : projectDetail.n_status == 4 ? "Insufficient"
-          : "Delay",
+              : projectDetail.n_status == 3 ? "Completed" : projectDetail.n_status == 4 ? "Insufficient"
+              : "Delay",
       "LOE Attachment": projectDetail.t_AttachamentLOEFile, "Remarks": projectDetail.t_ClientInfo
     }
     const assign = {
@@ -246,9 +248,6 @@ class ViewProjects extends Component {
           source={require('../static/background2.png')}>
           <Header />
           <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 40, }}>
-            {loading && <Loader >
-              <ActivityIndicator size="large" color="#3875c3" />
-            </Loader>}
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />} >
               {this.renderData(this.state.basicDetail, "Basic Project ")}
               {this.renderData(this.state.assign, "Assign")}
