@@ -30,3 +30,9 @@ export const ModuleBG = styled.ImageBackground`
   padding: 15px;
   border-radius: 40px;
 `;
+export const Loader = styled.View`
+  position: absolute;
+  top: ${props => props.top || '50%'};
+  left: ${props => props.left || '45%'};
+  z-index: 11;
+`;

@@ -10,6 +10,7 @@ export const Srnumber = styled.Text`
   padding: 15px;
   color: #fff;
   margin-top:20px;
+  width:100%;
 `;
 
 export const Tasklist1 = styled.View`
@@ -47,4 +48,22 @@ export const ButtonMedium = styled.View`
   padding-bottom: 15px;
   margin-top: 0px;
   border:1px solid #f1f1f1;
+`;
+
+export const AddTask = styled.TouchableOpacity`
+  background-color: #000000b0;
+  padding: 10px;
+  flex-direction: row;
+  border-radius: 4px;
+  width: 100%;
+  margin-top: 5px;
+  justify-content: center;
+`;
+
+export const AddTaskText = styled.Text`
+  text-align: center;
+  font-size: 17px;
+  margin-left:5px;
+  color: #fff;
+  text-transform: uppercase;
 `;

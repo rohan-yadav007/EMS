@@ -89,6 +89,7 @@ class AttendencePage extends Component {
     };
     await this.props.MarkAttendence(postObj);
     await this._onRefresh;
+    await this.setState({d_InTime:this.props.getMarkResult?.d_InTime})
   }
 
   render() {

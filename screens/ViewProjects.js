@@ -7,6 +7,7 @@ import {
   ImageBackground,
   ActivityIndicator,
   ScrollView,
+  BackHandler
 } from 'react-native';
 import Header from '../components/Header';
 import { Col, Grid } from 'react-native-easy-grid';
@@ -26,6 +27,14 @@ import { viewProjectDetail } from '../redux/Action/Projects.action';
     await this.props.viewProjectDetail(ProjectId);
     console.log("prjdetail",this.props.projectDetail)
     console.log("info",this.props.projectDetail?.t_Location?.t_FirstName)
+    this.backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      ()=>{return false}
+    );
+  }
+
+  componentWillUnmount() {
+    this.backHandler.remove();
   }
   render() {
     const {loading,projectDetail} = this.props;
