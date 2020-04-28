@@ -16,6 +16,7 @@ import {connect} from 'react-redux';
 import CreateTask from '../screens/CreateTask';
 import ProjectList from '../screens/Projects';
 import ViewProjects from '../screens/ViewProjects';
+import TaskList from '../screens/TaskList';
 
 const Drawer = createDrawerNavigator();
 
@@ -185,6 +186,7 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="CreateTask" component={CreateTask} />
               <Drawer.Screen name="Projects" component={ProjectList} />
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
+              <Drawer.Screen name="TaskList" component={TaskList} />
             </>
           ) : (
             <>

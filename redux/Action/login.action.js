@@ -30,14 +30,20 @@ export const getLogin = postObj => async dispatch => {
 };
 
 export const loginStatus = () => async dispatch => {
+  dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
   const UserId = await getData('UserId');
   if (UserId !== (null || undefined)) {
-    dispatchAction(dispatch, loginAction.LOGIN_STATUS_SUCCESS, null, true, null, null);
+    await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
+    await setTimeout(()=>dispatchAction(dispatch, loginAction.LOGIN_STATUS_SUCCESS, null, true, null, null),2000)
   }
-
+  else{
+    await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
+  }
 };
 
 export const handleLogout = () => async dispatch => {
+  dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
   await RemoveAll();
-  dispatchAction(dispatch, loginAction.LOGOUT_SUCCESS, null, false);
+  await setTimeout(()=>dispatchAction(dispatch, loginAction.LOGOUT_SUCCESS, null, false),2000)
+  await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
 };
