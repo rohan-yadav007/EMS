@@ -28,6 +28,7 @@ export const InputBox = styled.View`
   flex-direction: row;
   border-bottom-color: #fff;
   flex: 7;
+  
 `;
 export const Select = styled.Picker`
 flex-direction:row;
