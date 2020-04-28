@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 
 const RenderTask = (props) => {
   const Task = props?.item
-  console.log(props);
   return (
     <>
       <View>
