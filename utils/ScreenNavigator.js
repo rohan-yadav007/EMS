@@ -17,7 +17,8 @@ import CreateTask from '../screens/CreateTask.js';
 import ProjectList from '../screens/Projects';
 import ViewProjects from '../screens/ViewProjects';
 import TaskList from '../screens/TaskList';
-// import ApplyLeave from '../screens/ApplyLeave';
+import ApplyLeave from '../screens/ApplyLeave';
+import AddLeave from '../screens/AddLeave';
 
 const Drawer = createDrawerNavigator();
 
@@ -188,7 +189,8 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="Projects" component={ProjectList} />
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
               <Drawer.Screen name="TaskList" component={TaskList} />
-              {/* <Drawer.Screen name="ApplyLeave" component={ApplyLeave} /> */}
+              <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
+              <Drawer.Screen name="AddLeave" component={AddLeave}/>
             </>
           ) : (
             <>
