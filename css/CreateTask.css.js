@@ -13,14 +13,17 @@ color: ${props => props.color || 'transparent'};
 
 export const InputGroup = styled.View`
   display: flex;
-  margin-top: 30px;
+  margin-top: 7px;
+  margin-bottom: 8px;
   flex-direction: column;
+  background-color: #fff;
+  height:${props=>props.h || '50px'} ;
+  border-radius: 4px;
+  flex-direction:row;
 `;
 export const Input = styled.TextInput`
   padding: 5px;
   flex: 8;
-  border-bottom-width:1px;
-  border-bottom-color:#aaaaaa;
 `;
 export const InputBox = styled.View`
   border-bottom-width: 1px;

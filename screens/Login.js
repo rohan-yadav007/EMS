@@ -101,7 +101,7 @@ class Login extends Component {
                                     <InputGroup >
                                         <InputLogo><Icon name="lock" size={40} color="#000" /></InputLogo>
                                         <InputBox >
-                                            <Input placeholder="Your Password" value={password} onChangeText={(text) => this.handleChange(text, 'password')} />
+                                            <Input placeholder="Your Password" secureTextEntry={true} value={password} onChangeText={(text) => this.handleChange(text, 'password')} />
                                             {error.passwordError !== '' ? <ErrorText>{error.passwordError}</ErrorText> : null}
                                         </InputBox>
                                     </InputGroup>
