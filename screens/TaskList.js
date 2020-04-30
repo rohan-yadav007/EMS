@@ -117,8 +117,16 @@ class TaskList extends Component {
       refreshing: false,
     }
   }
-  async componentDidMount() {
-    await this._onRefresh();
+  componentDidMount() {
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
+
+  }
+
+  componentWillUnmount() {
+    this._unsubscribe();
   }
   _onRefresh = async () => {
     this.setState({ refreshing: true })
@@ -131,13 +139,16 @@ class TaskList extends Component {
   }
 
   handleCreateTask = () => {
-    this.props.navigation.navigate('CreateTask');
+    const groupId = this.props.route?.params?.GroupId;
+    const projectId = this.props.route?.params?.ProjectId;
+    this.props.navigation.navigate('CreateTask', { GroupId: groupId, ProjectId: projectId });
   };
   getItemCount = () => {
     return 1;
   }
   render() {
     const { refreshing } = this.state;
+
     return (
       <>
         <ImageBackground

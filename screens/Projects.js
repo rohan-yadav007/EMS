@@ -102,7 +102,14 @@ class ProjectList extends Component {
     }
   }
   async componentDidMount() {
-    await this._onRefresh();
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
+
+  }
+  componentWillUnmount() {
+    this._unsubscribe();
   }
   _onRefresh = async () => {
     this.setState({ refreshing: true })

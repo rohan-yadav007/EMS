@@ -26,11 +26,14 @@ class AttendencePage extends Component {
     };
   }
   async componentDidMount() {
-    await this._onRefresh();
-    // const data = await getAll();
-    // console.log(data);
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
   }
-
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
   _onRefresh = async () => {
     this.setState({ refreshing: true });
     const date = new Date();
@@ -45,8 +48,7 @@ class AttendencePage extends Component {
       fullYear = year + '-' + getmonth + '-' + day;
     }
     if (this.props.AttendenceData) {
-      await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj });
-      setTimeout(() => { this.setState({ refreshing: false }) }, 2000)
+      await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj,refreshing: false });
     }
   }
 
