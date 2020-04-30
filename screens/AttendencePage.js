@@ -79,7 +79,7 @@ class AttendencePage extends Component {
     const hour = d.getHours();
     const minute = d.getMinutes();
     const InTime = `${hour}:${minute}`;
-    const { PresentDate, month } = this.state;
+    const { PresentDate, month ,d_InTime} = this.state;
     const postObj = {
       "n_EmployeeId": 159,
       "d_Date": PresentDate,
@@ -90,7 +90,10 @@ class AttendencePage extends Component {
     };
     await this.props.MarkAttendence(postObj);
     await this._onRefresh;
-    await this.setState({d_InTime:this.props.getMarkResult?.d_InTime})
+    if(!d_InTime){
+      await this.setState({d_InTime:this.props.getMarkResult?.d_InTime})
+    }
+    
   }
 
   render() {
