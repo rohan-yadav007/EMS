@@ -216,7 +216,6 @@ class Expenseaddform extends Component {
                             textAlign: 'center',
                             color: '#fff',
                             fontSize: 18,
-                          
                           }}>
                           Save
                         </Text>
@@ -229,8 +228,7 @@ class Expenseaddform extends Component {
                         marginTop: 30,
                         marginBottom: 20,
                         borderRadius: 15,
-                        marginLeft:10,
-                        
+                        marginLeft: 10,
                       }}>
                       <LinearGradient
                         colors={['#d71d1d', '#ff5959', '#d71d1d']}>
