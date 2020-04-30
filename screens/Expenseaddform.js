@@ -1,6 +1,6 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   View,
@@ -10,17 +10,20 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Picker,
+  Modal,
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Input, InputGroup} from '../css/CreateTask.css';
+import { Input, InputGroup } from '../css/CreateTask.css';
+import {ModalTopContent,NavButton, CloseButton} from '../css/Expense.css';
 import Header from '../components/Header';
-import {connect} from 'react-redux';
-import {handlechangetask} from '../redux/Action/CreateTask.action';
+import { connect } from 'react-redux';
+import { handlechangetask } from '../redux/Action/CreateTask.action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Close from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
-import {Col, Grid} from 'react-native-easy-grid';
+import { Col, Grid } from 'react-native-easy-grid';
 
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
@@ -44,111 +47,47 @@ class Expenseaddform extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: '',
-      department: 'IT',
-      assignee: 'simran',
-      date: new Date(),
-      fromDate: '',
-      toDate: '',
-      taskAssignDate: '',
-      taskAssignTime: '',
-      taskSummary: '',
-      taskPriority: '',
-      show: false,
-      mode: '',
-      isDateTimePickerVisible: false,
-      selectedInput: '',
-      avatarSource: null,
+      Popup:false
     };
   }
   handleChange = async (text, name) => {
-    await this.setState({[name]: text});
+    await this.setState({ [name]: text });
   };
+  handleView = () => {
 
-  onChange = (event, selectedDate, name) => {
-    const currentDate = selectedDate || this.state.date;
-    if (name) {
-      console.log(selectedDate, name);
-      if (name === 'taskAssignTime') {
-        let timeHour = currentDate.getHours();
-        if (timeHour < 10) {
-          timeHour = '0' + timeHour;
-        }
-        let timeMinute = currentDate.getMinutes();
-        if (timeMinute < 10) {
-          timeMinute = '0' + timeMinute;
-        }
-        const time = timeHour + ':' + timeMinute;
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            show: false,
-            [name]: `${time}`,
-          };
-        });
-      } else {
-        const day = currentDate.getDate();
-        const month = currentDate.getMonth();
-        const year = currentDate.getFullYear();
-
-        let date = '';
-        if (month < 10) {
-          const getmonth = '0' + (month + 1).toString();
-          date = day + '-' + getmonth + '-' + year;
-        }
-        this.setState(prevState => {
-          return {
-            ...prevState,
-            show: false,
-            [name]: `${date}`,
-          };
-        });
-      }
-    }
-  };
-
-  handleImage = async () => {
-    ImagePicker.showImagePicker(options, async response => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('cancelled');
-      } else if (response.error) {
-        console.log('Error: ', response.error);
-      } else {
-        const source = {uri: 'data:image/jpeg;base64,' + response.data};
-        this.setState({
-          avatarSource: source,
-        });
-      }
-    });
-  };
-
+  }
   render() {
-    const {
-      show,
-      mode,
-      fromDate,
-      taskAssignTime,
-      avatarSource,
-      selectedInput,
-      taskAssignDate,
-      taskSummary,
-      toDate,
-      date,
-    } = this.state;
-    const dateObj = {mode: 'date', show: true};
-    const timeObj = {mode: 'time', show: true};
+    const {Popup} = this.state;
     return (
       <>
-        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
+      <Modal transparent={true} visible={Popup}>
+        <View style={{ backgroundColor: '#000000aa', flex: 1 }}>
+          <ModalTopContent>
+            <CloseButton onPress={() => this.setState({Popup:false})}>
+              <Close name="close-circle" color='#0072e6' size={30} />
+            </CloseButton>
+
+            <NavButton >
+              <Text style={{textAlign: 'center', color: '#fff', fontSize: 15, textTransform: 'uppercase', }}>
+                Project View
+              </Text>
+           
+              <Text style={{textAlign: 'center',color: '#fff',fontSize: 15, textTransform: 'uppercase', }}>
+               Task List
+              </Text>
+            </NavButton>
+            
+          </ModalTopContent>
+        </View>
+      </Modal>
+        <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
           <Header title={'Add Form'} />
           <ImageBackground
-            style={{flex: 1}}
+            style={{ flex: 1 }}
             source={require('../static/background2.png')}>
             <ScrollView>
-              <View style={{paddingLeft: 10, marginTop: 20, paddingRight: 10}}>
-                <Text style={{marginTop: 15}}>Employee Name</Text>
+              <View style={{ paddingLeft: 10, marginTop: 20, paddingRight: 10 }}>
+                <Text style={{ marginTop: 15 }}>Employee Name</Text>
                 <InputGroup>
                   <Input
                     placeholder="Super"
@@ -157,7 +96,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Department</Text>
+                <Text style={{ marginTop: 15 }}>Department</Text>
                 <InputGroup>
                   <Input
                     placeholder="Sales & Marketing"
@@ -168,7 +107,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Designation</Text>
+                <Text style={{ marginTop: 15 }}>Designation</Text>
                 <InputGroup>
                   <Input
                     placeholder="Sale Head"
@@ -177,7 +116,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Employee ID</Text>
+                <Text style={{ marginTop: 15 }}>Employee ID</Text>
                 <InputGroup>
                   <Input
                     placeholder="111"
@@ -186,15 +125,15 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{marginTop: 15}}>Project</Text>
+                <Text style={{ marginTop: 15 }}>Project</Text>
                 <InputGroup>
                   <Picker
-                    style={{height: 55, width: '100%'}}
+                    style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.department}
                     onValueChange={(itemValue, itemIndex) =>
-                      this.setState({department: itemValue})
+                      this.setState({ department: itemValue,Popup:true })
                     }>
-                    <Picker.Item label="Non Project" value="Non Project" />
+                    <Picker.Item label="Non Project" value="Non Project"/>
                     <Picker.Item label="EliteMindz" value="EliteMindz" />
                   </Picker>
                 </InputGroup>
@@ -257,10 +196,10 @@ class Expenseaddform extends Component {
 
 const mapStateToProps = state => {
   const taskName = state.CreateTaskReducer.taskName;
-  return {taskName};
+  return { taskName };
 };
 
 export default connect(
   mapStateToProps,
-  {handlechangetask},
+  { handlechangetask },
 )(Expenseaddform);
