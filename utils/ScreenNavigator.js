@@ -13,12 +13,14 @@ import {GET} from './responseHelper';
 import {getData} from './AsyncStorage';
 import {loginStatus} from '../redux/Action/login.action';
 import {connect} from 'react-redux';
-import CreateTask from '../screens/CreateTask.js';
+import CreateTask from '../screens/CreateTask';
 import ProjectList from '../screens/Projects';
 import ViewProjects from '../screens/ViewProjects';
 import TaskList from '../screens/TaskList';
 import ApplyLeave from '../screens/ApplyLeave';
 import AddLeave from '../screens/AddLeave';
+import Expense from '../screens/Expense';
+import Expenseaddform from '../screens/Expenseaddform';
 
 const Drawer = createDrawerNavigator();
 
@@ -190,7 +192,9 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
               <Drawer.Screen name="TaskList" component={TaskList} />
               <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
-              <Drawer.Screen name="AddLeave" component={AddLeave}/>
+              <Drawer.Screen name="AddLeave" component={AddLeave} />
+              <Drawer.Screen name="Expense" component={Expense} />
+              <Drawer.Screen name="Expenseaddform" component={Expenseaddform} />
             </>
           ) : (
             <>
