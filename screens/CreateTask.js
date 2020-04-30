@@ -1,17 +1,16 @@
-/* eslint-disable no-trailing-spaces */
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { View, Image, Text, ImageBackground, SafeAreaView, TouchableOpacity, Picker, ScrollView, TextInput, } from 'react-native';
 import { Input, InputGroup, } from '../css/CreateTask.css';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
-import { handlechangetask } from '../redux/Action/CreateTask.action';
+import { handlechangetask, createUpdateTask, getTaskDepartment, getTaskAssignee, getTaskPriority, getTaskStatus } from '../redux/Action/CreateTask.action';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
+import { getData } from '../utils/AsyncStorage';
+import {GetIP} from '../utils/deviceInfo';
 
-// More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
   title: 'Select',
   storageOptions: {
@@ -34,8 +33,8 @@ class CreateTask extends Component {
     super(props);
     this.state = {
       taskName: '',
-      department: 'IT',
-      assignee: 'simran',
+      department: '',
+      assignee: '',
       date: new Date(),
       fromDate: '',
       toDate: '',
@@ -43,21 +42,77 @@ class CreateTask extends Component {
       taskAssignTime: '',
       taskSummary: '',
       taskPriority: '',
+      taskStatus: '',
       show: false,
       mode: '',
       isDateTimePickerVisible: false,
       selectedInput: '',
-      avatarSource: null
+      avatarSource: null,
+      departmentList: [],
+      assineeList: [],
+      priorityList: [],
+      statusList: []
     };
+  }
+
+  async componentDidMount() {
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
+  }
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+  _onRefresh = async () => {
+    const { GroupId } = this.props.route?.params;
+    await this.props.getTaskDepartment(GroupId);
+
+    await this.props.getTaskPriority();
+    await this.props.getTaskStatus();
+  }
+  handleAssignee = async (itemValue) => {
+    await this.setState({ department: itemValue })
+    await this.props.getTaskAssignee(itemValue);
   }
   handleChange = async (text, name) => {
     await this.setState({ [name]: text });
   };
+  submitHandler = async (mode) => {
 
+    const employeeId = await getData('UserId');
+const Get_IP = await GetIP;
+    const { taskName, fromDate, department, taskAssignTime, assignee, avatarSource, taskPriority, taskAssignDate, taskSummary,
+      taskStatus, toDate, date } = this.state;
+    const { GroupId, ProjectId } = this.props.route?.params;
+    const postObj = {
+      a_TaskId: 0,
+      mode: mode,
+      n_ProjectId: ProjectId,
+      t_TaskTitle: taskName,
+      t_TaskSummay: taskSummary,
+      n_TaskPriorityId: taskPriority,
+      n_DepartmentId: department,
+      n_AssigneeEmployeeId: assignee,
+      d_FromDate: fromDate,
+      d_ToDate: toDate,
+      d_ReportSubmissionDate: taskAssignDate,
+      d_ReportSubmissionTime: taskAssignTime,
+      n_TaskStatusID: taskStatus,
+      n_GroupID: GroupId,
+      b_Deleted: 0,
+      n_CreatedBy: employeeId,
+      d_CreatedOn: date,
+      t_CreatedIP: Get_IP,
+      t_AttachmentFile: avatarSource
+    };
+    console.log('postObj :>> ', postObj);
+
+    await this.props.createUpdateTask(postObj);
+  }
   onChange = (event, selectedDate, name) => {
     const currentDate = selectedDate || this.state.date;
     if (name) {
-      console.log(selectedDate, name);
       if (name === "taskAssignTime") {
         let timeHour = currentDate.getHours();
         if (timeHour < 10) {
@@ -84,7 +139,7 @@ class CreateTask extends Component {
         let date = '';
         if (month < 10) {
           const getmonth = "0" + (month + 1).toString();
-          date = day + "-" + getmonth + "-" + year;
+          date = year + "-"+ getmonth + "-" + day ;
         }
         this.setState(prevState => {
           return ({
@@ -98,8 +153,8 @@ class CreateTask extends Component {
   };
 
   handleImage = async () => {
+    const source = 
     ImagePicker.showImagePicker(options, async (response) => {
-      console.log('Response = ', response);
 
       if (response.didCancel) {
         console.log('cancelled');
@@ -118,6 +173,8 @@ class CreateTask extends Component {
     const { show, mode, fromDate, taskAssignTime, avatarSource, selectedInput, taskAssignDate, taskSummary, toDate, date } = this.state;
     const dateObj = { mode: "date", show: true, };
     const timeObj = { mode: "time", show: true, };
+    const { departmentList, assineeList, priorityList, statusList } = this.props;
+ 
     return (
       <>
         <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
@@ -139,12 +196,17 @@ class CreateTask extends Component {
 
                 <Text style={{ marginTop: 15 }}>Department</Text>
                 <InputGroup>
+
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.department}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ department: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => this.handleAssignee(itemValue)}
                   >
-                    <Picker.Item label="IT" value="IT" />
-                    <Picker.Item label="HR" value="HR" />
+                    <Picker.Item label="Select" value={null} />
+                    {departmentList?.map((e, i) => {
+                      return (
+                        <Picker.Item key={i} label={e?.t_DepartmentName} value={e?.a_DepartmentId} />
+                      )
+                    })}
                   </Picker>
                 </InputGroup>
 
@@ -152,11 +214,14 @@ class CreateTask extends Component {
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.assignee}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ department: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ assignee: itemValue })}
                   >
-                    <Picker.Item label="simran" value="simran" />
-                    <Picker.Item label="rohan" value="rohan" />
-                    <Picker.Item label="vipul" value="vipul" />
+                    <Picker.Item label="Select" value={null} />
+                    {assineeList?.map((e, i) => {
+                      return (
+                        <Picker.Item key={i} label={e.t_First_Name} value={e.a_EmployeeId} />
+                      )
+                    })}
                   </Picker>
                 </InputGroup>
 
@@ -229,11 +294,14 @@ class CreateTask extends Component {
                 <InputGroup>
                   <Picker
                     selectedValue={this.state.taskPriority}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ taskPriority: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ taskPriority: itemValue })}
                     style={{ height: 50, width: '100%' }}>
-                    <Picker.Item label="Low" value="Low" />
-                    <Picker.Item label="Medium" value="Medium" />
-                    <Picker.Item label="High" value="High" />
+                    <Picker.Item label="Select" value={null} />
+                    {priorityList?.map((e, i) => {
+                      return (
+                        <Picker.Item key={i} label={e.t_Name} value={e.a_PriorityId} />
+                      )
+                    })}
                   </Picker>
                 </InputGroup>
 
@@ -244,9 +312,12 @@ class CreateTask extends Component {
                     onValueChange={(itemValue, itemIndex) => this.setState({ taskStatus: itemValue })}
                     style={{ width: '100%' }}
                   >
-                    <Picker.Item label="To do" value="Todo" />
-                    <Picker.Item label="Progress" value="Progress" />
-                    <Picker.Item label="Done" value="Done" />
+                    <Picker.Item label="Select" value={null} />
+                    {statusList?.map((e, i) => {
+                      return (
+                        <Picker.Item key={i} label={e.t_Name} value={e.a_StatusId} />
+                      )
+                    })}
                   </Picker>
                 </InputGroup>
 
@@ -264,22 +335,22 @@ class CreateTask extends Component {
                     : null
                   }
                   <TouchableOpacity
-                    style={{ backgroundColor: '#e1e1e1', height: 30,width:'50%', padding: 5, borderRadius: 5, alignSelf: 'center', justifyContent: 'center' }}
+                    style={{ backgroundColor: '#e1e1e1', height: 30, width: '50%', padding: 5, borderRadius: 5, alignSelf: 'center', justifyContent: 'center' }}
                     onPress={() => this.handleImage()}
                   >
-                    <Text style={{alignSelf:'center'}}>Choose File</Text>
+                    <Text style={{ alignSelf: 'center' }}>Choose File</Text>
                   </TouchableOpacity>
                 </InputGroup>
 
-                 <TouchableOpacity style={{marginTop:10,marginBottom:20,borderRadius:15}}>
-                <LinearGradient colors={['#d71d1d', '#ff5959', '#d71d1d']}>
-               
-                <Text style={{width:'100%',padding:15,textAlign:'center',color:'#fff',fontSize:18}}>Submit</Text>
-               
-                </LinearGradient>
+                <TouchableOpacity onPress={() => this.submitHandler('SUBMIT')} style={{ marginTop: 10, marginBottom: 20, borderRadius: 15 }}>
+                  <LinearGradient colors={['#d71d1d', '#ff5959', '#d71d1d']}>
+
+                    <Text style={{ width: '100%', padding: 15, textAlign: 'center', color: '#fff', fontSize: 18 }}>Submit</Text>
+
+                  </LinearGradient>
                 </TouchableOpacity>
               </View>
-             
+
             </ScrollView>
           </ImageBackground>
         </SafeAreaView>
@@ -289,11 +360,14 @@ class CreateTask extends Component {
 }
 
 const mapStateToProps = state => {
-  const taskName = state.CreateTaskReducer.taskName;
-  return { taskName };
+  const departmentList = state.CreateTaskReducer.TaskDepartmentList;
+  const assineeList = state.CreateTaskReducer.TaskAssigneeList;
+  const priorityList = state.CreateTaskReducer.TaskPriorityList;
+  const statusList = state.CreateTaskReducer.TaskStatusList;
+  return { departmentList, assineeList, priorityList, statusList };
 };
 
 export default connect(
   mapStateToProps,
-  { handlechangetask },
+  { handlechangetask, createUpdateTask, getTaskDepartment, getTaskAssignee, getTaskPriority, getTaskStatus },
 )(CreateTask);

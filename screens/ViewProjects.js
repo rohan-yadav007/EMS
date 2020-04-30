@@ -56,11 +56,15 @@ class ViewProjects extends Component {
     }
   }
   async componentDidMount() {
-    await this._onRefresh();
-
-
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
   }
-
+  
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
   _onRefresh = async () => {
     this.setState({ refreshing: true });
     const ProjectId = this.props.route.params.ProjectId;
@@ -246,7 +250,7 @@ class ViewProjects extends Component {
         <ImageBackground
           style={{ flex: 1 }}
           source={require('../static/background2.png')}>
-          <Header />
+          <Header title="Project Detail" />
           <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 40, }}>
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />} >
               {this.renderData(this.state.basicDetail, "Basic Project ")}

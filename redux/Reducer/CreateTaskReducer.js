@@ -1,16 +1,11 @@
 import * as actions from '../actionType/CreateTask.actionType';
 const initialState = {
-  taskName: '',
-  department: '',
-  asignee: '',
-  fromDate: '',
-  toDate: '',
-  taskAsignDate: '',
-  taskAsignTime: '',
-  taskSummary: '',
-  taskPriority: '',
-  taskStatus: '',
-  TaskList: []
+  
+  TaskList: [],
+  TaskAssigneeList:[],
+  TaskDepartmentList:[],
+  TaskPriorityList:[],
+  TaskStatusList:[]
 };
 
 const CreateTaskReducer = (state, action) => {
@@ -21,7 +16,7 @@ const CreateTaskReducer = (state, action) => {
     case actions.HANDLE_CHANGE:
       const name = action.payload.target.name;
       const value = action.payload.target.value;
-      // console.log("action name" ,name , value)
+      
       return {
         ...state,
         [name]: value
@@ -29,7 +24,32 @@ const CreateTaskReducer = (state, action) => {
 
     case actions.GET_TASKLIST_SUCCESS:
       return {
+        ...state,
         TaskList: action.payload,
+        message: action.message
+      };
+    case actions.GET_TASKDEPARTMENT_SUCCESS:
+      return {
+        ...state,
+        TaskDepartmentList: action.payload,
+        message: action.message
+      };
+    case actions.GET_TASKASSINEE_SUCCESS:
+      return {
+        ...state,
+        TaskAssigneeList: action.payload,
+        message: action.message
+      };
+    case actions.GET_TASKPRIORITY_SUCCESS:
+      return {
+        ...state,
+        TaskPriorityList: action.payload,
+        message: action.message
+      };
+    case actions.GET_TASKSTATUS_SUCCESS:
+      return {
+        ...state,
+        TaskStatusList: action.payload,
         message: action.message
       };
     default:

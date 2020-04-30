@@ -26,11 +26,14 @@ class AttendencePage extends Component {
     };
   }
   async componentDidMount() {
-    await this._onRefresh();
-    // const data = await getAll();
-    // console.log(data);
+    const {navigation} = this.props;
+    this._unsubscribe = navigation.addListener('focus', async () => {
+      await this._onRefresh()
+    });
   }
-
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
   _onRefresh = async () => {
     this.setState({ refreshing: true });
     const date = new Date();
@@ -45,8 +48,7 @@ class AttendencePage extends Component {
       fullYear = year + '-' + getmonth + '-' + day;
     }
     if (this.props.AttendenceData) {
-      await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj });
-      setTimeout(() => { this.setState({ refreshing: false }) }, 2000)
+      await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj,refreshing: false });
     }
   }
 
@@ -77,7 +79,7 @@ class AttendencePage extends Component {
     const hour = d.getHours();
     const minute = d.getMinutes();
     const InTime = `${hour}:${minute}`;
-    const { PresentDate, month } = this.state;
+    const { PresentDate, month ,d_InTime} = this.state;
     const postObj = {
       "n_EmployeeId": 159,
       "d_Date": PresentDate,
@@ -88,7 +90,10 @@ class AttendencePage extends Component {
     };
     await this.props.MarkAttendence(postObj);
     await this._onRefresh;
-    await this.setState({d_InTime:this.props.getMarkResult?.d_InTime})
+    if(!d_InTime){
+      await this.setState({d_InTime:this.props.getMarkResult?.d_InTime})
+    }
+    
   }
 
   render() {
