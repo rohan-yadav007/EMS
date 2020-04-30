@@ -9,7 +9,7 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
 import { getData } from '../utils/AsyncStorage';
-import {GetIP} from '../utils/deviceInfo';
+import { GetIP } from '../utils/deviceInfo';
 
 const options = {
   title: 'Select',
@@ -32,21 +32,21 @@ class CreateTask extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: '',
-      department: '',
-      assignee: '',
+      taskName: null,
+      department: null,
+      assignee: null,
       date: new Date(),
-      fromDate: '',
-      toDate: '',
-      taskAssignDate: '',
-      taskAssignTime: '',
-      taskSummary: '',
-      taskPriority: '',
-      taskStatus: '',
+      fromDate: null,
+      toDate: null,
+      taskAssignDate: null,
+      taskAssignTime: null,
+      taskSummary: null,
+      taskPriority: null,
+      taskStatus: null,
       show: false,
-      mode: '',
+      mode: null,
       isDateTimePickerVisible: false,
-      selectedInput: '',
+      selectedInput: null,
       avatarSource: null,
       departmentList: [],
       assineeList: [],
@@ -56,7 +56,7 @@ class CreateTask extends Component {
   }
 
   async componentDidMount() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     this._unsubscribe = navigation.addListener('focus', async () => {
       await this._onRefresh()
     });
@@ -81,7 +81,7 @@ class CreateTask extends Component {
   submitHandler = async (mode) => {
 
     const employeeId = await getData('UserId');
-const Get_IP = await GetIP;
+    const Get_IP = await GetIP;
     const { taskName, fromDate, department, taskAssignTime, assignee, avatarSource, taskPriority, taskAssignDate, taskSummary,
       taskStatus, toDate, date } = this.state;
     const { GroupId, ProjectId } = this.props.route?.params;
@@ -104,11 +104,22 @@ const Get_IP = await GetIP;
       n_CreatedBy: employeeId,
       d_CreatedOn: date,
       t_CreatedIP: Get_IP,
-      t_AttachmentFile: avatarSource
+      t_AttachmentFile: avatarSource?.uri
     };
+    // const valArray = Object.entries(postObj);
+    // const nullArr = valArray.filter(e => e.includes(null));
+    // const errorField = [];
+    // nullArr.map(e => errorField.push(e[0]));
+    // this.setState(prevState => {
+    //   let errorState = {};
+    //   errorField.forEach(e => errorState[`${e}Error`] = "Required");
+    //   return {
+    //     ...prevState, ...errorState
+    //   }
+    // })
     console.log('postObj :>> ', postObj);
-
     await this.props.createUpdateTask(postObj);
+    this.props.navigation.goBack()
   }
   onChange = (event, selectedDate, name) => {
     const currentDate = selectedDate || this.state.date;
@@ -139,7 +150,7 @@ const Get_IP = await GetIP;
         let date = '';
         if (month < 10) {
           const getmonth = "0" + (month + 1).toString();
-          date = year + "-"+ getmonth + "-" + day ;
+          date = year + "-" + getmonth + "-" + day;
         }
         this.setState(prevState => {
           return ({
@@ -153,20 +164,20 @@ const Get_IP = await GetIP;
   };
 
   handleImage = async () => {
-    const source = 
-    ImagePicker.showImagePicker(options, async (response) => {
+    const source =
+      ImagePicker.showImagePicker(options, async (response) => {
 
-      if (response.didCancel) {
-        console.log('cancelled');
-      } else if (response.error) {
-        console.log('Error: ', response.error);
-      } else {
-        const source = { uri: 'data:image/jpeg;base64,' + response.data };
-        this.setState({
-          avatarSource: source,
-        });
-      }
-    });
+        if (response.didCancel) {
+          console.log('cancelled');
+        } else if (response.error) {
+          console.log('Error: ', response.error);
+        } else {
+          const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          this.setState({
+            avatarSource: source,
+          });
+        }
+      });
   }
 
   render() {
@@ -174,7 +185,7 @@ const Get_IP = await GetIP;
     const dateObj = { mode: "date", show: true, };
     const timeObj = { mode: "time", show: true, };
     const { departmentList, assineeList, priorityList, statusList } = this.props;
- 
+
     return (
       <>
         <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
@@ -183,9 +194,13 @@ const Get_IP = await GetIP;
             style={{ flex: 1 }}
             source={require('../static/background2.png')}>
             <ScrollView>
-              <View style={{ paddingLeft: 10, marginTop: 20, paddingRight: 10 }}>
 
-                <Text style={{ marginTop: 15 }}>Task Name</Text>
+              <View style={{ paddingLeft: 10, marginTop: 20, paddingRight: 10 }}>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Name </Text>
+                  {this.state.t_TaskTitleError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.t_TaskTitleError}</Text> : null}
+                </View>
+
                 <InputGroup>
                   <Input
                     placeholder="Task Name"
@@ -194,9 +209,11 @@ const Get_IP = await GetIP;
                   />
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Department</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Department </Text>
+                  {this.state.n_DepartmentIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_DepartmentIdError}</Text> : null}
+                </View>
                 <InputGroup>
-
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.department}
                     onValueChange={(itemValue, itemIndex) => this.handleAssignee(itemValue)}
@@ -210,7 +227,11 @@ const Get_IP = await GetIP;
                   </Picker>
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Assignee</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Assignee</Text>
+                  {this.state.n_AssigneeEmployeeIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_AssigneeEmployeeIdError}</Text> : null}
+                </View>
+
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.assignee}
@@ -225,7 +246,11 @@ const Get_IP = await GetIP;
                   </Picker>
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>From Date</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>From Date</Text>
+                  {this.state.d_FromDateError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.d_FromDateError}</Text> : null}
+                </View>
+
                 <InputGroup>
                   <TextInput style={{ width: '87%' }}
                     value={fromDate}
@@ -242,7 +267,11 @@ const Get_IP = await GetIP;
                   /> : null}
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>To Date</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>To Date</Text>
+                  {this.state.d_ToDateError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.d_ToDateError}</Text> : null}
+                </View>
+
                 <InputGroup>
                   <TextInput
                     style={{ width: '87%' }}
@@ -252,8 +281,11 @@ const Get_IP = await GetIP;
 
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-edit" size={35} color="#2696f2" />
                 </InputGroup>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Assign Date</Text>
+                  {this.state.d_ReportSubmissionDateError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.d_ReportSubmissionDateError}</Text> : null}
+                </View>
 
-                <Text style={{ marginTop: 15 }}>Task Assign Date</Text>
                 <InputGroup>
                   <TextInput style={{ width: '87%' }}
                     value={taskAssignDate}
@@ -269,16 +301,22 @@ const Get_IP = await GetIP;
                     customStyles={myPickerTheme}
                   /> : null}
                 </InputGroup>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Assign Time</Text>
+                  {this.state.d_ReportSubmissionTimeError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.d_ReportSubmissionTimeError}</Text> : null}
+                </View>
 
-                <Text style={{ marginTop: 15 }}>Task Assign Time</Text>
                 <InputGroup>
                   <TextInput style={{ width: '87%' }} value={taskAssignTime}
                     onFocus={() => { this.setState({ ...timeObj, selectedInput: "taskAssignTime", }) }}
                   />
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-clock" size={35} color="#2696f2" />
                 </InputGroup>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Summary</Text>
+                  {this.state.t_TaskSummayError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.t_TaskSummayError}</Text> : null}
+                </View>
 
-                <Text style={{ marginTop: 15 }}>Task Summary</Text>
                 <InputGroup h='100px'>
                   <Input
                     multiline={true}
@@ -289,8 +327,11 @@ const Get_IP = await GetIP;
                     }
                   />
                 </InputGroup>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Priority</Text>
+                  {this.state.n_TaskPriorityIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_TaskPriorityIdError}</Text> : null}
+                </View>
 
-                <Text style={{ marginTop: 15 }}>Task Priority</Text>
                 <InputGroup>
                   <Picker
                     selectedValue={this.state.taskPriority}
@@ -304,8 +345,11 @@ const Get_IP = await GetIP;
                     })}
                   </Picker>
                 </InputGroup>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Task Status</Text>
+                  {this.state.n_TaskStatusIDError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_TaskStatusIDError}</Text> : null}
+                </View>
 
-                <Text style={{ marginTop: 15 }}>Task Status</Text>
                 <InputGroup>
                   <Picker
                     selectedValue={this.state.taskStatus}
@@ -321,7 +365,11 @@ const Get_IP = await GetIP;
                   </Picker>
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Attachment</Text>
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={{ marginTop: 15 }}>Attachment</Text>
+                  {this.state.t_AttachmentFileError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.t_AttachmentFileError}</Text> : null}
+                </View>
+
                 <InputGroup h="auto" style={{ justifyContent: 'center', padding: 10, flexDirection: 'column' }}>
                   {avatarSource ?
                     <View style={{ alignSelf: 'center', padding: 5 }}>

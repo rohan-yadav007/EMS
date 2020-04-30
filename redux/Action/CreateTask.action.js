@@ -26,6 +26,7 @@ export const createUpdateTask = (obj) => async dispatch => {
   try {
     const url = `CorporateRecruitment/Task/SaveUpdatetblTaskMaster`;
     const data = await POST(url,obj);
+    console.log(data);
     dispatchAction(dispatch, CreateTaskAction.GET_TASKLIST_SUCCESS, data, null, 'success');
   } catch (error) {
     console.log(error)

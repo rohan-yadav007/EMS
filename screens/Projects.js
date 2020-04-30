@@ -21,6 +21,15 @@ import { getData } from '../utils/AsyncStorage';
 
 const Item = ({ item, props }) => {
   const [showPopup, setShowPopup] = useState(false);
+
+  const handleView = () => {
+    setShowPopup(false);
+    props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId });
+  }
+  const handleList = () => {
+    setShowPopup(false);
+    props.navigation.navigate('TaskList', { ProjectId: item.a_ProjectId, GroupId: item.n_GroupId })
+  }
   return (
     <>
       <Modal transparent={true} visible={showPopup}>
@@ -31,7 +40,7 @@ const Item = ({ item, props }) => {
               <Close name="close-circle" color='#0072e6' size={30} />
             </CloseButton>
 
-            <NavButton onPress={() => props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId })} >
+            <NavButton onPress={() => handleView()} >
               <Text
                 style={{
                   textAlign: 'center',
@@ -43,7 +52,7 @@ const Item = ({ item, props }) => {
                 Project View
               </Text>
             </NavButton>
-            <NavButton onPress={() => props.navigation.navigate('TaskList', { ProjectId: item.a_ProjectId, GroupId: item.n_GroupId })} >
+            <NavButton onPress={() => handleList()} >
               <Text
                 style={{
                   textAlign: 'center',
