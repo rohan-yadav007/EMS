@@ -38,15 +38,17 @@ class AttendencePage extends Component {
     this.setState({ refreshing: true });
     const date = new Date();
     const day = date.getDate();
-    const month = date.getMonth();
+    const month = date.getMonth() +1 ;
     const year = date.getFullYear();
-    const Monthobj = { month: month + 1, year: year };
+    const Monthobj = { month: month, year: year };
     await this.props.MonthlyAttendence(Monthobj);
-    let fullYear = '';
-    if (month < 10) {
-      const getmonth = "0" + (month + 1).toString();
-      fullYear = year + '-' + getmonth + '-' + day;
-    }
+    // let fullYear = '2020-5-1';
+    // if (month < 10) {
+    //   const getmonth = "0" + (month + 1).toString();
+    //   fullYear = year + '-' + getmonth + '-' + day;
+    // }
+    let fullYear = year + '-' + month + '-' + day;
+    console.log("cureetn",fullYear);
     if (this.props.AttendenceData) {
       await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj,refreshing: false });
     }
@@ -54,12 +56,13 @@ class AttendencePage extends Component {
 
   loadAttendenceData = async month => {
     await this.props.MonthlyAttendence(month);
-    this.setState({ month: month, showPunch: false, })
+    await this.setState({ month: month, showPunch: false,AttendenceData: this.props.AttendenceData })
   };
 
   punchTime = day => {
     const { AttendenceData } = this.state;
     const Filter = AttendenceData.filter(e => e.d_Date === day.dateString);
+    const dateFull = day.year + '-' + day.month + '-' + day.day;
     if (Filter.length !== 0) {
       const presentFilter = AttendenceData.filter(e => e.d_Date === day.dateString)[0];
 
@@ -67,10 +70,10 @@ class AttendencePage extends Component {
         showPunch: true,
         d_InTime: presentFilter.d_InTime,
         d_OutTime: presentFilter.d_OutTime,
-        selectedDate: day.dateString,
+        selectedDate: dateFull,
       });
     } else {
-      return this.setState({ showPunch: true, d_InTime: null, d_OutTime: null, selectedDate: day.dateString, });
+      return this.setState({ showPunch: true, d_InTime: null, d_OutTime: null, selectedDate: dateFull, });
     }
   };
 
@@ -115,6 +118,7 @@ class AttendencePage extends Component {
             maxDate={new Date()}
             onDayPress={day => this.punchTime(day)}
           />
+          {console.log("hiii",PresentDate,selectedDate)}
           {showPunch === true && (PresentDate !== selectedDate ?
             (<Status_Wrapper>
               <Text>{selectedDate}</Text>
