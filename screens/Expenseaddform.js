@@ -1,6 +1,6 @@
 /* eslint-disable no-trailing-spaces */
 /* eslint-disable react-native/no-inline-styles */
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import {
   View,
@@ -14,16 +14,17 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import { Input, InputGroup } from '../css/CreateTask.css';
-import {ModalTopContent,NavButton, CloseButton} from '../css/Expense.css';
+import {Srnumber, Tasklist1, Taskboder} from '../css/TaskList.css';
+import {Input, InputGroup} from '../css/CreateTask.css';
+import {ModalTopContent, NavButton, CloseButton} from '../css/Expense.css';
 import Header from '../components/Header';
-import { connect } from 'react-redux';
-import { handlechangetask } from '../redux/Action/CreateTask.action';
+import {connect} from 'react-redux';
+import {handlechangetask} from '../redux/Action/CreateTask.action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Close from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
-import { Col, Grid } from 'react-native-easy-grid';
+import {Col, Grid} from 'react-native-easy-grid';
 
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
@@ -47,47 +48,108 @@ class Expenseaddform extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Popup:false
+      Popup: false,
     };
   }
   handleChange = async (text, name) => {
-    await this.setState({ [name]: text });
+    await this.setState({[name]: text});
   };
-  handleView = () => {
-
-  }
+  handleView = () => {};
   render() {
     const {Popup} = this.state;
     return (
       <>
-      <Modal transparent={true} visible={Popup}>
-        <View style={{ backgroundColor: '#000000aa', flex: 1 }}>
-          <ModalTopContent>
-            <CloseButton onPress={() => this.setState({Popup:false})}>
-              <Close name="close-circle" color='#0072e6' size={30} />
-            </CloseButton>
+        <Modal transparent={true} visible={Popup}>
+          <View style={{backgroundColor: '#000000aa', flex: 1}}>
+            <ModalTopContent style={{padding: 0, marginTop:90,}}>
+              <CloseButton
+                style={{marginTop: -6, marginRight: -5,}}
+                onPress={() => this.setState({Popup: false})}>
+                <Close name="close-circle" color="#0072e6" size={30} />
+              </CloseButton>
 
-            <NavButton >
-              <Text style={{textAlign: 'center', color: '#fff', fontSize: 15, textTransform: 'uppercase', }}>
-                Project View
-              </Text>
-           
-              <Text style={{textAlign: 'center',color: '#fff',fontSize: 15, textTransform: 'uppercase', }}>
-               Task List
-              </Text>
-            </NavButton>
-            
-          </ModalTopContent>
-        </View>
-      </Modal>
-        <SafeAreaView style={{ flex: 1, flexDirection: 'column' }}>
+              <Srnumber>
+                <Text>Sr No 1 </Text>
+              </Srnumber>
+              <ScrollView>
+                <Tasklist1>
+                  <Taskboder>
+                    <Grid>
+                      <Col>
+                        <Text style={{fontWeight: 'bold'}}>Task Name</Text>
+                      </Col>
+                      <Col style={{width: '60%'}}>
+                        <Text style={{alignSelf: 'center', fontSize: 14}}>
+                          Manoj
+                        </Text>
+                      </Col>
+                    </Grid>
+                  </Taskboder>
+                  <Taskboder>
+                    <Grid>
+                      <Col>
+                        <Text style={{fontWeight: 'bold'}}>
+                          Reporting Manager Status
+                        </Text>
+                      </Col>
+                      <Col style={{width: '60%'}}>
+                        <Text style={{alignSelf: 'center', fontSize: 14}}>
+                          Pending
+                        </Text>
+                      </Col>
+                    </Grid>
+                  </Taskboder>
+                  <Taskboder>
+                    <Grid>
+                      <Col>
+                        <Text style={{fontWeight: 'bold'}}>USer Name</Text>
+                      </Col>
+                      <Col style={{width: '60%'}}>
+                        <Text style={{alignSelf: 'center', fontSize: 14}}>
+                          Manoj
+                        </Text>
+                      </Col>
+                    </Grid>
+                  </Taskboder>
+
+                  <Taskboder>
+                    <Grid>
+                      <Col>
+                        <Text style={{fontWeight: 'bold'}}>Leave Date</Text>
+                      </Col>
+                      <Col style={{width: '60%'}}>
+                        <Text style={{alignSelf: 'center', fontSize: 14}}>
+                          26/3/2020 to 27/3/2020
+                        </Text>
+                      </Col>
+                    </Grid>
+                  </Taskboder>
+
+                  <Taskboder>
+                    <Grid>
+                      <Col>
+                        <Text style={{fontWeight: 'bold'}}>Status</Text>
+                      </Col>
+                      <Col style={{width: '60%'}}>
+                        <Text style={{alignSelf: 'center', fontSize: 14}}>
+                          Active
+                        </Text>
+                      </Col>
+                    </Grid>
+                  </Taskboder>
+                </Tasklist1>
+              </ScrollView>
+            </ModalTopContent>
+          </View>
+        </Modal>
+        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
           <Header title={'Add Form'} />
           <ImageBackground
-            style={{ flex: 1 }}
+            style={{flex: 1}}
             source={require('../static/background2.png')}>
             <ScrollView>
-              <View style={{ paddingLeft: 10, marginTop: 20, paddingRight: 10 }}>
-                <Text style={{ marginTop: 15 }}>Employee Name</Text>
+              <View style={{paddingLeft: 10, marginTop: 20, paddingRight: 10}}>
+                <Text style={{marginTop: 15}}>Employee Name</Text>
                 <InputGroup>
                   <Input
                     placeholder="Super"
@@ -96,7 +158,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Department</Text>
+                <Text style={{marginTop: 15}}>Department</Text>
                 <InputGroup>
                   <Input
                     placeholder="Sales & Marketing"
@@ -107,7 +169,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Designation</Text>
+                <Text style={{marginTop: 15}}>Designation</Text>
                 <InputGroup>
                   <Input
                     placeholder="Sale Head"
@@ -116,7 +178,7 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Employee ID</Text>
+                <Text style={{marginTop: 15}}>Employee ID</Text>
                 <InputGroup>
                   <Input
                     placeholder="111"
@@ -125,15 +187,15 @@ class Expenseaddform extends Component {
                   />
                 </InputGroup>
 
-                <Text style={{ marginTop: 15 }}>Project</Text>
+                <Text style={{marginTop: 15}}>Project</Text>
                 <InputGroup>
                   <Picker
-                    style={{ height: 55, width: '100%' }}
+                    style={{height: 55, width: '100%'}}
                     selectedValue={this.state.department}
                     onValueChange={(itemValue, itemIndex) =>
-                      this.setState({ department: itemValue,Popup:true })
+                      this.setState({department: itemValue, Popup: true})
                     }>
-                    <Picker.Item label="Non Project" value="Non Project"/>
+                    <Picker.Item label="Non Project" value="Non Project" />
                     <Picker.Item label="EliteMindz" value="EliteMindz" />
                   </Picker>
                 </InputGroup>
@@ -196,10 +258,10 @@ class Expenseaddform extends Component {
 
 const mapStateToProps = state => {
   const taskName = state.CreateTaskReducer.taskName;
-  return { taskName };
+  return {taskName};
 };
 
 export default connect(
   mapStateToProps,
-  { handlechangetask },
+  {handlechangetask},
 )(Expenseaddform);
