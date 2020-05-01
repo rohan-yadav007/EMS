@@ -32,17 +32,17 @@ class CreateTask extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      taskName: null,
-      department: null,
-      assignee: null,
-      date: new Date(),
-      fromDate: null,
-      toDate: null,
-      taskAssignDate: null,
-      taskAssignTime: null,
-      taskSummary: null,
-      taskPriority: null,
-      taskStatus: null,
+      t_TaskTitle: null,
+      n_DepartmentId: null,
+      n_AssigneeEmployeeId: null,
+      d_CreatedOn: new Date(),
+      d_FromDate: null,
+      d_ToDate: null,
+      d_ReportSubmissionDate: null,
+      d_ReportSubmissionTime: null,
+      t_TaskSummay: null,
+      n_TaskPriorityId: null,
+      n_TaskStatusID: null,
       show: false,
       mode: null,
       isDateTimePickerVisible: false,
@@ -65,14 +65,14 @@ class CreateTask extends Component {
     this._unsubscribe();
   }
   _onRefresh = async () => {
-    const { GroupId } = this.props.route?.params;
-    await this.props.getTaskDepartment(GroupId);
+    const { n_GroupID } = this.props.route?.params;
+    await this.props.getTaskDepartment(n_GroupID);
 
     await this.props.getTaskPriority();
     await this.props.getTaskStatus();
   }
   handleAssignee = async (itemValue) => {
-    await this.setState({ department: itemValue })
+    await this.setState({ n_DepartmentId: itemValue })
     await this.props.getTaskAssignee(itemValue);
   }
   handleChange = async (text, name) => {
@@ -80,31 +80,32 @@ class CreateTask extends Component {
   };
   submitHandler = async (mode) => {
 
-    const employeeId = await getData('UserId');
-    const Get_IP = await GetIP;
-    const { taskName, fromDate, department, taskAssignTime, assignee, avatarSource, taskPriority, taskAssignDate, taskSummary,
-      taskStatus, toDate, date } = this.state;
-    const { GroupId, ProjectId } = this.props.route?.params;
+    const n_CreatedBy = await getData('UserId');
+    const t_CreatedIP = await GetIP;
+    const { t_TaskTitle, d_FromDate, n_DepartmentId, d_ReportSubmissionTime, n_AssigneeEmployeeId, avatarSource, n_TaskPriorityId, d_ReportSubmissionDate, t_TaskSummay,
+      n_TaskStatusID, d_ToDate, d_CreatedOn } = this.state;
+    const { n_GroupID, ProjectId } = this.props.route?.params;
+    const t_AttachmentFile = avatarSource?.uri
     const postObj = {
       a_TaskId: 0,
       mode: mode,
       n_ProjectId: ProjectId,
-      t_TaskTitle: taskName,
-      t_TaskSummay: taskSummary,
-      n_TaskPriorityId: taskPriority,
-      n_DepartmentId: department,
-      n_AssigneeEmployeeId: assignee,
-      d_FromDate: fromDate,
-      d_ToDate: toDate,
-      d_ReportSubmissionDate: taskAssignDate,
-      d_ReportSubmissionTime: taskAssignTime,
-      n_TaskStatusID: taskStatus,
-      n_GroupID: GroupId,
+      t_TaskTitle: t_TaskTitle,
+      t_TaskSummay: t_TaskSummay,
+      n_TaskPriorityId: n_TaskPriorityId,
+      n_DepartmentId: n_DepartmentId,
+      n_AssigneeEmployeeId: n_AssigneeEmployeeId,
+      d_FromDate: d_FromDate,
+      d_ToDate: d_ToDate,
+      d_ReportSubmissionDate: d_ReportSubmissionDate,
+      d_ReportSubmissionTime: d_ReportSubmissionTime,
+      n_TaskStatusID: n_TaskStatusID,
+      n_GroupID: n_GroupID,
       b_Deleted: 0,
-      n_CreatedBy: employeeId,
-      d_CreatedOn: date,
-      t_CreatedIP: Get_IP,
-      t_AttachmentFile: avatarSource?.uri
+      n_CreatedBy: n_CreatedBy,
+      d_CreatedOn: d_CreatedOn,
+      t_CreatedIP: t_CreatedIP,
+      t_AttachmentFile:t_AttachmentFile
     };
     // const valArray = Object.entries(postObj);
     // const nullArr = valArray.filter(e => e.includes(null));
@@ -122,9 +123,9 @@ class CreateTask extends Component {
     this.props.navigation.goBack()
   }
   onChange = (event, selectedDate, name) => {
-    const currentDate = selectedDate || this.state.date;
+    const currentDate = selectedDate || this.state.d_CreatedOn;
     if (name) {
-      if (name === "taskAssignTime") {
+      if (name === "d_ReportSubmissionTime") {
         let timeHour = currentDate.getHours();
         if (timeHour < 10) {
           timeHour = "0" + timeHour;
@@ -147,16 +148,18 @@ class CreateTask extends Component {
         const month = currentDate.getMonth();
         const year = currentDate.getFullYear();
 
-        let date = '';
+        let d_CreatedOn = '';
         if (month < 10) {
           const getmonth = "0" + (month + 1).toString();
-          date = year + "-" + getmonth + "-" + day;
+          d_CreatedOn = year + "-" + getmonth + "-" + day;
         }
+       
         this.setState(prevState => {
           return ({
             ...prevState,
             show: false,
-            [name]: `${date}`,
+            [name]: `${d_CreatedOn}`,
+            [`${name}Error`]:false
           })
         });
       }
@@ -181,7 +184,7 @@ class CreateTask extends Component {
   }
 
   render() {
-    const { show, mode, fromDate, taskAssignTime, avatarSource, selectedInput, taskAssignDate, taskSummary, toDate, date } = this.state;
+    const { show, mode, d_FromDate, d_ReportSubmissionTime, avatarSource, selectedInput, d_ReportSubmissionDate, t_TaskSummay, d_ToDate, d_CreatedOn } = this.state;
     const dateObj = { mode: "date", show: true, };
     const timeObj = { mode: "time", show: true, };
     const { departmentList, assineeList, priorityList, statusList } = this.props;
@@ -204,18 +207,18 @@ class CreateTask extends Component {
                 <InputGroup>
                   <Input
                     placeholder="Task Name"
-                    value={this.state.taskName}
-                    onChangeText={text => this.handleChange(text, 'taskName')}
+                    value={this.state.t_TaskTitle}
+                    onChangeText={text => this.handleChange(text, 't_TaskTitle')}
                   />
                 </InputGroup>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ marginTop: 15 }}>Department </Text>
+                  <Text style={{ marginTop: 15 }}>n_DepartmentId </Text>
                   {this.state.n_DepartmentIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_DepartmentIdError}</Text> : null}
                 </View>
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
-                    selectedValue={this.state.department}
+                    selectedValue={this.state.n_DepartmentId}
                     onValueChange={(itemValue, itemIndex) => this.handleAssignee(itemValue)}
                   >
                     <Picker.Item label="Select" value={null} />
@@ -228,14 +231,14 @@ class CreateTask extends Component {
                 </InputGroup>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ marginTop: 15 }}>Assignee</Text>
+                  <Text style={{ marginTop: 15 }}>n_AssigneeEmployeeId</Text>
                   {this.state.n_AssigneeEmployeeIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_AssigneeEmployeeIdError}</Text> : null}
                 </View>
 
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
-                    selectedValue={this.state.assignee}
-                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ assignee: itemValue })}
+                    selectedValue={this.state.n_AssigneeEmployeeId}
+                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ n_AssigneeEmployeeId: itemValue })}
                   >
                     <Picker.Item label="Select" value={null} />
                     {assineeList?.map((e, i) => {
@@ -253,8 +256,8 @@ class CreateTask extends Component {
 
                 <InputGroup>
                   <TextInput style={{ width: '87%' }}
-                    value={fromDate}
-                    onFocus={() => { this.setState({ show: true, mode: "date", selectedInput: "fromDate" }) }}
+                    value={d_FromDate}
+                    onFocus={() => { this.setState({ show: true, mode: "date", selectedInput: "d_FromDate" }) }}
                   />
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-edit" size={35} color="#2696f2" />
                   {show && mode === "date" ? <DateTimePicker
@@ -275,8 +278,8 @@ class CreateTask extends Component {
                 <InputGroup>
                   <TextInput
                     style={{ width: '87%' }}
-                    value={toDate}
-                    onFocus={() => { this.setState({ ...dateObj, selectedInput: "toDate" }) }}
+                    value={d_ToDate}
+                    onFocus={() => { this.setState({ ...dateObj, selectedInput: "d_ToDate" }) }}
                   />
 
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-edit" size={35} color="#2696f2" />
@@ -288,8 +291,8 @@ class CreateTask extends Component {
 
                 <InputGroup>
                   <TextInput style={{ width: '87%' }}
-                    value={taskAssignDate}
-                    onFocus={() => { this.setState({ ...dateObj, selectedInput: "taskAssignDate" }) }}
+                    value={d_ReportSubmissionDate}
+                    onFocus={() => { this.setState({ ...dateObj, selectedInput: "d_ReportSubmissionDate" }) }}
                   />
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-edit" size={35} color="#2696f2" />
                   {show && mode === "time" ? <DateTimePicker
@@ -307,8 +310,8 @@ class CreateTask extends Component {
                 </View>
 
                 <InputGroup>
-                  <TextInput style={{ width: '87%' }} value={taskAssignTime}
-                    onFocus={() => { this.setState({ ...timeObj, selectedInput: "taskAssignTime", }) }}
+                  <TextInput style={{ width: '87%' }} value={d_ReportSubmissionTime}
+                    onFocus={() => { this.setState({ ...timeObj, selectedInput: "d_ReportSubmissionTime", }) }}
                   />
                   <Icon style={{ width: '13%', padding: 4, right: 0 }} name="calendar-clock" size={35} color="#2696f2" />
                 </InputGroup>
@@ -321,9 +324,9 @@ class CreateTask extends Component {
                   <Input
                     multiline={true}
                     numberOfLines={5}
-                    value={taskSummary}
+                    value={t_TaskSummay}
                     onChangeText={text =>
-                      this.handleChange(text, 'taskSummary')
+                      this.handleChange(text, 't_TaskSummay')
                     }
                   />
                 </InputGroup>
@@ -334,8 +337,8 @@ class CreateTask extends Component {
 
                 <InputGroup>
                   <Picker
-                    selectedValue={this.state.taskPriority}
-                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ taskPriority: itemValue })}
+                    selectedValue={this.state.n_TaskPriorityId}
+                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ n_TaskPriorityId: itemValue })}
                     style={{ height: 50, width: '100%' }}>
                     <Picker.Item label="Select" value={null} />
                     {priorityList?.map((e, i) => {
@@ -352,8 +355,8 @@ class CreateTask extends Component {
 
                 <InputGroup>
                   <Picker
-                    selectedValue={this.state.taskStatus}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ taskStatus: itemValue })}
+                    selectedValue={this.state.n_TaskStatusID}
+                    onValueChange={(itemValue, itemIndex) => this.setState({ n_TaskStatusID: itemValue })}
                     style={{ width: '100%' }}
                   >
                     <Picker.Item label="Select" value={null} />
