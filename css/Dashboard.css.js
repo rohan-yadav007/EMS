@@ -13,23 +13,32 @@ export const CustomText = styled.Text`
   align-self: center;
   font-weight: ${props => props.fw || 900};
   color: #fff;
+  font-weight: bold;
 `;
 export const CustomText2 = styled.Text`
-
   align-self: center;
-
-  color: #fff;
-  margin-top:35px;
-  font-size:15px;
+color: #fff;
+  margin-top: 45px;
+  font-size: 15px;
 `;
 
 export const ModuleBG = styled.ImageBackground`
-  flex: 1;
-  height: 100px;
-  min-width: 170px;
-  padding: 15px;
   border-radius: 40px;
+  width: 100%;
+  text-align: center;
+  height: 123px;
+  padding: 15px;
+  box-shadow: 2px 3px 4px #000;
 `;
+
+export const ModuleBG2 = styled.ImageBackground`
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  box-shadow: 2px 3px 4px #000;
+  height:50px;
+`;
+
 export const Loader = styled.View`
   position: absolute;
   top: ${props => props.top || '50%'};
