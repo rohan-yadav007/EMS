@@ -65,18 +65,23 @@ class CreateTask extends Component {
     this._unsubscribe();
   }
   _onRefresh = async () => {
-    const { n_GroupID } = this.props.route?.params;
-    await this.props.getTaskDepartment(n_GroupID);
+    console.log(this.props.route);
+    const { GroupId } = this.props.route?.params;
+    await this.props.getTaskDepartment(GroupId);
 
     await this.props.getTaskPriority();
     await this.props.getTaskStatus();
   }
-  handleAssignee = async (itemValue) => {
-    await this.setState({ n_DepartmentId: itemValue })
+  handleDepartment = async (itemValue) => {
+    await this.setState({ n_DepartmentId: itemValue, n_DepartmentIdError: false })
     await this.props.getTaskAssignee(itemValue);
   }
+  handleSelect = async (itemValue, name) => {
+    await this.setState({ [name]: itemValue, [`${name}Error`]: false })
+  }
   handleChange = async (text, name) => {
-    await this.setState({ [name]: text });
+    console.log(name, typeof (text));
+    await this.setState(prevState => { return ({ ...prevState, [name]: text, [`${name}Error`]: false }) });
   };
   submitHandler = async (mode) => {
 
@@ -84,7 +89,7 @@ class CreateTask extends Component {
     const t_CreatedIP = await GetIP;
     const { t_TaskTitle, d_FromDate, n_DepartmentId, d_ReportSubmissionTime, n_AssigneeEmployeeId, avatarSource, n_TaskPriorityId, d_ReportSubmissionDate, t_TaskSummay,
       n_TaskStatusID, d_ToDate, d_CreatedOn } = this.state;
-    const { n_GroupID, ProjectId } = this.props.route?.params;
+    const { GroupId, ProjectId } = this.props.route?.params;
     const t_AttachmentFile = avatarSource?.uri
     const postObj = {
       a_TaskId: 0,
@@ -100,27 +105,31 @@ class CreateTask extends Component {
       d_ReportSubmissionDate: d_ReportSubmissionDate,
       d_ReportSubmissionTime: d_ReportSubmissionTime,
       n_TaskStatusID: n_TaskStatusID,
-      n_GroupID: n_GroupID,
+      n_GroupID: GroupId,
       b_Deleted: 0,
       n_CreatedBy: n_CreatedBy,
       d_CreatedOn: d_CreatedOn,
       t_CreatedIP: t_CreatedIP,
-      t_AttachmentFile:t_AttachmentFile
+      t_AttachmentFile: t_AttachmentFile
     };
-    // const valArray = Object.entries(postObj);
-    // const nullArr = valArray.filter(e => e.includes(null));
-    // const errorField = [];
-    // nullArr.map(e => errorField.push(e[0]));
-    // this.setState(prevState => {
-    //   let errorState = {};
-    //   errorField.forEach(e => errorState[`${e}Error`] = "Required");
-    //   return {
-    //     ...prevState, ...errorState
-    //   }
-    // })
+    const valArray = Object.entries(postObj);
+    const nullArr = valArray.filter(e => e.includes(null) || e.includes(''));
+    const errorField = [];
+    nullArr.map(e => errorField.push(e[0]));
+    this.setState(prevState => {
+      let errorState = {};
+      errorField.forEach(e => errorState[`${e}Error`] = "Required");
+      console.log("error state", errorState);
+      return {
+        ...prevState, ...errorState
+      }
+    })
+    if (nullArr.length === 0) {
+      await this.props.createUpdateTask(postObj);
+      this.props.navigation.goBack()
+    }
     console.log('postObj :>> ', postObj);
-    await this.props.createUpdateTask(postObj);
-    this.props.navigation.goBack()
+
   }
   onChange = (event, selectedDate, name) => {
     const currentDate = selectedDate || this.state.d_CreatedOn;
@@ -140,6 +149,7 @@ class CreateTask extends Component {
             ...prevState,
             show: false,
             [name]: `${time}`,
+            [`${name}Error`]: false
           })
         });
       }
@@ -153,13 +163,13 @@ class CreateTask extends Component {
           const getmonth = "0" + (month + 1).toString();
           d_CreatedOn = year + "-" + getmonth + "-" + day;
         }
-       
+
         this.setState(prevState => {
           return ({
             ...prevState,
             show: false,
             [name]: `${d_CreatedOn}`,
-            [`${name}Error`]:false
+            [`${name}Error`]: false
           })
         });
       }
@@ -213,13 +223,13 @@ class CreateTask extends Component {
                 </InputGroup>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ marginTop: 15 }}>n_DepartmentId </Text>
+                  <Text style={{ marginTop: 15 }}>Department</Text>
                   {this.state.n_DepartmentIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_DepartmentIdError}</Text> : null}
                 </View>
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.n_DepartmentId}
-                    onValueChange={(itemValue, itemIndex) => this.handleAssignee(itemValue)}
+                    onValueChange={(itemValue, itemIndex) => this.handleDepartment(itemValue)}
                   >
                     <Picker.Item label="Select" value={null} />
                     {departmentList?.map((e, i) => {
@@ -231,14 +241,14 @@ class CreateTask extends Component {
                 </InputGroup>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                  <Text style={{ marginTop: 15 }}>n_AssigneeEmployeeId</Text>
+                  <Text style={{ marginTop: 15 }}>Assignee</Text>
                   {this.state.n_AssigneeEmployeeIdError ? <Text style={{ marginTop: 15, color: 'red' }}>{this.state.n_AssigneeEmployeeIdError}</Text> : null}
                 </View>
 
                 <InputGroup>
                   <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={this.state.n_AssigneeEmployeeId}
-                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ n_AssigneeEmployeeId: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => this.handleSelect(itemValue, 'n_AssigneeEmployeeId')}
                   >
                     <Picker.Item label="Select" value={null} />
                     {assineeList?.map((e, i) => {
@@ -338,7 +348,7 @@ class CreateTask extends Component {
                 <InputGroup>
                   <Picker
                     selectedValue={this.state.n_TaskPriorityId}
-                    onValueChange={(itemValue, itemIndex) => itemValue && this.setState({ n_TaskPriorityId: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => this.handleSelect(itemValue, 'n_TaskPriorityId')}
                     style={{ height: 50, width: '100%' }}>
                     <Picker.Item label="Select" value={null} />
                     {priorityList?.map((e, i) => {
@@ -356,7 +366,7 @@ class CreateTask extends Component {
                 <InputGroup>
                   <Picker
                     selectedValue={this.state.n_TaskStatusID}
-                    onValueChange={(itemValue, itemIndex) => this.setState({ n_TaskStatusID: itemValue })}
+                    onValueChange={(itemValue, itemIndex) => this.handleSelect(itemValue, 'n_TaskStatusID')}
                     style={{ width: '100%' }}
                   >
                     <Picker.Item label="Select" value={null} />
