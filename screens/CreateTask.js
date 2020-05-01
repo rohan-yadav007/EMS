@@ -10,7 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
 import { getData } from '../utils/AsyncStorage';
 import { GetIP } from '../utils/deviceInfo';
-
+import {POST_FORM} from '../utils/responseHelper';
 const options = {
   title: 'Select',
   storageOptions: {
@@ -177,7 +177,6 @@ class CreateTask extends Component {
   };
 
   handleImage = async () => {
-    const source =
       ImagePicker.showImagePicker(options, async (response) => {
 
         if (response.didCancel) {
@@ -185,10 +184,21 @@ class CreateTask extends Component {
         } else if (response.error) {
           console.log('Error: ', response.error);
         } else {
-          const source = { uri: 'data:image/jpeg;base64,' + response.data };
-          this.setState({
-            avatarSource: source,
+          let source = {uri :response.uri};
+          const imageData = new FormData();
+          imageData.append('name','image');
+          imageData.append('image',{
+            uri :response.uri,
+            type: response.type,
+            name:response.fileName,
+            data: response.data
           });
+          // const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          // this.setState({
+          //   avatarSource: source,
+          // });
+          const result = POST_FORM('Areas/Admin/CreateProject/asdf/Task/',imageData);
+          console.log('imageData', result);
         }
       });
   }
