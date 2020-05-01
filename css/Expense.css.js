@@ -11,7 +11,7 @@ export const Tablelist1 = styled.Text`
 export const ModalTopContent = styled.View`
   background-color: #fff;
   margin: 30px;
-  padding: 40px;
+  padding: 30px;
   border-radius: 10px;
   margin-top: 280px;
 `; 

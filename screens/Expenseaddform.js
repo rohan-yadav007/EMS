@@ -61,9 +61,16 @@ class Expenseaddform extends Component {
       <>
         <Modal transparent={true} visible={Popup}>
           <View style={{backgroundColor: '#000000aa', flex: 1}}>
-            <ModalTopContent style={{padding: 0, marginTop:90,}}>
+            <ModalTopContent
+              style={{
+                padding: 0,
+                paddingLeft: 5,
+                paddingRight: 5,
+                marginTop: 90,
+                paddingTop: 20,
+              }}>
               <CloseButton
-                style={{marginTop: -6, marginRight: -5,}}
+                style={{marginTop: -6, marginRight: -5}}
                 onPress={() => this.setState({Popup: false})}>
                 <Close name="close-circle" color="#0072e6" size={30} />
               </CloseButton>
