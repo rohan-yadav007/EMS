@@ -29,7 +29,7 @@ export default class ApplyLeave extends Component {
         <ImageBackground
           style={{flex: 1}}
           source={require('../static/background2.png')}>
-          <Header title={ApplyLeave} />
+          <Header title={"Apply Leave"} />
 
           <SafeAreaView
             style={{

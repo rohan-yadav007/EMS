@@ -46,7 +46,7 @@ export default class Expense extends Component {
               paddingTop: 10,
             }}>
             <View>
-              <AddTask>
+              <AddTask onPress={()=> this.props.navigation.navigate('Expenseaddform')}>
                 <Icon2 name="add-circle" size={25} color="#fff" />
                 <AddTaskText>ADD</AddTaskText>
               </AddTask>

@@ -184,21 +184,23 @@ class CreateTask extends Component {
         } else if (response.error) {
           console.log('Error: ', response.error);
         } else {
-          let source = {uri :response.uri};
-          const imageData = new FormData();
-          imageData.append('name','image');
-          imageData.append('image',{
-            uri :response.uri,
-            type: response.type,
-            name:response.fileName,
-            data: response.data
-          });
-          // const source = { uri: 'data:image/jpeg;base64,' + response.data };
-          // this.setState({
-          //   avatarSource: source,
+          // let source = {uri :response.uri};
+          // const imageData = new FormData();
+          // imageData.append('name','image');
+          // imageData.append('image',{
+          //   uri :response.uri,
+          //   type: response.type,
+          //   name:response.fileName,
+          //   data: response.data
           // });
-          const result = POST_FORM('Areas/Admin/CreateProject/asdf/Task/',imageData);
-          console.log('imageData', result);
+
+         
+          const source = { uri: 'data:image/jpeg;base64,' + response.data };
+          this.setState({
+            avatarSource: source,
+          });
+          // const result = await POST_FORM('Areas/Admin/',imageData);
+          // console.log('imageData',result);
         }
       });
   }

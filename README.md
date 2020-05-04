@@ -2,8 +2,10 @@ start project with command
 npx react-native run-android
 
 adb -s 1c2910d57d93 reverse tcp:8081 tcp:8081
-
-
+debug = npx react-native run-android
+release_build = gradlew bundleRelease
+release = npx react-native run-android --variant=release
+adb -s 5temmjrsdynnhe4l reverse tcp:8081 tcp:8081
 @Simran  API For Dropdowns
 http://iirisapi.mindztechnology.com/CorporateRecruitment/Country/GettblCountries
 http://iirisapi.mindztechnology.com/CorporateRecruitment/State/GettblStates

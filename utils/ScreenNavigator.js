@@ -1,18 +1,18 @@
 import 'react-native-gesture-handler';
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 // eslint-disable-next-line prettier/prettier
 import { View, ScrollView, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
-import {NavigationContainer} from '@react-navigation/native';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import { NavigationContainer } from '@react-navigation/native';
 import Login from '../screens/Login';
 import Dashboard from '../screens/Dashboard';
 import AttendencePage from '../screens/AttendencePage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Icon2 from 'react-native-vector-icons/Entypo';
-import {GET} from './responseHelper';
-import {getData} from './AsyncStorage';
-import {loginStatus} from '../redux/Action/login.action';
-import {connect} from 'react-redux';
+import { GET } from './responseHelper';
+import { getData } from './AsyncStorage';
+import { loginStatus } from '../redux/Action/login.action';
+import { connect } from 'react-redux';
 import CreateTask from '../screens/CreateTask';
 import ProjectList from '../screens/Projects';
 import ViewProjects from '../screens/ViewProjects';
@@ -21,6 +21,20 @@ import ApplyLeave from '../screens/ApplyLeave';
 import AddLeave from '../screens/AddLeave';
 import Expense from '../screens/Expense';
 import Expenseaddform from '../screens/Expenseaddform';
+
+const CustomNavLink = (props) => {
+  console.log(props);
+  return (
+    <TouchableOpacity
+      style={styles.MainMenu}
+      onPress={() => props.navigation.navigate(props.compName)} >
+      <Text style={styles.MainMenuText}>
+        {props.text}
+      </Text>
+      <Icon name="angle-down" size={27} color="#fff" />
+    </TouchableOpacity>
+  )
+}
 
 const Drawer = createDrawerNavigator();
 
@@ -42,7 +56,7 @@ class CustomDrawerContent extends Component {
       );
       if (data) {
         // eslint-disable-next-line react/no-did-mount-set-state
-        await this.setState({Menu: data});
+        await this.setState({ Menu: data });
       }
     } catch (error) {
       // console.log(error);
@@ -60,14 +74,14 @@ class CustomDrawerContent extends Component {
   // Function to get sub Menu List
   getSubMenu = async id => {
     if (this.state.subMenu.length !== 0) {
-      this.setState({subMenu: []});
+      this.setState({ subMenu: [] });
     } else {
       const n_Employee = await getData('UserId');
       const data = await GET(
         `CorporateRecruitment/ApplicationManagement/GetMenuDetails?n_ModuleId=${id}&n_EmployeeId=${n_Employee}`,
       );
       //  console.log("gh",data)
-      await this.setState({subMenu: data});
+      await this.setState({ subMenu: data });
     }
   };
 
@@ -79,13 +93,13 @@ class CustomDrawerContent extends Component {
 
   render() {
     if (this.props.isLoggedIn) {
-      this.getMenu();
+      // this.getMenu();
       return (
         <SafeAreaView>
           <View style={styles.MainMenuWraper}>
             <Image source={require('../static/logo_IIRIS.png')} />
           </View>
-          <ScrollView>
+          {/* <ScrollView>
             {this.state.Menu.map((e, i) => {
               return (
                 <View style={{flexDirection: 'column'}} key={i + 1}>
@@ -118,12 +132,20 @@ class CustomDrawerContent extends Component {
                 </View>
               );
             })}
-          </ScrollView>
+          </ScrollView> */}
+
+          <View style={{ flexDirection: 'column' }}>
+            <CustomNavLink compName='Dashboard' text='Dashboard' {...this.props} />
+            <CustomNavLink compName='Projects' text='Projects' {...this.props}/>
+            <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props}/>
+            <CustomNavLink compName='AddLeave' text='Add Leave' {...this.props}/>
+            <CustomNavLink compName='Expense' text='Expense' {...this.props}/>
+          </View>
         </SafeAreaView>
       );
     } else {
       return (
-        <SafeAreaView style={{flex: 1}}>
+        <SafeAreaView style={{ flex: 1 }}>
           <View style={styles.LoginMenuWraper}>
             <View style={styles.Emoji}>
               <Icon2 name="emoji-sad" size={27} color="#000" />
@@ -156,7 +178,7 @@ class CustomNavigator extends React.Component {
   }
   async componentDidMount() {
     await this.props.loginStatus();
-    await this.setState({isLoggedIn: this.props.isLoggedIn});
+    await this.setState({ isLoggedIn: this.props.isLoggedIn });
   }
   static getDerivedStateFromProps(props, state) {
     if (props.isLoggedIn !== state.isLoggedIn) {
@@ -174,13 +196,13 @@ class CustomNavigator extends React.Component {
         <Drawer.Navigator
           initialRouteName="Dashboard"
           headerMode="screen"
-          // drawerContent={props => (
-          //   <CustomDrawerContent
-          //     {...props}
-          //     drawerData={this.state.drawerData}
-          //     isLoggedIn={this.state.isLoggedIn}
-          //   />
-          // )}
+          drawerContent={props => (
+            <CustomDrawerContent
+              {...props}
+              drawerData={this.state.drawerData}
+              isLoggedIn={this.state.isLoggedIn}
+            />
+          )}
           minSwipeDistance={100}
           drawerStyle={styles.drawerStyle}>
           {this.state.isLoggedIn === true ? (
@@ -197,10 +219,10 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="Expenseaddform" component={Expenseaddform} />
             </>
           ) : (
-            <>
-              <Drawer.Screen name="Login" component={Login} />
-            </>
-          )}
+              <>
+                <Drawer.Screen name="Login" component={Login} />
+              </>
+            )}
         </Drawer.Navigator>
       </NavigationContainer>
     );
@@ -209,11 +231,11 @@ class CustomNavigator extends React.Component {
 const mapStateToProps = state => {
   const isLoggedIn = state.LoginReducer.login;
   const userData = state.LoginReducer.userData;
-  return {isLoggedIn, userData};
+  return { isLoggedIn, userData };
 };
 export default connect(
   mapStateToProps,
-  {loginStatus},
+  { loginStatus },
 )(CustomNavigator);
 
 const styles = StyleSheet.create({
@@ -226,7 +248,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   LoginButton: {
-    backgroundColor: '#3875c3',
+    backgroundColor: '#0a6de3',
     padding: 10,
     borderRadius: 20,
   },

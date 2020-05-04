@@ -1,4 +1,4 @@
-import {base_url} from 'react-native-dotenv';
+import { base_url } from 'react-native-dotenv';
 
 const fetch = require('node-fetch');
 
@@ -47,11 +47,12 @@ export const POST = async (posturl, data) => {
 // };
 
 export const POST_FORM = async (posturl, data) => {
-  const url = `${base_url.concat(posturl)}`;
+  console.log('called :>> ');
+  const url = `http://iiris.mindztechnology.com/Areas/Admin/CreateProject/asdf/Task/`;
   let options = {
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    },
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // },
     method: 'POST'
   };
 
@@ -59,14 +60,10 @@ export const POST_FORM = async (posturl, data) => {
   for (let key in data) {
     options.body.append(key, data[key]);
   }
-
-  return fetch(url, options)
-      .then(response => {
-        return response.json()
-          .then(responseJson => {
-            //You put some checks here
-            console.log('myres',responseJson);
-            return responseJson;
-          });
-      });
+  delete options.headers['Content-Type'];
+  console.log('options',options);
+  const ResponseData = await fetch(url, options)
+    .then(response => response.json())
+    .catch(error => console.log(error));
+  return ResponseData;
 }

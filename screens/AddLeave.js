@@ -47,7 +47,7 @@ export default class AddLeave extends Component {
               paddingTop: 10,
             }}>
             <View>
-              <AddTask>
+              <AddTask onPress={()=> this.props.navigation.navigate('ApplyLeave')}>
                 <AddTaskText>Apply Leave</AddTaskText>
               </AddTask>
             </View>
