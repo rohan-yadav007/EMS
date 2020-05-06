@@ -65,7 +65,7 @@ class CreateTask extends Component {
     this._unsubscribe();
   }
   _onRefresh = async () => {
-    console.log(this.props.route);
+    
     const { GroupId } = this.props.route?.params;
     await this.props.getTaskDepartment(GroupId);
 
@@ -80,7 +80,7 @@ class CreateTask extends Component {
     await this.setState({ [name]: itemValue, [`${name}Error`]: false })
   }
   handleChange = async (text, name) => {
-    console.log(name, typeof (text));
+   
     await this.setState(prevState => { return ({ ...prevState, [name]: text, [`${name}Error`]: false }) });
   };
   submitHandler = async (mode) => {
@@ -119,7 +119,7 @@ class CreateTask extends Component {
     this.setState(prevState => {
       let errorState = {};
       errorField.forEach(e => errorState[`${e}Error`] = "Required");
-      console.log("error state", errorState);
+      
       return {
         ...prevState, ...errorState
       }

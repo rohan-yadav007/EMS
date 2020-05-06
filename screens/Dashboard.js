@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   Text,
   View,
@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   ActivityIndicator,
 } from 'react-native';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
   CustomText,
   ModuleBG,
@@ -16,15 +16,15 @@ import {
   ModuleBG2,
   Loader,
 } from '../css/Dashboard.css';
-
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/Header';
-import {Col, Grid} from 'react-native-easy-grid';
+import { Col, Grid } from 'react-native-easy-grid';
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: [{name: 'rohan'}],
+      user: [{ name: 'rohan' }],
     };
   }
 
@@ -32,24 +32,21 @@ class Dashboard extends Component {
     this.props.navigation.toggleDrawer();
   };
   render() {
-    const {loading} = this.props;
+    const { loading } = this.props;
     return (
       <>
         <ImageBackground
-          style={{flex: 1}}
+          style={{ flex: 1 }}
           source={require('../static/background2.png')}>
           {loading && (
             <Loader>
               <ActivityIndicator size="large" color="#3875c3" />
             </Loader>
           )}
-          <SafeAreaView style={{flex: 1}}>
+          <SafeAreaView style={{ flex: 1 }}>
             <Header title={'Dashboard'} />
-            <View style={{flex: 1}}>
-              <View
-                style={{
-                  flex: 1,
-                }}>
+            <View style={{ flex: 1 }}>
+              <View style={{flex: 1,}}>
                 <View>
                   <Text
                     style={{
@@ -61,28 +58,29 @@ class Dashboard extends Component {
                     Leaves
                   </Text>
                 </View>
-                <Grid style={{marginTop: 10}}>
+                <Grid style={{ marginTop: 10 }}>
                   <Col>
-                    <TouchableOpacity>
+                    <TouchableOpacity
+                      activeOpacity={0.6}
+                      style={{
+                        borderRadius: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.8,
+                        shadowRadius: 2,
+                        elevation: 5,
+                      }}
+                    >
                       <ModuleBG
-                        style={{
-                          shadowColor: '#000',
-                          shadowOffset: {width: 0, height: 1},
-                          shadowOpacity: 0.8,
-                          shadowRadius: 2,
-                          elevation: 5,
 
-                          borderRadius: 8 / 1,
-                          overflow: 'hidden',
-                          borderWidth: 1,
-                          borderColor: '#ffffff03',
-                        }}
                         source={require('../static/balance_bg.png')}>
                         <View>
                           <CustomText fw={900} fs={'40px'}>
                             40
                           </CustomText>
-                          <CustomText fs={'18px'} style={{fontWeight: '100'}}>
+                          <CustomText fs={'18px'}>
                             Balance Leaves
                           </CustomText>
                         </View>
@@ -91,30 +89,25 @@ class Dashboard extends Component {
                   </Col>
                   <Col>
                     <TouchableOpacity
+                      activeOpacity={0.7}
                       style={{
                         borderRadius: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.8,
+                        shadowRadius: 2,
+                        elevation: 5,
                       }}>
                       <ModuleBG
-                        style={{
-                          shadowColor: '#000',
-                          shadowOffset: {width: 0, height: 1},
-                          shadowOpacity: 0.8,
-                          shadowRadius: 2,
-                          elevation: 5,
 
-                          borderRadius: 8 / 1,
-                          overflow: 'hidden',
-                          borderWidth: 1,
-                          borderColor: '#ffffff03',
-                        }}
                         source={require('../static/Reimbursements_Approval_bg.png')}>
                         <View>
-                          <CustomText style={{alignSelf: 'center'}} fs={'40px'}>
+                          <CustomText style={{ alignSelf: 'center' }} fs={'40px'}>
                             3
                           </CustomText>
-                          <CustomText
-                            style={{alignSelf: 'center', fontWeight: '100'}}
-                            fs={'17px'}>
+                          <CustomText fs={'17px'}>
                             Pending Approval
                           </CustomText>
                         </View>
@@ -125,31 +118,26 @@ class Dashboard extends Component {
                 <Grid>
                   <Col>
                     <TouchableOpacity
+                      activeOpacity={0.7}
                       style={{
                         borderRadius: 5,
+                        marginLeft: 5,
+                        marginRight: 5,
+                        shadowColor: '#000',
+                        shadowOffset: { width: 0, height: 1 },
+                        shadowOpacity: 0.8,
+                        shadowRadius: 2,
+                        elevation: 5,
                       }}>
                       <ModuleBG2
-                        style={{
-                          shadowColor: '#000',
-                          shadowOffset: {width: 0, height: 1},
-                          shadowOpacity: 0.8,
-                          shadowRadius: 2,
-                          elevation: 5,
 
-                          borderRadius: 8 / 1,
-                          overflow: 'hidden',
-                          borderWidth: 1,
-                          borderColor: '#ffffff03',
-                        }}
                         source={require('../static/balance_bg.png')}>
                         <Grid>
                           <Col>
                             <View>
                               <CustomText
                                 style={{
-                                  alignSelf: 'center',
                                   marginTop: 4,
-                                  fontWeight: '100',
                                 }}
                                 fs={'17px'}>
                                 Approve Leaves
@@ -157,9 +145,9 @@ class Dashboard extends Component {
                             </View>
                           </Col>
                           <Col>
-                            <View style={{marginTop:-7,}}>
+                            <View style={{ marginTop: -7, }}>
                               <CustomText
-                                style={{alignSelf: 'center'}}
+                                style={{ alignSelf: 'center' }}
                                 fs={'30px'}>
                                 20
                               </CustomText>
@@ -195,29 +183,26 @@ class Dashboard extends Component {
                   <Grid>
                     <Col>
                       <TouchableOpacity
+                        activeOpacity={0.6}
                         style={{
                           borderRadius: 5,
-                          marginTop:-25,
+                          marginTop: -25,
+                          marginLeft: 5,
+                          marginRight: 5,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.8,
+                          shadowRadius: 2,
+                          elevation: 5,
                         }}>
                         <ModuleBG
-                          style={{
-                            shadowColor: '#000',
-                            shadowOffset: {width: 0, height: 1},
-                            shadowOpacity: 0.8,
-                            shadowRadius: 2,
-                            elevation: 5,
 
-                            borderRadius: 8 / 1,
-                            overflow: 'hidden',
-                            borderWidth: 1,
-                            borderColor: '#ffffff03',
-                          }}
                           source={require('../static/Markbg.png')}>
                           <View>
                             <CustomText fw={900} fs={'40px'}>
                               3
                             </CustomText>
-                            <CustomText fs={'17px'} style={{fontWeight: '100'}}>
+                            <CustomText fs={'17px'}>
                               Pending Approval
                             </CustomText>
                           </View>
@@ -226,34 +211,27 @@ class Dashboard extends Component {
                     </Col>
                     <Col>
                       <TouchableOpacity
+                        activeOpacity={0.7}
                         style={{
                           borderRadius: 5,
                           marginTop: -25,
+                          marginLeft: 5,
+                          marginRight: 5,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.8,
+                          shadowRadius: 2,
+                          elevation: 5,
                         }}>
                         <ModuleBG
-                          style={{
-                            shadowColor: '#000',
-                            shadowOffset: {width: 0, height: 1},
-                            shadowOpacity: 0.8,
-                            shadowRadius: 2,
-                            elevation: 5,
 
-                            borderRadius: 8 / 1,
-                            overflow: 'hidden',
-                            borderWidth: 1,
-                            borderColor: '#ffffff03',
-                          }}
                           source={require('../static/Tasks_bg.png')}>
                           <View>
-                            <CustomText
-                              style={{alignSelf: 'center'}}
-                              fs={'40px'}>
+                            <CustomText fs={'40px'}>
                               2
                             </CustomText>
-                            <CustomText
-                              style={{alignSelf: 'center', fontWeight: '100'}}
-                              fs={'20px'}>
-                              Approval
+                            <CustomText fs={'17px'}>
+                              Approved
                             </CustomText>
                           </View>
                         </ModuleBG>
@@ -265,44 +243,37 @@ class Dashboard extends Component {
                   style={{
                     flex: 1,
                   }}>
-                  <Grid style={{marginTop:5}}>
+                  <Grid style={{ marginTop: 5 }}>
                     <Col>
                       <TouchableOpacity
+                        activeOpacity={0.6}
                         style={{
                           borderRadius: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.8,
+                          shadowRadius: 2,
+                          elevation: 5,
                         }}>
                         <ModuleBG2
-                          style={{
-                            shadowColor: '#000',
-                            shadowOffset: {width: 0, height: 1},
-                            shadowOpacity: 0.8,
-                            shadowRadius: 2,
-                            elevation: 5,
-
-                            borderRadius: 8 / 1,
-                            overflow: 'hidden',
-                            borderWidth: 1,
-                            borderColor: '#ffffff03',
-                          }}
                           source={require('../static/balance_bg.png')}>
                           <Grid>
                             <Col>
                               <View>
                                 <CustomText
-                                  style={{
-                                    alignSelf: 'center',
-                                    marginTop: 0,
-                                    fontWeight: '100',
-                                  }}
-                                  fs={'17px'}>
+                                  fs={'17px'}
+                                  style={{ marginTop: 4, }}
+                                >
                                   Approve Expenses
                                 </CustomText>
                               </View>
                             </Col>
                             <Col>
-                              <View style={{marginTop:-5,}}>
+                              <View style={{ marginTop: -5, }}>
                                 <CustomText
-                                  style={{alignSelf: 'center'}}
+
                                   fs={'30px'}>
                                   20
                                 </CustomText>
@@ -318,34 +289,29 @@ class Dashboard extends Component {
                 <View
                   style={{
                     flex: 1,
-               
+
                   }}>
                   <Grid>
                     <Col>
                       <TouchableOpacity
+                        activeOpacity={0.6}
                         style={{
                           borderRadius: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
                           marginTop: -30,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.8,
+                          shadowRadius: 2,
+                          elevation: 5,
                         }}>
-                        <ModuleBG
-                          style={{
-                            shadowColor: '#000',
-                            shadowOffset: {width: 0, height: 1},
-                            shadowOpacity: 0.8,
-                            shadowRadius: 2,
-                            elevation: 5,
-
-                            borderRadius: 8 / 1,
-                            overflow: 'hidden',
-                            borderWidth: 1,
-                            borderColor: '#ffffff03',
-                          }}
-                          source={require('../static/approval_bg.png')}>
+                        <ModuleBG source={require('../static/approval_bg.png')}>
                           <View>
                             <CustomText fw={900} fs={'40px'}>
                               30
                             </CustomText>
-                            <CustomText style={{fontWeight: '100'}} fs={'20px'}>
+                            <CustomText fs={'17px'}>
                               Tasks Progress
                             </CustomText>
                           </View>
@@ -354,36 +320,27 @@ class Dashboard extends Component {
                     </Col>
                     <Col>
                       <TouchableOpacity
+                        activeOpacity={0.6}
                         style={{
                           borderRadius: 5,
+                          marginLeft: 5,
+                          marginRight: 5,
                           marginTop: -30,
+                          shadowColor: '#000',
+                          shadowOffset: { width: 0, height: 1 },
+                          shadowOpacity: 0.8,
+                          shadowRadius: 2,
+                          elevation: 5,
                         }}
                         onPress={() =>
                           this.props.navigation.navigate('AttendencePage')
                         }>
-                        <ModuleBG
-                          style={{
-                            shadowColor: '#000',
-                            shadowOffset: {width: 0, height: 1},
-                            shadowOpacity: 0.8,
-                            shadowRadius: 2,
-                            elevation: 5,
-
-                            borderRadius: 8 / 1,
-                            overflow: 'hidden',
-                            borderWidth: 1,
-                            borderColor: '#ffffff03',
-                          }}
-                          source={require('../static/reapppbg.png')}>
-                          <View style={{width: '100%', alignSelf: 'center'}}>
-                            <CustomText2
-                              style={{
-                                alignSelf: 'center',
-                                fontWeight: 'bold',
-                                textTransform: 'uppercase',
-                              }}>
+                        <ModuleBG source={require('../static/reapppbg.png')}>
+                          <View style={{ width: '100%', alignSelf: 'center' }}>
+                            <Icon style={{ padding: 11, alignSelf: 'center' }} name="fingerprint" size={30} color="#fff" />
+                            <CustomText fs="17px">
                               Mark Attendance
-                            </CustomText2>
+                          </CustomText>
                           </View>
                         </ModuleBG>
                       </TouchableOpacity>
@@ -401,7 +358,7 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
   const loading = state.CommonReducer.loading;
-  return {loading};
+  return { loading };
 };
 
 export default connect(

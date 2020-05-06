@@ -75,7 +75,6 @@ class Login extends Component {
     render() {
         const { error, password } = this.state;
         const { loading, errMessage } = this.props;
-        console.log(loading);
         return (
             <>
                 <ImageBackground style={styles.body} source={require('../static/background.png')}>

@@ -13,11 +13,12 @@ export const CustomText = styled.Text`
   align-self: center;
   font-weight: ${props => props.fw || 900};
   color: #fff;
+  align-self: center;
   font-weight: bold;
 `;
 export const CustomText2 = styled.Text`
   align-self: center;
-color: #fff;
+  color: #fff;
   margin-top: 45px;
   font-size: 15px;
 `;
@@ -29,6 +30,8 @@ export const ModuleBG = styled.ImageBackground`
   height: 123px;
   padding: 15px;
   box-shadow: 2px 3px 4px #000;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 export const ModuleBG2 = styled.ImageBackground`
@@ -37,6 +40,8 @@ export const ModuleBG2 = styled.ImageBackground`
   padding: 10px;
   box-shadow: 2px 3px 4px #000;
   height:50px;
+  border-radius: 8px;
+  overflow: hidden;
 `;
 
 export const Loader = styled.View`

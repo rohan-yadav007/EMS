@@ -1,50 +1,28 @@
 import styled from 'styled-components/native';
 
-export const SickLeave = styled.Text`
-  background: #70be15;
-  height: 30px;
+
+export const LeaveTab = styled.View`
+  background: ${props=>props.bg ||'#efdc04'};
   color: #fff;
   text-align: center;
   margin: 4px;
   line-height: 27px;
   border-radius: 4px;
   font-size: 15px;
+  flex-direction:column;
 `;
-export const CasualLeave = styled.Text`
-  background: #c304aa;
-  height: 30px;
-  color: #fff;
-  text-align: center;
-  margin: 4px;
-  line-height: 27px;
-  border-radius: 4px;
-  font-size: 15px;
-`;
-export const Earned = styled.Text`
-  background: #efdc04;
-  height: 30px;
-  color: #fff;
-  text-align: center;
-  margin: 4px;
-  line-height: 27px;
-  border-radius: 4px;
-  font-size: 15px;
+export const CustomText = styled.Text`
+align-self:center;
+color:#fff;
+font-weight:bold;
+font-size:${props=>props.fs};
 `;
 
-export const Paternity = styled.Text`
-  background: #e301b6;
-  height: 30px;
-  color: #fff;
-  text-align: center;
-  margin: 4px;
-  line-height: 27px;
-  border-radius: 4px;
-  font-size: 15px;
-`;
 
 export const Form = styled.View`
-  margin-top: 45px;
-  margin-bottom: 50px;
+  margin-top: 15px;
+  flex: 1 ;
+  /* margin-bottom: 10px; */
 `;
 
 export const Savebut = styled.Text`
@@ -57,4 +35,18 @@ export const Savebut = styled.Text`
   border-radius:5px;
   margin:5px;
   margin-top:20px;
+`;
+
+export const InputGroup = styled.View`
+  display: flex;
+  margin-top: 5px;
+  flex-direction: column;
+  background-color: #fff;
+  height:${props=>props.h || '50px'} ;
+  border-radius: 4px;
+  flex-direction:row;
+`;
+export const Input = styled.TextInput`
+  padding: 5px;
+  flex: 8;
 `;

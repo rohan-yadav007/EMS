@@ -23,7 +23,6 @@ import Expense from '../screens/Expense';
 import Expenseaddform from '../screens/Expenseaddform';
 
 const CustomNavLink = (props) => {
-  console.log(props);
   return (
     <TouchableOpacity
       style={styles.MainMenu}
@@ -138,7 +137,8 @@ class CustomDrawerContent extends Component {
             <CustomNavLink compName='Dashboard' text='Dashboard' {...this.props} />
             <CustomNavLink compName='Projects' text='Projects' {...this.props}/>
             <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props}/>
-            <CustomNavLink compName='AddLeave' text='Add Leave' {...this.props}/>
+            <CustomNavLink compName='AddLeave' text='Leave Master' {...this.props}/>
+            <CustomNavLink compName='ApplyLeave' text='Apply Leave' {...this.props}/>
             <CustomNavLink compName='Expense' text='Expense' {...this.props}/>
           </View>
         </SafeAreaView>

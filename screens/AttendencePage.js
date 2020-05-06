@@ -48,7 +48,7 @@ class AttendencePage extends Component {
     //   fullYear = year + '-' + getmonth + '-' + day;
     // }
     let fullYear = year + '-' + month + '-' + day;
-    console.log("cureetn",fullYear);
+   
     if (this.props.AttendenceData) {
       await this.setState({ AttendenceData: this.props.AttendenceData, PresentDate: fullYear, month: Monthobj,refreshing: false });
     }
@@ -118,7 +118,7 @@ class AttendencePage extends Component {
             maxDate={new Date()}
             onDayPress={day => this.punchTime(day)}
           />
-          {console.log("hiii",PresentDate,selectedDate)}
+      
           {showPunch === true && (PresentDate !== selectedDate ?
             (<Status_Wrapper>
               <Text>{selectedDate}</Text>

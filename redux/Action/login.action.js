@@ -4,7 +4,7 @@ import * as commonAction from '../actionType/common.actionType';
 import { GET } from '../../utils/responseHelper';
 import { getData, RemoveAll, storeData } from '../../utils/AsyncStorage';
 const dispatchAction = (dispatch, actionType, data, login, error, message) => {
-  dispatch({ type: actionType, payload: data, loginStatus: login,message: message });
+  dispatch({ type: actionType, payload: data, loginStatus: login, message: message });
 };
 
 export const getLogin = postObj => async dispatch => {
@@ -33,17 +33,17 @@ export const loginStatus = () => async dispatch => {
   dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
   const UserId = await getData('UserId');
   if (UserId !== (null || undefined)) {
-    await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
-    await setTimeout(()=>dispatchAction(dispatch, loginAction.LOGIN_STATUS_SUCCESS, null, true, null, null),2000)
+    dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null)
+    dispatchAction(dispatch, loginAction.LOGIN_STATUS_SUCCESS, null, true, null, null)
   }
-  else{
-    await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
+  else {
+    dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null)
   }
 };
 
 export const handleLogout = () => async dispatch => {
   dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
   await RemoveAll();
-  await setTimeout(()=>dispatchAction(dispatch, loginAction.LOGOUT_SUCCESS, null, false),2000)
-  await setTimeout(()=>dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null),2000)
+  dispatchAction(dispatch, loginAction.LOGOUT_SUCCESS, null, false)
+  dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null)
 };

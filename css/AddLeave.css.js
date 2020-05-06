@@ -9,3 +9,12 @@ export const Searchbox = styled.Text`
   margin-top:-8px;
   margin-bottom:20px;
 `;
+
+export const CustomInput = styled.TextInput`
+  height: 45px;
+  background-color: #fff;
+  border-width: 1px;
+  border-color: #d0d0d0;
+  border-radius: 4px;
+  margin-bottom: 40px;
+`;
