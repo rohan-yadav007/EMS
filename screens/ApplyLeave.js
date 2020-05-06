@@ -158,7 +158,6 @@ class ApplyLeave extends Component {
     const { totalCount, leaveTypeCount, clubLeaveCount } = this.state;
     if (totalCount > leaveTypeCount) {
       const PLeaveClub = totalCount - leaveTypeCount;
-      console.log('PLeaveClub', PLeaveClub, clubLeaveCount);
       if (PLeaveClub <= clubLeaveCount) {
         this.setState({ PLeaveClub: PLeaveClub });
       }
@@ -181,7 +180,6 @@ class ApplyLeave extends Component {
     this.setState({ reason: text })
   }
   handleSelect = async (Value, name) => {
-    console.log(name, Value);
     await this.setState({ [name]: Value });
     const { typeList } = this.props;
     const { totalCount, leaveTypeCount, clubLeaveCount } = this.state;
