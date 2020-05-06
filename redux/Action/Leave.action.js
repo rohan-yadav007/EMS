@@ -53,3 +53,25 @@ export const getLeaveType = postObj => async dispatch => {
       // console.log(error);
     }
   };
+
+  export const getClubLeave = LeaveId => async dispatch => {
+    dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
+ 
+    const n_EmpId = JSON.parse(await getData('UserInfo')).a_EmployeeID;
+    console.log('n_EmpId',n_EmpId);
+    const url = `CorporateRecruitment/Attendence/GetClubLeavesByEmpLeave?n_LeaveId=${LeaveId}&n_EmpId=${n_EmpId}`;
+    // CorporateRecruitment/Attendence/GetClubLeavesByEmpLeave?n_LeaveId=2&n_EmpId=538
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.CLUB_LEAVE_SUCCESS, data, true, null);
+        dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null);
+      }
+      else {
+        dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null);
+      //   dispatchAction(dispatch, loginAction.LOGIN_FAILED, null, true, null, 'Invalid User!');
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  };

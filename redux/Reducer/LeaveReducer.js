@@ -2,7 +2,8 @@ import * as actions from '../actionType/Leave.actionType';
 
 const initialState = {
     ApplierList: [],
-    LeaveType:[]
+    LeaveType:[],
+    ClubLeave:[]
 };
 
 const LeaveReducer = (state, action) => {
@@ -20,6 +21,11 @@ const LeaveReducer = (state, action) => {
           ...state,
           LeaveType: action.payload,
         };
+      case actions.CLUB_LEAVE_SUCCESS:
+      return {
+        ...state,
+        ClubLeave: action.payload,
+      };
     default:
       return state;
   }
