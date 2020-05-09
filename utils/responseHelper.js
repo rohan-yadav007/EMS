@@ -15,6 +15,19 @@ export const GET = async getUrl => {
   return data;
 };
 
+export const GET_API = async getUrl => {
+  const url = getUrl;
+
+  const data = await fetch(url)
+    .then(response => {
+      return response.json();
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  return data;
+};
+
 export const POST = async (posturl, data) => {
   const url = `${base_url.concat(posturl)}`;
   // console.log(url);

@@ -1,9 +1,10 @@
 import * as actions from '../actionType/Leave.actionType';
 
 const initialState = {
-    ApplierList: [],
-    LeaveType:[],
-    ClubLeave:[]
+  ApplierList: [],
+  LeaveType: [],
+  ClubLeave: [],
+  message: ''
 };
 
 const LeaveReducer = (state, action) => {
@@ -16,15 +17,20 @@ const LeaveReducer = (state, action) => {
         ...state,
         ApplierList: action.payload,
       };
-      case actions.LEAVE_TYPE_SUCCESS:
-        return {
-          ...state,
-          LeaveType: action.payload,
-        };
-      case actions.CLUB_LEAVE_SUCCESS:
+    case actions.LEAVE_TYPE_SUCCESS:
+      return {
+        ...state,
+        LeaveType: action.payload,
+      };
+    case actions.CLUB_LEAVE_SUCCESS:
       return {
         ...state,
         ClubLeave: action.payload,
+      };
+    case actions.SAVE_LEAVE_SUCCESS:
+      return {
+        ...state,
+        message: action.message,
       };
     default:
       return state;

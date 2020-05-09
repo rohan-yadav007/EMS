@@ -1,6 +1,6 @@
 import * as leaveAction from '../actionType/Leave.actionType';
 import * as commonAction from '../actionType/common.actionType';
-import { GET } from '../../utils/responseHelper';
+import { GET, POST } from '../../utils/responseHelper';
 import { getData, RemoveAll,getAll, storeData } from '../../utils/AsyncStorage';
 
 const dispatchAction = (dispatch, actionType, data, error, message) => {
@@ -70,6 +70,20 @@ export const getLeaveType = postObj => async dispatch => {
       else {
         dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null);
       //   dispatchAction(dispatch, loginAction.LOGIN_FAILED, null, true, null, 'Invalid User!');
+      }
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+  export const saveLeaveApply = postObj => async dispatch => {
+    dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
+ 
+    const url = `CorporateRecruitment/Attendence/SaveApplyLeave`;
+    // CorporateRecruitment/Attendence/GetClubLeavesByEmpLeave?n_LeaveId=2&n_EmpId=538
+    try {
+      const data = await POST(url,postObj);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.SAVE_LEAVE_SUCCESS, null, null, 'Success');
       }
     } catch (error) {
       // console.log(error);

@@ -5,6 +5,7 @@ import { Calendar } from 'react-native-calendars';
 import { Status_Wrapper, Punch_status, CustomText } from '../css/AttendencePage.css';
 import { MonthlyAttendence, MarkAttendence } from '../redux/Action/attendence.action';
 import { connect } from 'react-redux';
+import {GET_API} from '../utils/responseHelper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { getAll } from "../utils/AsyncStorage";
 // import { getUniqueId, getManufacturer } from 'react-native-device-info';
@@ -55,6 +56,7 @@ class AttendencePage extends Component {
   }
 
   loadAttendenceData = async month => {
+    GET_API()
     await this.props.MonthlyAttendence(month);
     await this.setState({ month: month, showPunch: false,AttendenceData: this.props.AttendenceData })
   };
@@ -104,7 +106,26 @@ class AttendencePage extends Component {
 
     const date = {};
     const presentFilter = AttendenceData.filter(e => e.n_Attendence === 1);
-    presentFilter.map(e => (date[e.d_Date] = { marked: true, dotColor: 'green' }));
+    presentFilter.map(e => (date[e.d_Date] = { marked: true, customStyles: {
+      container: {
+        backgroundColor:'green',
+        borderRadius: 20,
+        borderColor: 'red',
+        
+      },
+      text: {
+        backgroundColor:'#fff',
+        borderColor: '#fff',
+        width:24,
+        height:24,
+        paddingLeft:4,
+        paddingRight:4,
+        borderRadius: 20,
+        fontSize:14,
+      
+        alignSelf:'center'
+      }
+    } }));
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -112,6 +133,9 @@ class AttendencePage extends Component {
 
         <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />} >
           <Calendar
+            markingType={'custom'}
+            // onMonthChange={(month) => {console.log('month changed', month.dateString)}}
+            // onMonthChange={month => this.loadAttendenceData(month)}
             onMonthChange={month => this.loadAttendenceData(month)}
             style={{ marginTop: '10%' }}
             markedDates={date}
