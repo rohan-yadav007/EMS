@@ -19,7 +19,7 @@ const Header = props => {
         </TouchableOpacity>
 
         <View style={styles.logoutButton}>
-          {title ? <Text style={styles.logoutText}>{title}</Text> : null}
+          {title ? <Text style={styles.headerText}>{title}</Text> : null}
         </View>
 
         <TouchableOpacity onPress={() => props.handleLogout()}>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     left: 10,
     marginTop: 10,
   },
-  logoutText: {
+  headerText: {
     lineHeight: 27,
     color: '#fff',
     fontSize: 22,

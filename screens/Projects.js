@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {Component, useState} from 'react';
+import React, { Component, useState } from 'react';
 import {
   View,
   SafeAreaView,
@@ -8,6 +8,7 @@ import {
   FlatList,
   RefreshControl,
   ActivityIndicator,
+  ImageBackground,
   Modal,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,16 +23,16 @@ import {
   CloseButton,
 } from '../css/Projectlist.css';
 import Header from '../components/Header';
-import {getProjectList} from '../redux/Action/Projects.action';
-import {connect} from 'react-redux';
-import {getData} from '../utils/AsyncStorage';
+import { getProjectList } from '../redux/Action/Projects.action';
+import { connect } from 'react-redux';
+import { getData } from '../utils/AsyncStorage';
 
-const Item = ({item, props}) => {
+const Item = ({ item, props }) => {
   const [showPopup, setShowPopup] = useState(false);
 
   const handleView = () => {
     setShowPopup(false);
-    props.navigation.navigate('ViewProjects', {ProjectId: item.a_ProjectId});
+    props.navigation.navigate('ViewProjects', { ProjectId: item.a_ProjectId });
   };
   const handleList = () => {
     setShowPopup(false);
@@ -43,10 +44,10 @@ const Item = ({item, props}) => {
   return (
     <>
       <Modal transparent={true} visible={showPopup}>
-        <View style={{backgroundColor: '#000000aa', flex: 1}}>
+        <View style={{ backgroundColor: '#000000aa', flex: 1 }}>
           <ModalTopContent>
             <CloseButton onPress={() => setShowPopup(false)}>
-              <Close name="close-circle" color="#0072e6" size={30} />
+              <Close name="close-circle" color="#1a78c3" size={30} />
             </CloseButton>
 
             <NavButton onPress={() => handleView()}>
@@ -74,36 +75,42 @@ const Item = ({item, props}) => {
           </ModalTopContent>
         </View>
       </Modal>
-      <SafeAreaView style={{padding: 12}}>
-        <TouchableOpacity onPress={() => setShowPopup(!showPopup)}>
-          <LinearGradient
-            style={{
-              paddingTop: 8,
-              paddingBottom: 14,
-              borderRadius: 4,
-              paddingLeft: 10,
-              paddingRight: 10,
-            }}
-            colors={['#448be9', '#448be9', 'rgba(0,212,255,1)']}>
-            <Customborder>
-              <View style={{flexDirection: 'row'}}>
-                <View style={{flexDirection: 'row'}}>
-                  <Customtext>
-                    <Text>
-                      {item.t_ProjectCode} ({item.t_ProjectTitle})
+      
+        <SafeAreaView style={{ padding: 12,backgroundColor:'#fff' }}>
+          <TouchableOpacity activeOpacity={0.8} onPress={() => setShowPopup(!showPopup)}>
+
+            <LinearGradient
+              style={{
+                paddingTop: 8,
+                paddingBottom: 14,
+                borderTopRightRadius: 4,
+                borderBottomRightRadius: 4,
+                paddingLeft: 10,
+                paddingRight: 10,
+                borderLeftWidth: 5,
+                borderLeftColor: '#2196f3',
+              }}
+              colors={['#bfebffb8', '#bfebffb8', '#bfebffb8']}>
+              <Customborder>
+                <View style={{ flexDirection: 'row' }}>
+                  <View style={{ flexDirection: 'row' }}>
+                    <Customtext>
+                      <Text style={{ color: '#000' }}>
+                        {item.t_ProjectCode} ({item.t_ProjectTitle})
                     </Text>
-                  </Customtext>
+                    </Customtext>
+                  </View>
+                  <View>
+                    <Text>
+                      <Icon name="popup" size={20} color="#1a78c3" />
+                    </Text>
+                  </View>
                 </View>
-                <View>
-                  <Text>
-                    <Icon name="popup" size={20} color="#fff" />
-                  </Text>
-                </View>
-              </View>
-            </Customborder>
-          </LinearGradient>
-        </TouchableOpacity>
-      </SafeAreaView>
+              </Customborder>
+            </LinearGradient>
+          </TouchableOpacity>
+        </SafeAreaView>
+     
     </>
   );
 };
@@ -113,10 +120,11 @@ class ProjectList extends Component {
     super(props);
     this.state = {
       refreshing: false,
+      projectData:[]
     };
   }
   async componentDidMount() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     this._unsubscribe = navigation.addListener('focus', async () => {
       await this._onRefresh();
     });
@@ -125,18 +133,18 @@ class ProjectList extends Component {
     this._unsubscribe();
   }
   _onRefresh = async () => {
-    this.setState({refreshing: true});
+    this.setState({ refreshing: true });
     await this.props.getProjectList();
-    this.setState({refreshing: false});
+    this.setState({ refreshing: false,projectData:this.props.projectData });
   };
 
   render() {
-    const {loading} = this.props;
-    const {refreshing} = this.state;
+    const { loading } = this.props;
+    const { refreshing } = this.state;
     return (
-      <SafeAreaView style={{flex: 1}}>
+      <SafeAreaView style={{ flex: 1 }}>
         <Header title={'Projects'} />
-        <View style={{marginBottom: 50}}>
+        <View style={{ marginBottom: 50 }}>
           <FlatList
             refreshControl={
               <RefreshControl
@@ -144,8 +152,8 @@ class ProjectList extends Component {
                 onRefresh={this._onRefresh}
               />
             }
-            data={this.props.projectData}
-            renderItem={({item}) => <Item item={item} props={this.props} />}
+            data={this.state.projectData}
+            renderItem={({ item }) => <Item item={item} props={this.props} />}
             keyExtractor={item => item.t_ProjectCode}
           />
         </View>
@@ -157,10 +165,10 @@ class ProjectList extends Component {
 const mapStateToProps = state => {
   const projectData = state.ProjectsReducer.projectData;
   const loading = state.CommonReducer.loading;
-  return {projectData, loading};
+  return { projectData, loading };
 };
 
 export default connect(
   mapStateToProps,
-  {getProjectList},
+  { getProjectList },
 )(ProjectList);

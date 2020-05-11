@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View, Button, ImageBackground, StyleSheet, TextInput, RefreshControl, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, Button, ImageBackground,Image, StyleSheet, TextInput, RefreshControl, TouchableOpacity, ScrollView } from 'react-native';
 import Header from '../components/Header';
 import { Tasklist1, Taskboder, Content, Input, CustomText, ContentWrapper } from '../css/MyProfile.css';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -18,7 +18,9 @@ const HandleTab = ({ state, handleChange }) => {
                 </LinearGradient>
 
                 <Tasklist1 style={{ flex: 9 }}>
-                    <View style={{ height: 150, width: 150, borderRadius: 10, backgroundColor: '#fff', alignSelf: 'center', marginTop: '-25%' }}></View>
+                    <View style={{ height: 150, width: 150, borderRadius: 10, backgroundColor: '#fff', alignSelf: 'center', marginTop: '-25%' }}>
+                        <Image source={require('../static/images/user.png')}/>
+                    </View>
                     <View>
                         <Text style={{ alignSelf: 'center', fontSize: 25 }}>{state?.t_First_Name} {profileData?.t_Last_Name}</Text>
                         <Text style={{ alignSelf: 'center', fontSize: 14 }}>Assistant Manager</Text>
@@ -56,7 +58,7 @@ const HandleTab = ({ state, handleChange }) => {
         )
     } else {
         return (
-            <View style={{ paddingBottom: 50 }}>
+            <View style={{ paddingBottom: 40 }}>
                 <ScrollView>
                     <View>
                         <Text style={{ fontSize: 20, marginTop: 20, alignSelf: 'center', fontWeight: 'bold' }}>Basic Details</Text>

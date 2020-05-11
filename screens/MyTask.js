@@ -17,7 +17,6 @@ const RenderTask = (props) => {
   if (d_ReportSubmissionDate) {
     createdDate = d_ReportSubmissionDate.split('T')[0];
   }
-  console.log(props)
   return (
     <>
       <View>
@@ -166,7 +165,6 @@ class MyTask extends Component {
     await this.props.handleTaskStatus(postObj);
 
     if (this.props.taskUpdate) {
-      console.log('taskUpdate', this.props.taskUpdate)
       const MyTaskList = this.state.MyTaskList[0];
       MyTaskList.n_TaskStatusID = this.props.taskUpdate?.n_TaskStatusID;
       this.setState({ PopupShow: true, PopupAutoClose: true, message: this.props.message, });
@@ -203,9 +201,7 @@ class MyTask extends Component {
               paddingLeft: 10,
               paddingRight: 10,
               flex: 1
-            }}
-          >
-
+            }} >
             {this.state.MyTaskList?.length !== 0 &&
               (<FlatList
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />}
@@ -215,9 +211,7 @@ class MyTask extends Component {
               />)
             }
 
-
           </SafeAreaView>
-
         </ImageBackground>
       </>
     );

@@ -42,7 +42,7 @@ export const CloseButton = styled.TouchableOpacity`
 `; 
 
 export const NavButton = styled.TouchableOpacity`
-  background-color: #0072e6;
+  background-color: #1a78c3;
   border-radius: 4px;
   padding: 12px;
   margin: 15px;
