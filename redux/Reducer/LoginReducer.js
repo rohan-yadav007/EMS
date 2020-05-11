@@ -4,6 +4,7 @@ const initialState = {
   userId: '',
   login: false,
   userData: [],
+  profileData:[],
   message: '',
 };
 
@@ -14,6 +15,7 @@ const LoginReducer = (state, action) => {
   switch (action.type) {
     case actions.LOGIN_SUCCESS:
       return {
+        ...state,
         userId: action.payload.n_UserId,
         login: action.loginStatus,
         userData: action.payload,
@@ -21,6 +23,7 @@ const LoginReducer = (state, action) => {
 
     case actions.LOGIN_FAILED:
       return {
+        ...state,
         userId: state.userId,
         login: state.loginStatus,
         message: action.message,
@@ -28,14 +31,21 @@ const LoginReducer = (state, action) => {
 
     case actions.LOGIN_STATUS_SUCCESS:
       return {
+        ...state,
         login: action.loginStatus,
       };
 
     case actions.LOGOUT_SUCCESS:
       return {
+        ...state,
         login: action.loginStatus,
       };
 
+      case actions.GET_PROFILE_DATA_SUCCESS:
+      return {
+        ...state,
+        profileData: action.payload,
+      };
     default:
       return state;
   }

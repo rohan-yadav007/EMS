@@ -38,7 +38,7 @@ export const getLeaveType = postObj => async dispatch => {
  
     const n_EmpId = JSON.parse(await getData('UserInfo')).a_EmployeeID;
     console.log('n_EmpId',n_EmpId);
-    const url = `CorporateRecruitment/Attendence/GetEmployeeLeaves?n_EmployeeId=${n_EmpId}`;
+    const url = `CorporateRecruitment/Attendence/GetEmployeeLeaves?n_EmployeeId=${n_EmpId}&n_LeaveYear=null`;
     try {
       const data = await GET(url);
       if (data) {

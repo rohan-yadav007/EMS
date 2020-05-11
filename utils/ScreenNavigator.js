@@ -21,6 +21,9 @@ import ApplyLeave from '../screens/ApplyLeave';
 import AddLeave from '../screens/AddLeave';
 import Expense from '../screens/Expense';
 import Expenseaddform from '../screens/Expenseaddform';
+import MyTask from '../screens/MyTask';
+import MyProfile from '../screens/MyProfile';
+import LeaveMaster from '../screens/LeaveMaster';
 
 const CustomNavLink = (props) => {
   return (
@@ -135,11 +138,13 @@ class CustomDrawerContent extends Component {
 
           <View style={{ flexDirection: 'column' }}>
             <CustomNavLink compName='Dashboard' text='Dashboard' {...this.props} />
+            <CustomNavLink compName='MyProfile' text='My Profile' {...this.props}/>
+            <CustomNavLink compName='MyTask' text='My Task' {...this.props}/>
             <CustomNavLink compName='Projects' text='Projects' {...this.props}/>
             <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props}/>
-            <CustomNavLink compName='AddLeave' text='Leave Master' {...this.props}/>
-            <CustomNavLink compName='ApplyLeave' text='Apply Leave' {...this.props}/>
+            <CustomNavLink compName='LeaveMaster' text='Leave Master' {...this.props}/>
             <CustomNavLink compName='Expense' text='Expense' {...this.props}/>
+           
           </View>
         </SafeAreaView>
       );
@@ -191,6 +196,11 @@ class CustomNavigator extends React.Component {
   }
 
   render() {
+    {/* <CustomNavLink compName='AddLeave' text='Leave Master' {...this.props}/>
+            <CustomNavLink compName='ApplyLeave' text='Apply Leave' {...this.props}/> */}
+            
+     {/* <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
+              <Drawer.Screen name="AddLeave" component={AddLeave} /> */}
     return (
       <NavigationContainer>
         <Drawer.Navigator
@@ -208,15 +218,18 @@ class CustomNavigator extends React.Component {
           {this.state.isLoggedIn === true ? (
             <>
               <Drawer.Screen name="Dashboard" component={Dashboard} />
+              <Drawer.Screen name="MyProfile" component={MyProfile} />
               <Drawer.Screen name="AttendencePage" component={AttendencePage} />
               <Drawer.Screen name="CreateTask" component={CreateTask} />
               <Drawer.Screen name="Projects" component={ProjectList} />
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
               <Drawer.Screen name="TaskList" component={TaskList} />
+              <Drawer.Screen name="LeaveMaster" component={LeaveMaster} />
               <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
               <Drawer.Screen name="AddLeave" component={AddLeave} />
               <Drawer.Screen name="Expense" component={Expense} />
               <Drawer.Screen name="Expenseaddform" component={Expenseaddform} />
+              <Drawer.Screen name="MyTask" component={MyTask} />
             </>
           ) : (
               <>

@@ -26,7 +26,7 @@ export const createUpdateTask = (obj) => async dispatch => {
   try {
     const url = `CorporateRecruitment/Task/SaveUpdatetblTaskMaster`;
     const data = await POST(url,obj);
-    console.log(data);
+    
     dispatchAction(dispatch, CreateTaskAction.GET_TASKLIST_SUCCESS, data, null, 'success');
   } catch (error) {
     console.log(error)
@@ -76,6 +76,30 @@ export const getTaskStatus = (obj) => async dispatch => {
     const data = await GET(url);
 
     dispatchAction(dispatch, CreateTaskAction.GET_TASKSTATUS_SUCCESS, data, null, 'success');
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+export const getMyTaskList = () => async dispatch => {
+  try {
+    const url = `CorporateRecruitment/Task/GetAllTaskByEmp?EmployeeId=159&ProjectId=0&TaskId=0&Projectstatus=0&TaskStatus=0&TaskPriority=0`;
+    const data = await GET(url);
+
+    dispatchAction(dispatch, CreateTaskAction.GET_MYTASKS_SUCCESS, data, null, 'success');
+  } catch (error) {
+    console.log(error)
+  }
+
+};
+
+export const handleTaskStatus = (obj) => async dispatch => {
+  try {
+    const url = `CorporateRecruitment/Task/ChangeTaskStatus`;
+    const data = await POST(url,obj);
+   console.log('hhhh',data)
+    dispatchAction(dispatch, CreateTaskAction.TASK_UPDATE_SUCCESS, data, null, 'Updated Successfully');
   } catch (error) {
     console.log(error)
   }

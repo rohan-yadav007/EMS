@@ -33,8 +33,8 @@ export const InputBox = styled.View`
   flex: 7;
   
 `;
-export const Select = styled.Picker`
-flex-direction:row;
-display:flex;
-margin-top: 20px;
-`;
+// export const Select = styled.Picker`
+// flex-direction:row;
+// display:flex;
+// margin-top: 20px;
+// `;

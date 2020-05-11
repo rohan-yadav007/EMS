@@ -5,7 +5,10 @@ const initialState = {
   TaskAssigneeList:[],
   TaskDepartmentList:[],
   TaskPriorityList:[],
-  TaskStatusList:[]
+  TaskStatusList:[],
+  MyTaskList:[],
+  message:'',
+  taskUpdate:[]
 };
 
 const CreateTaskReducer = (state, action) => {
@@ -50,6 +53,18 @@ const CreateTaskReducer = (state, action) => {
       return {
         ...state,
         TaskStatusList: action.payload,
+        message: action.message
+      };
+      case actions.GET_MYTASKS_SUCCESS:
+      return {
+        ...state,
+        MyTaskList: action.payload,
+        message: action.message
+      };
+      case actions.TASK_UPDATE_SUCCESS:
+      return {
+        ...state,
+        taskUpdate: action.payload,
         message: action.message
       };
     default:

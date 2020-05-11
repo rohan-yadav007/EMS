@@ -140,13 +140,13 @@ class AddLeave extends Component {
   }
   async componentDidMount() {
     const {navigation} = this.props;
-    this._unsubscribe = navigation.addListener('focus', async () => {
+    // this._unsubscribe = navigation.addListener('focus', async () => {
       await this._onRefresh();
-    });
+    // });
   }
-  componentWillUnmount() {
-    this._unsubscribe();
-  }
+  // componentWillUnmount() {
+  //   this._unsubscribe();
+  // }
   _onRefresh = async () => {
     this.setState({refreshing:true});
     await this.props.getApplierList();
@@ -158,18 +158,18 @@ class AddLeave extends Component {
     const { refreshing } = this.state;
     return (
       <>
-        <ImageBackground
+        {/* <ImageBackground
           style={{ flex: 1, paddingBottom: 10 }}
           source={require('../static/background2.png')}>
-          <Header title={'Leave Master'} />
-          <SafeAreaView
+          <Header title={'Leave Master'} /> */}
+          {/* <SafeAreaView
             style={{
               paddingRight: 10,
               paddingBottom: 20,
               paddingLeft: 10,
               paddingTop: 10,
             }}>
-           
+            */}
             <Grid style={{ marginBottom: 60, padding:5 }}>
               <Col style={{ width: '80%' }}>
                 <View>
@@ -200,10 +200,10 @@ class AddLeave extends Component {
               />
               : null}
            </View>
-            
+{/*             
 
           </SafeAreaView>
-        </ImageBackground>
+        </ImageBackground> */}
       </>
     );
   }

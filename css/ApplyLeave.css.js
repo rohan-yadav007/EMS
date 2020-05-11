@@ -14,8 +14,8 @@ export const LeaveTab = styled.View`
 export const CustomText = styled.Text`
 align-self:center;
 color:#fff;
-font-weight:bold;
-font-size:${props=>props.fs};
+font-weight:${props=>props.fw || 'normal'};
+font-size: 14px;
 `;
 
 
@@ -25,7 +25,7 @@ export const Form = styled.View`
   /* margin-bottom: 10px; */
 `;
 
-export const Savebut = styled.Text`
+export const Savebut = styled.TouchableOpacity`
   background-color: #00a34d;
   padding: 15px;
   color: #fff;

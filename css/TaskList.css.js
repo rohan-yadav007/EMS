@@ -40,7 +40,14 @@ export const Buttontext = styled.View`
   margin-top: 0px;
   border:1px solid #f1f1f1;
 `;
-
+export const TaskStatus = styled.View`
+  background: #f9cd00;
+  /* padding: 10px; */
+  border-radius: 5px;
+  /* padding-bottom: 15px; */
+  margin-top: 0px;
+  border:1px solid #f1f1f1;
+`;
 export const ButtonMedium = styled.View`
   background: #09b90d;
   padding: 10px;

@@ -25,7 +25,7 @@ const RenderTask = (props) => {
                 <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_TaskTitle}</Text>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.t_TaskTitle}</Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -36,7 +36,7 @@ const RenderTask = (props) => {
                 <Text style={{ fontWeight: 'bold' }}>Assignee</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.AssigneeName} </Text>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.AssigneeName} </Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -47,7 +47,7 @@ const RenderTask = (props) => {
                 <Text style={{ fontWeight: 'bold' }}>Department</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}> {Task.DepartmentName} </Text>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}> {Task?.DepartmentName} </Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -58,7 +58,7 @@ const RenderTask = (props) => {
                 <Text style={{ fontWeight: 'bold' }}>Create Date</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.d_ReportSubmissionDate}</Text>
+                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.d_ReportSubmissionDate}</Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -78,7 +78,7 @@ const RenderTask = (props) => {
                       color: '#fff',
                       fontSize: 14,
                     }}>
-                    {Task.TaskPriority}
+                    {Task?.TaskPriority}
                   </Text>
                 </ButtonMedium>
               </Col>
@@ -95,7 +95,7 @@ const RenderTask = (props) => {
               <Col style={{ width: '60%' }}>
                 <Buttontext>
                   <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                    {Task.TaskStatus}
+                    {Task?.TaskStatus}
                   </Text>
                 </Buttontext>
               </Col>
@@ -170,7 +170,7 @@ class TaskList extends Component {
               </AddTaskText>
               </AddTask>
             </View>
-            {this.state.TaskList.length !== 0 &&
+            {this.state.TaskList?.length !== 0 &&
               (<FlatList
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />}
                 data={this.state.TaskList}
