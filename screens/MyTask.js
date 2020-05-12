@@ -100,7 +100,7 @@ const RenderTask = (props) => {
               </Col>
               <Col style={{ width: '60%' }}>
                 <TaskStatus>
-                  <Picker
+                  <Picker style={{ height: 55, width: '100%' }}
                     selectedValue={Task?.n_TaskStatusID}
                     onValueChange={(itemValue, itemIndex) =>
                       props.handleTask(Task.a_TaskId, itemValue)

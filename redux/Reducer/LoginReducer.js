@@ -41,11 +41,7 @@ const LoginReducer = (state, action) => {
         login: action.loginStatus,
       };
 
-      case actions.GET_PROFILE_DATA_SUCCESS:
-      return {
-        ...state,
-        profileData: action.payload,
-      };
+      
     default:
       return state;
   }

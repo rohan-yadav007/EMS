@@ -16,10 +16,10 @@ import ApplyLeave from './ApplyLeave';
 import AddLeave from './AddLeave';
 
 
-const HandleTab = ({selected,SetTabFromProp}) => {
+const HandleTab = ({ selected, SetTabFromProp }) => {
     if (selected === 'tab1') {
         return (
-            <AddLeave SetTabFromProp={SetTabFromProp}/>
+            <AddLeave SetTabFromProp={SetTabFromProp} />
         )
     } else {
         return (
@@ -53,8 +53,8 @@ class LeaveMaster extends Component {
         this.setState({ refreshing: false })
     }
     SetTabFromProp = (tabName) => {
-        this.setState({selected:tabName})
-    } 
+        this.setState({ selected: tabName })
+    }
     render() {
         const { selected } = this.state;
         return (
@@ -70,7 +70,7 @@ class LeaveMaster extends Component {
                             paddingLeft: 10,
                             paddingTop: 10,
                         }}>
-                        <View style={{ flexDirection: 'row', position: 'relative', bottom: 0 }}>
+                        <View style={{ flexDirection: 'row', position: 'relative'}}>
 
                             <TouchableOpacity
                                 onPress={() => this.setState({ selected: 'tab1' })}
@@ -99,11 +99,11 @@ class LeaveMaster extends Component {
                                     }}>Apply</Text>
                             </TouchableOpacity>
                         </View>
-                        <View style={{marginBottom:100}}>
-                        <HandleTab SetTabFromProp={this.SetTabFromProp} selected={selected}  />
-                        </View>
-                       
-                        
+                        {/* <View style={{marginBottom:100}}> */}
+                        <HandleTab SetTabFromProp={this.SetTabFromProp} selected={selected} />
+                        {/* </View> */}
+
+
                     </SafeAreaView>
                 </ImageBackground>
             </>

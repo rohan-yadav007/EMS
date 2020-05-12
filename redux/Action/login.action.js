@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import * as loginAction from '../actionType/login.actionType';
 import * as commonAction from '../actionType/common.actionType';
 import { GET } from '../../utils/responseHelper';
@@ -48,19 +47,3 @@ export const handleLogout = () => async dispatch => {
   dispatchAction(dispatch, commonAction.LOADING_HIDE, null, null, null, null)
 };
 
-export const getProfileData = () => async dispatch => {
-  dispatchAction(dispatch, commonAction.LOADING_SHOW, null, null, null, null);
-  const UserId = await getData('UserId');
-  const url = `CorporateRecruitment/Employee/GettblEmployeebyID?id=${UserId}`;
-
-  try {
-    const data = await GET(url);
-    
-    if (data) {
-      
-      dispatchAction(dispatch, loginAction.GET_PROFILE_DATA_SUCCESS, data, null, null, null);
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};

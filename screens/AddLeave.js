@@ -30,12 +30,13 @@ import { Searchbox, CustomInput } from '../css/AddLeave.css';
 import { FlatList } from 'react-native-gesture-handler';
 
 const Item = ({ item, index }) => {
-const fromDate= item?.d_FromDate.split('T')[0];
-const toDate = item?.d_ToDate.split('T')[0];
+  const fromDate = item?.d_FromDate.split('T')[0];
+  const toDate = item?.d_ToDate.split('T')[0];
+  
   return (
     <View>
       <Srnumber>
-        <Text>Sr No {index+1} </Text>
+        <Text>Sr No {index + 1} </Text>
       </Srnumber>
       <Tasklist1>
         <Taskboder>
@@ -131,80 +132,60 @@ const toDate = item?.d_ToDate.split('T')[0];
 }
 
 class AddLeave extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      ApplierList :[],
-      refreshing:false
+      ApplierList: [],
+      refreshing: false
     }
   }
   async componentDidMount() {
-    const {navigation} = this.props;
-    // this._unsubscribe = navigation.addListener('focus', async () => {
-      await this._onRefresh();
-    // });
+    await this._onRefresh();
   }
-  // componentWillUnmount() {
-  //   this._unsubscribe();
-  // }
   _onRefresh = async () => {
-    this.setState({refreshing:true});
+    this.setState({ refreshing: true });
     await this.props.getApplierList();
-    await this.setState({ApplierList:this.props.ApplierList});
-    this.setState({refreshing:false})
+    await this.setState({ ApplierList: this.props.ApplierList });
+    this.setState({ refreshing: false })
   }
   render() {
     const { ApplierList } = this.props;
     const { refreshing } = this.state;
     return (
-      <>
-        {/* <ImageBackground
-          style={{ flex: 1, paddingBottom: 10 }}
-          source={require('../static/background2.png')}>
-          <Header title={'Leave Master'} /> */}
-          {/* <SafeAreaView
-            style={{
-              paddingRight: 10,
-              paddingBottom: 20,
-              paddingLeft: 10,
-              paddingTop: 10,
-            }}>
-            */}
-            <Grid style={{ marginBottom: 60, padding:5 }}>
-              <Col style={{ width: '80%' }}>
-                <View>
-                  <CustomInput placeholder="Search" />
-                </View>
-              </Col>
-              <Col>
-                <View style={{ marginTop: 10, marginLeft: 10 }}>
-                  <Searchbox>
-                    <Text>
-                      <Icon name="search1" size={25} />
-                    </Text>
-                  </Searchbox>
-                </View>
-              </Col>
-            </Grid>
-           <View style={{ marginBottom: '44%' }}>
-             {ApplierList ?
-              <FlatList
+      <View style={{ marginBottom: 100,paddingTop: 10, }}>
+        <View style={{height:50}}>
+          <Grid >
+            <Col style={{ width: '80%' }}>
+              <View>
+                <CustomInput placeholder="Search" />
+              </View>
+            </Col>
+            <Col>
+              <View style={{ marginTop: 10, marginLeft: 10 }}>
+                <Searchbox>
+                  <Text>
+                    <Icon name="search1" size={25} />
+                  </Text>
+                </Searchbox>
+              </View>
+            </Col>
+          </Grid>
+        </View>
+        <View style={{marginBottom:'40%'}}>
+          {ApplierList ?
+            <FlatList
               refreshControl={
                 <RefreshControl
                   refreshing={refreshing}
                   onRefresh={this._onRefresh}
                 />}
-                data={ApplierList}
-                renderItem={({ item, index }) => <Item item={item} index={index} />}
-                keyExtractor={item=>`${item?.a_ApplyLeaveId}`}
-              />
-              : null}
-           </View>
-{/*             
-
-          </SafeAreaView>
-        </ImageBackground> */}
-      </>
+              data={ApplierList}
+              renderItem={({ item, index }) => <Item item={item} index={index} />}
+              keyExtractor={item => `${item?.a_ApplyLeaveId}`}
+            />
+            : null}
+        </View>
+      </View>
     );
   }
 }

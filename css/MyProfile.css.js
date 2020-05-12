@@ -26,15 +26,16 @@ export const Input = styled.TextInput`
 background-color: #fff;
 flex: 5;
 border-radius: 8px;
+color:#000;
 `;
 
 export const CustomText = styled.Text`
 flex: 2;
-padding: 14px;
+padding-bottom: 10px;
 `;
 
 export const ContentWrapper = styled.View`
-flex-direction: row;
-justify-content: space-around;
-margin: 5px;
+/* flex-direction: row; */
+/* justify-content: space-around; */
+margin-top: 20px;
 `;

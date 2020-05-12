@@ -4,7 +4,8 @@ const initialState = {
   ApplierList: [],
   LeaveType: [],
   ClubLeave: [],
-  message: ''
+  message: '',
+  ReportingManagerStatus:[]
 };
 
 const LeaveReducer = (state, action) => {
@@ -31,6 +32,11 @@ const LeaveReducer = (state, action) => {
       return {
         ...state,
         message: action.message,
+      };
+      case actions.GET_REPO_MANAGER_SUCCESS:
+      return {
+        ...state,
+        ReportingManagerStatus: action.payload,
       };
     default:
       return state;
