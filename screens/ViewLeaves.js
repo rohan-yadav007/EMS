@@ -11,32 +11,38 @@ import {
 // import {SearchBar} from 'react-native-elements';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
-import { getApplierList } from '../redux/Action/Leave.action';
+import { getApplierList ,getPendingLeave,getApprovedLeave} from '../redux/Action/Leave.action';
 import ApplyLeave from './ApplyLeave';
-import AddLeave from './AddLeave';
+import LeaveList from './LeaveList';
 
 
 const HandleTab = ({ selected, SetTabFromProp,selectedLeave,_onRefresh }) => {
-    if (selected === 'tab1') {
-        // _onRefresh();
+    if (selected === 'Pending') {
+       
         return (
-            <AddLeave SetTabFromProp={SetTabFromProp} />
+            <LeaveList SetTabFromProp={SetTabFromProp} selected={selected} />
         )
-    } else {
+    } 
+    if(selected === 'Approved'){
 
         return (
-            <ApplyLeave SetTabFromProp={SetTabFromProp} selectedLeave={selectedLeave} />
+            <LeaveList SetTabFromProp={SetTabFromProp} selected={selected} />
+        )
+    }
+    if(selected === 'Rejected'){
+        return (
+            <LeaveList SetTabFromProp={SetTabFromProp} selected={selected} />
         )
     }
 }
 
-class LeaveMaster extends Component {
+class ViewLeaves extends Component {
     constructor(props) {
         super(props);
         this.state = {
             ApplierList: [],
             refreshing: false,
-            selected: 'tab1',
+            selected: 'Pending',
             selectedLeave:''
         }
     }
@@ -66,7 +72,7 @@ class LeaveMaster extends Component {
                 <ImageBackground
                     style={{ flex: 1, paddingBottom: 10 }}
                     source={require('../static/background2.png')}>
-                    <Header title={'Apply Leave'} />
+                    <Header title={'Approve Leave'} />
                     <SafeAreaView
                         style={{
                             paddingRight: 10,
@@ -77,34 +83,47 @@ class LeaveMaster extends Component {
                         <View style={{ flexDirection: 'row', position: 'relative'}}>
 
                             <TouchableOpacity
-                                onPress={() => this.setState({ selected: 'tab1' })}
+                                onPress={() => this.setState({ selected: 'Pending' })}
                                 activeOpacity={0.8}
                                 style={{
                                     flex: 1,
-                                    backgroundColor: selected === 'tab1' ? 'red' : '#fff',
+                                    backgroundColor: selected === 'Pending' ? 'red' : '#fff',
                                 }}>
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
-                                    color: selected === 'tab1' ? '#fff' : '#000',
-                                }}>My Leave</Text>
+                                    color: selected !== 'Pending' ? '#000' : '#fff',
+                                }}>Pending</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => this.setState({ selected: 'Approved' })}
+                                activeOpacity={0.8}
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: selected === 'Approved' ? 'red' : '#fff',
+                                }}>
+                                <Text style={{
+                                    alignSelf: 'center', padding: 10,
+                                    color: selected !== 'Approved' ? '#000' : '#fff',
+                                }}>Approved</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
                                 activeOpacity={0.8}
-                                onPress={() => this.setState({ selected: 'tab2' })}
+                                onPress={() => this.setState({ selected: 'Rejected' })}
                                 style={{
                                     flex: 1,
-                                    backgroundColor: selected === 'tab2' ? 'red' : '#fff',
+                                    backgroundColor: selected === 'Rejected' ? 'red' : '#fff',
                                 }}>
                                 <Text
                                     style={{
                                         alignSelf: 'center', padding: 10,
-                                        color: selected === 'tab2' ? '#fff' : '#000',
-                                    }}>Apply</Text>
+                                        color: selected !== 'Rejected' ? '#000' : '#fff',
+                                    }}>Rejected</Text>
                             </TouchableOpacity>
                         </View>
                         {/* <View style={{marginBottom:100}}> */}
-                        <HandleTab SetTabFromProp={this.SetTabFromProp} _onRefresh={this._onRefresh} selectedLeave={selectedLeave} selected={selected} />
+                        <HandleTab SetTabFromProp={this.SetTabFromProp} props={this.props}  selected={selected} />
                         {/* </View> */}
 
 
@@ -116,6 +135,8 @@ class LeaveMaster extends Component {
 }
 const mapStateToProps = state => {
     const ApplierList = state.LeaveReducer.ApplierList;
-    return { ApplierList }
+    const approvedList = state.LeaveReducer.approvedList;
+    const pendingList = state.LeaveReducer.pendingList;
+    return { ApplierList ,pendingList,approvedList}
 }
-export default connect(mapStateToProps, { getApplierList })(LeaveMaster)
+export default connect(mapStateToProps, { getApplierList,getPendingLeave,getApprovedLeave })(ViewLeaves)

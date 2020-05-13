@@ -7,6 +7,7 @@ import {
   ImageBackground,
   RefreshControl,
   ScrollView,
+  TouchableOpacity,
 } from 'react-native';
 // import {SearchBar} from 'react-native-elements';
 import Header from '../components/Header';
@@ -29,10 +30,10 @@ import {
 import { Searchbox, CustomInput } from '../css/AddLeave.css';
 import { FlatList } from 'react-native-gesture-handler';
 
-const Item = ({ item, index }) => {
+const Item = ({ item, index ,SetTabFromProp}) => {
   const fromDate = item?.d_FromDate.split('T')[0];
   const toDate = item?.d_ToDate.split('T')[0];
-  
+
   return (
     <View>
       <Srnumber>
@@ -68,7 +69,7 @@ const Item = ({ item, index }) => {
         <Taskboder>
           <Grid>
             <Col>
-              <Text style={{ fontWeight: 'bold' }}>USer Name</Text>
+              <Text style={{ fontWeight: 'bold' }}>User Name</Text>
             </Col>
             <Col style={{ width: '60%' }}>
               <Text style={{ alignSelf: 'center', fontSize: 14 }}>
@@ -117,9 +118,9 @@ const Item = ({ item, index }) => {
                   </View>
                 </Col>
                 <Col>
-                  <View style={{ alignSelf: 'center' }}>
+                  <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => SetTabFromProp('tab2',item.a_ApplyLeaveId)}>
                     <Icon3 name="edit" size={25} color="#ed0631" />
-                  </View>
+                  </TouchableOpacity>
                 </Col>
                 <Col />
               </Grid>
@@ -180,7 +181,7 @@ class AddLeave extends Component {
                   onRefresh={this._onRefresh}
                 />}
               data={ApplierList}
-              renderItem={({ item, index }) => <Item item={item} index={index} />}
+              renderItem={({ item, index }) => <Item item={item} index={index} SetTabFromProp={this.props.SetTabFromProp}/>}
               keyExtractor={item => `${item?.a_ApplyLeaveId}`}
             />
             : null}

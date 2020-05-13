@@ -13,10 +13,11 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 const HandleTab = ({ state, handleChange, handleSave }) => {
     const { selected, profileData, countryList, stateList,departmentData, roleList, cityList, designation, } = state;
     let DepartmentName = '';
+    console.log(profileData)
     if(departmentData?.length !== 0){
         
         const GetDepartment = departmentData.filter(e=>e.a_DepartmentId === profileData?.n_DepartmentId)
-        console.log(GetDepartment)
+      
         DepartmentName = GetDepartment[0]?.t_DepartmentName;
     }
     if (selected === 'tab1') {
@@ -339,7 +340,7 @@ class MyProfile extends Component {
         }
     }
     handleChange = (name, value) => {
-        console.log(name, value)
+        
         const { profileData } = this.state;
         this.setState(prevState => { return { ...prevState, profileData: { ...profileData, [name]: value } } });
     }
@@ -373,7 +374,7 @@ class MyProfile extends Component {
             t_ModifiedIP: t_ModifiedIP,
             t_Mode: "UPDATE"
         };
-        console.log("postObj", postObj)
+        // console.log("postObj", postObj)
         await this.props.SaveUpdateProfile(postObj);
         this.setState({ message: this.props.message, PopupShow: true, PopupAutoClose: true })
         setTimeout(() => this.setState({ message: '', PopupShow: false, PopupAutoClose: false }), 2000)

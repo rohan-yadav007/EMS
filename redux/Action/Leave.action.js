@@ -75,10 +75,89 @@ export const getLeaveType = postObj => async dispatch => {
     try {
       const data = await GET(url);
       if (data) {
-        console.log('myData',data)
+      
         dispatchAction(dispatch, leaveAction.GET_REPO_MANAGER_SUCCESS, data, null, 'Success');
       }else{
         dispatchAction(dispatch, leaveAction.GET_REPO_MANAGER_SUCCESS, null, null, 'failed to fetch');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  export const   getLeaveDataById = leaveId=> async dispatch => {
+
+    const url = `CorporateRecruitment/Attendence/GetAppliedLeave?id=${leaveId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.GET_LEAVE_DATA_SUCCESS, data, null, 'Success');
+      }else{
+        dispatchAction(dispatch, leaveAction.GET_LEAVE_DATA_SUCCESS, null, null, 'failed to fetch');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+  export const   getLeaveTypeId = leaveId=> async dispatch => {
+
+    const url = `CorporateRecruitment/Attendence/GetLeaveTypeId?id=${leaveId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.GET_LEAVE_TYPE_BY_ID_SUCCESS, data, null, 'Success');
+      }else{
+        dispatchAction(dispatch, leaveAction.GET_LEAVE_TYPE_BY_ID_SUCCESS, null, null, 'failed to fetch');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const   getHalfdayLeave = leaveId=> async dispatch => {
+
+    const url = `CorporateRecruitment/Attendence/GetHalfdayLeave?id=${leaveId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.GET_HALF_DATA_SUCCESS, data, null, 'Success');
+      }else{
+        dispatchAction(dispatch, leaveAction.GET_HALF_DATA_SUCCESS, null, null, 'failed to fetch');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+ 
+
+  export const  getPendingLeave = leaveId=> async dispatch => {
+    const n_EmpId = JSON.parse(await getData('UserInfo')).a_EmployeeID;
+    const url = `CorporateRecruitment/ApproveLeave/GetApplyLeaveList?n_EmployeeId=${n_EmpId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.GET_PENDING_LEAVE_SUCCESS, data, null, 'Success');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const  getApprovedLeave = leaveId=> async dispatch => {
+    const n_EmpId = JSON.parse(await getData('UserInfo')).a_EmployeeID;
+    const url = `CorporateRecruitment/ApproveLeave/GetApprovedLeaveList?n_EmployeeId=${n_EmpId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+        dispatchAction(dispatch, leaveAction.GET_APPROVE_LEAVE_SUCCESS, data, null, 'Success');
       }
     } catch (error) {
       console.log(error);

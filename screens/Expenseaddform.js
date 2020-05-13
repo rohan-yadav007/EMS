@@ -9,7 +9,6 @@ import {
   ImageBackground,
   SafeAreaView,
   TouchableOpacity,
-  Picker,
   Modal,
   ScrollView,
   TextInput,
@@ -25,7 +24,7 @@ import Close from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
 import {Col, Grid} from 'react-native-easy-grid';
-
+import { Picker } from '@react-native-community/picker';
 // More info on all the options is below in the API Reference... just some common use cases shown here
 const options = {
   title: 'Select',
@@ -149,11 +148,7 @@ class Expenseaddform extends Component {
             </ModalTopContent>
           </View>
         </Modal>
-        <SafeAreaView style={{flex: 1, flexDirection: 'column'}}>
-          <Header title={'Add Form'} />
-          <ImageBackground
-            style={{flex: 1}}
-            source={require('../static/background2.png')}>
+        
             <ScrollView>
               <View style={{paddingLeft: 10, marginTop: 20, paddingRight: 10}}>
                 <Text style={{marginTop: 15}}>Employee Name</Text>
@@ -256,8 +251,6 @@ class Expenseaddform extends Component {
                 </Grid>
               </View>
             </ScrollView>
-          </ImageBackground>
-        </SafeAreaView>
       </>
     );
   }

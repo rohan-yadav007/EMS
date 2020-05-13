@@ -14,7 +14,7 @@ export const getProjectList = () => async dispatch => {
         const n_GroupId = postObj.n_GroupId;
         const n_RoleId = postObj.n_RoleId;
         const n_EmployeeId = postObj.a_EmployeeID;
-        if(n_RoleId == 2){
+        if(n_RoleId === 2){
             const url = `CorporateRecruitment/CreateProject/GetAllProjectList?n_groupid=${n_GroupId}`;
             try{
                 const data = await GET(url);

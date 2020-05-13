@@ -5,7 +5,12 @@ const initialState = {
   LeaveType: [],
   ClubLeave: [],
   message: '',
-  ReportingManagerStatus:[]
+  ReportingManagerStatus:[],
+  leaveData:[],
+  leaveTypeById:[],
+  halfDayData:[],
+  approvedList:[],
+  pendingList:[]
 };
 
 const LeaveReducer = (state, action) => {
@@ -37,6 +42,31 @@ const LeaveReducer = (state, action) => {
       return {
         ...state,
         ReportingManagerStatus: action.payload,
+      };
+      case actions.GET_LEAVE_DATA_SUCCESS:
+      return {
+        ...state,
+        leaveData: action.payload,
+      };
+      case actions.GET_LEAVE_TYPE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        leaveTypeById: action.payload,
+      };
+      case actions.GET_HALF_DATA_SUCCESS:
+      return {
+        ...state,
+        halfDayData: action.payload,
+      };
+      case actions.GET_APPROVE_LEAVE_SUCCESS:
+      return {
+        ...state,
+        approvedList: action.payload,
+      };
+      case actions.GET_PENDING_LEAVE_SUCCESS:
+      return {
+        ...state,
+        pendingList: action.payload,
       };
     default:
       return state;

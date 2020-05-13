@@ -14,23 +14,29 @@ import { connect } from 'react-redux';
 import { getApplierList } from '../redux/Action/Leave.action';
 import ApplyLeave from './ApplyLeave';
 import AddLeave from './AddLeave';
-
+import Expense from './Expense';
+import Expenseaddform from './Expenseaddform';
 
 const HandleTab = ({ selected, SetTabFromProp,selectedLeave,_onRefresh }) => {
     if (selected === 'tab1') {
         // _onRefresh();
         return (
-            <AddLeave SetTabFromProp={SetTabFromProp} />
+            <Expense SetTabFromProp={SetTabFromProp} />
         )
-    } else {
-
+    } 
+    if(selected === 'tab2'){
         return (
-            <ApplyLeave SetTabFromProp={SetTabFromProp} selectedLeave={selectedLeave} />
+            <Expense SetTabFromProp={SetTabFromProp} />
+        ) 
+    }
+    else {
+        return (
+            <Expense SetTabFromProp={SetTabFromProp} />
         )
     }
 }
 
-class LeaveMaster extends Component {
+class ViewExpense extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -66,7 +72,7 @@ class LeaveMaster extends Component {
                 <ImageBackground
                     style={{ flex: 1, paddingBottom: 10 }}
                     source={require('../static/background2.png')}>
-                    <Header title={'Apply Leave'} />
+                    <Header title={'View Expense'} />
                     <SafeAreaView
                         style={{
                             paddingRight: 10,
@@ -85,8 +91,8 @@ class LeaveMaster extends Component {
                                 }}>
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
-                                    color: selected === 'tab1' ? '#fff' : '#000',
-                                }}>My Leave</Text>
+                                    color: selected !== 'tab1' ? '#000' : '#fff',
+                                }}>Approved</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -99,8 +105,22 @@ class LeaveMaster extends Component {
                                 <Text
                                     style={{
                                         alignSelf: 'center', padding: 10,
-                                        color: selected === 'tab2' ? '#fff' : '#000',
-                                    }}>Apply</Text>
+                                        color: selected !== 'tab2' ? '#000' : '#fff',
+                                    }}>Pending</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => this.setState({ selected: 'tab3' })}
+                                style={{
+                                    flex: 1,
+                                    backgroundColor: selected === 'tab3' ? 'red' : '#fff',
+                                }}>
+                                <Text
+                                    style={{
+                                        alignSelf: 'center', padding: 10,
+                                        color: selected !== 'tab3' ? '#000' : '#fff',
+                                    }}>Rejected</Text>
                             </TouchableOpacity>
                         </View>
                         {/* <View style={{marginBottom:100}}> */}
@@ -118,4 +138,4 @@ const mapStateToProps = state => {
     const ApplierList = state.LeaveReducer.ApplierList;
     return { ApplierList }
 }
-export default connect(mapStateToProps, { getApplierList })(LeaveMaster)
+export default connect(mapStateToProps, { getApplierList })(ViewExpense)

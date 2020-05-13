@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 // eslint-disable-next-line prettier/prettier
 import { View, ScrollView, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
@@ -24,17 +24,48 @@ import Expenseaddform from '../screens/Expenseaddform';
 import MyTask from '../screens/MyTask';
 import MyProfile from '../screens/MyProfile';
 import LeaveMaster from '../screens/LeaveMaster';
-
+import ViewLeaves from '../screens/ViewLeaves';
+import MyExpense from '../screens/MyExpense';
+import ViewExpense from '../screens/ViewExpense';
 const CustomNavLink = (props) => {
+  const [SubMenu, setSubMenu] = useState(false)
   return (
-    <TouchableOpacity
-      style={styles.MainMenu}
-      onPress={() => props.navigation.navigate(props.compName)} >
-      <Text style={styles.MainMenuText}>
-        {props.text}
-      </Text>
-      <Icon name="angle-down" size={27} color="#fff" />
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        style={styles.MainMenu}
+        onPress={() => props.navigation.navigate(props.compName)}
+
+      >
+        <Text style={styles.MainMenuText}>
+          {props.text}
+        </Text>
+        <Icon name="angle-down" size={27} color="#fff" />
+      </TouchableOpacity>
+
+
+
+    </>
+  )
+}
+
+const CustomNavLink1 = (props) => {
+  const [SubMenu, setSubMenu] = useState(false)
+  return (
+    <>
+      <TouchableOpacity
+        style={styles.MainMenu}
+        // onPress={() => props.navigation.navigate(props.compName)}
+        onPress={() => setSubMenu(!SubMenu)}
+      >
+        <Text style={styles.MainMenuText}>
+          {props.text}
+        </Text>
+        <Icon name={SubMenu ? "angle-up":"angle-down"} size={27} color="#fff" />
+      </TouchableOpacity>
+      {SubMenu ? props.children : null}
+
+
+    </>
   )
 }
 
@@ -138,13 +169,33 @@ class CustomDrawerContent extends Component {
 
           <View style={{ flexDirection: 'column' }}>
             <CustomNavLink compName='Dashboard' text='Dashboard' {...this.props} />
-            <CustomNavLink compName='MyProfile' text='My Profile' {...this.props}/>
-            <CustomNavLink compName='MyTask' text='My Task' {...this.props}/>
-            <CustomNavLink compName='Projects' text='Projects' {...this.props}/>
-            <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props}/>
-            <CustomNavLink compName='LeaveMaster' text='Leave Master' {...this.props}/>
-            <CustomNavLink compName='Expense' text='Expense' {...this.props}/>
-           
+            <CustomNavLink compName='MyProfile' text='My Profile' {...this.props} />
+            <CustomNavLink compName='MyTask' text='My Task' {...this.props} />
+            <CustomNavLink compName='Projects' text='Projects' {...this.props} />
+            <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props} />
+            <CustomNavLink1 compName='LeaveMaster' text='Leave Master' {...this.props}>
+              <View style={{ backgroundColor: '#fff' }}>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                  <Text  onPress={() => this.props.navigation.navigate('LeaveMaster')}>Apply Leaves</Text>
+                </View>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                  <Text  onPress={() => this.props.navigation.navigate('ViewLeaves')}>View Leave</Text>
+                </View>
+
+              </View>
+            </CustomNavLink1>
+            <CustomNavLink1 compName='Expense' text='Expense' {...this.props}>
+              <View style={{ backgroundColor: '#fff' }}>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                  <Text  onPress={() => this.props.navigation.navigate('MyExpense')}>Apply Expense</Text>
+                </View>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                  <Text  onPress={() => this.props.navigation.navigate('ViewExpense')}>View Expense</Text>
+                </View>
+              </View>
+            </CustomNavLink1>
+            {/* <CustomNavLink compName='Expense' text='Expense' {...this.props} /> */}
+
           </View>
         </SafeAreaView>
       );
@@ -198,8 +249,8 @@ class CustomNavigator extends React.Component {
   render() {
     {/* <CustomNavLink compName='AddLeave' text='Leave Master' {...this.props}/>
             <CustomNavLink compName='ApplyLeave' text='Apply Leave' {...this.props}/> */}
-            
-     {/* <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
+
+    {/* <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
               <Drawer.Screen name="AddLeave" component={AddLeave} /> */}
     return (
       <NavigationContainer>
@@ -227,9 +278,10 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="LeaveMaster" component={LeaveMaster} />
               <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
               <Drawer.Screen name="AddLeave" component={AddLeave} />
-              <Drawer.Screen name="Expense" component={Expense} />
-              <Drawer.Screen name="Expenseaddform" component={Expenseaddform} />
               <Drawer.Screen name="MyTask" component={MyTask} />
+              <Drawer.Screen name="ViewLeaves" component={ViewLeaves} />
+              <Drawer.Screen name="MyExpense" component={MyExpense} />
+              <Drawer.Screen name="ViewExpense" component={ViewExpense} />
             </>
           ) : (
               <>

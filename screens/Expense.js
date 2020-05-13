@@ -33,24 +33,7 @@ export default class Expense extends Component {
   render() {
     return (
       <>
-        <ImageBackground
-          style={{flex: 1, paddingBottom: 10}}
-          source={require('../static/background2.png')}>
-          <Header title={'Expense'} />
-          <SafeAreaView
-            style={{
-              paddingRight: 10,
-              paddingBottom: 20,
-              paddingLeft: 10,
-
-              paddingTop: 10,
-            }}>
-            <View>
-              <AddTask onPress={()=> this.props.navigation.navigate('Expenseaddform')}>
-                <Icon2 name="add-circle" size={25} color="#fff" />
-                <AddTaskText>ADD</AddTaskText>
-              </AddTask>
-            </View>
+        
 
             <Grid style={{marginBottom: 60}}>
               <Col style={{width: '80%'}}>
@@ -424,8 +407,7 @@ export default class Expense extends Component {
                 </Tasklist1>
               </View>
             </ScrollView>
-          </SafeAreaView>
-        </ImageBackground>
+          
       </>
     );
   }

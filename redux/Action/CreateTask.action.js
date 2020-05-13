@@ -1,5 +1,7 @@
 import * as CreateTaskAction from '../actionType/CreateTask.actionType';
 import { GET, POST } from '../../utils/responseHelper';
+import {getData} from '../../utils/AsyncStorage';
+
 const dispatchAction = (dispatch, actionType, data, error, message) => {
   dispatch({ type: actionType, payload: data, message: message });
 };
@@ -83,8 +85,12 @@ export const getTaskStatus = (obj) => async dispatch => {
 };
 
 export const getMyTaskList = () => async dispatch => {
+  const UserInfo = JSON.parse(await getData('UserInfo'));
+  const a_EmployeeID = UserInfo.a_EmployeeID;
+
+  console.log(UserInfo,a_EmployeeID);
   try {
-    const url = `CorporateRecruitment/Task/GetAllTaskByEmp?EmployeeId=159&ProjectId=0&TaskId=0&Projectstatus=0&TaskStatus=0&TaskPriority=0`;
+    const url = `CorporateRecruitment/Task/GetAllTaskByEmp?EmployeeId=${a_EmployeeID}&ProjectId=0&TaskId=0&Projectstatus=0&TaskStatus=0&TaskPriority=0`;
     const data = await GET(url);
 
     dispatchAction(dispatch, CreateTaskAction.GET_MYTASKS_SUCCESS, data, null, 'success');
@@ -98,7 +104,6 @@ export const handleTaskStatus = (obj) => async dispatch => {
   try {
     const url = `CorporateRecruitment/Task/ChangeTaskStatus`;
     const data = await POST(url,obj);
-   console.log('hhhh',data)
     dispatchAction(dispatch, CreateTaskAction.TASK_UPDATE_SUCCESS, data, null, 'Updated Successfully');
   } catch (error) {
     console.log(error)

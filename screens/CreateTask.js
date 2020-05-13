@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { View, Image, Text, ImageBackground, SafeAreaView, TouchableOpacity, Picker, ScrollView, TextInput, } from 'react-native';
+import { View, Image, Text, ImageBackground, SafeAreaView, TouchableOpacity, ScrollView, TextInput, } from 'react-native';
 import { Input, InputGroup, } from '../css/CreateTask.css';
 import Header from '../components/Header';
 import { connect } from 'react-redux';
@@ -11,6 +11,8 @@ import ImagePicker from 'react-native-image-picker';
 import { getData } from '../utils/AsyncStorage';
 import { GetIP } from '../utils/deviceInfo';
 import {POST_FORM} from '../utils/responseHelper';
+import { Picker } from '@react-native-community/picker';
+
 const options = {
   title: 'Select',
   storageOptions: {
@@ -84,8 +86,9 @@ class CreateTask extends Component {
     await this.setState(prevState => { return ({ ...prevState, [name]: text, [`${name}Error`]: false }) });
   };
   submitHandler = async (mode) => {
-
-    const n_CreatedBy = await getData('UserId');
+    const UserInfo = await getData('UserInfo');
+    
+    const n_CreatedBy = JSON.parse(UserInfo)?.n_UserId;
     const t_CreatedIP = await GetIP;
     const { t_TaskTitle, d_FromDate, n_DepartmentId, d_ReportSubmissionTime, n_AssigneeEmployeeId, avatarSource, n_TaskPriorityId, d_ReportSubmissionDate, t_TaskSummay,
       n_TaskStatusID, d_ToDate, d_CreatedOn } = this.state;
@@ -128,7 +131,7 @@ class CreateTask extends Component {
       await this.props.createUpdateTask(postObj);
       this.props.navigation.goBack()
     }
-    console.log('postObj :>> ', postObj);
+    // console.log('postObj :>> ', postObj);
 
   }
   onChange = (event, selectedDate, name) => {
