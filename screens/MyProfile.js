@@ -33,7 +33,7 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
                         <Image source={require('../static/images/user.png')} />
                     </View>
                     <View>
-                        <Text style={{ alignSelf: 'center', fontSize: 25 }}>{state?.t_First_Name} {profileData?.t_Last_Name}</Text>
+                        <Text style={{ alignSelf: 'center', fontSize: 25 }}>{profileData?.t_First_Name} {profileData?.t_Last_Name}</Text>
                         <Text style={{ alignSelf: 'center', fontSize: 14 }}>Assistant Manager</Text>
                     </View>
 
