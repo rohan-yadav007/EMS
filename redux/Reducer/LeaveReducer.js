@@ -10,7 +10,8 @@ const initialState = {
   leaveTypeById:[],
   halfDayData:[],
   approvedList:[],
-  pendingList:[]
+  pendingList:[],
+  leaveStatus:[]
 };
 
 const LeaveReducer = (state, action) => {
@@ -68,6 +69,16 @@ const LeaveReducer = (state, action) => {
         ...state,
         pendingList: action.payload,
       };
+      case actions.GET_LEAVE_STATUS_SUCCESS:
+        return {
+          ...state,
+          leaveStatus: action.payload,
+        };
+        case actions.CHANGE_LEAVE_STATUS_SUCCESS:
+        return {
+          ...state,
+          message: action.message,
+        };
     default:
       return state;
   }

@@ -175,22 +175,22 @@ class CustomDrawerContent extends Component {
             <CustomNavLink compName='AttendencePage' text='Attendence Page' {...this.props} />
             <CustomNavLink1 compName='LeaveMaster' text='Leave Master' {...this.props}>
               <View style={{ backgroundColor: '#fff' }}>
-                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                <View style={{ padding: 10,backgroundColor:'#b7d7f6', borderBottomWidth: 1, borderColor: '#fff' }}>
                   <Text  onPress={() => this.props.navigation.navigate('LeaveMaster')}>Apply Leaves</Text>
                 </View>
-                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
-                  <Text  onPress={() => this.props.navigation.navigate('ViewLeaves')}>View Leave</Text>
+                <View style={{ padding: 10,backgroundColor:'#b7d7f6', borderBottomWidth: 1, borderColor: '#fff' }}>
+                  <Text  onPress={() => this.props.navigation.navigate('ViewLeaves')}>Approve Leave</Text>
                 </View>
 
               </View>
             </CustomNavLink1>
             <CustomNavLink1 compName='Expense' text='Expense' {...this.props}>
               <View style={{ backgroundColor: '#fff' }}>
-                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff',backgroundColor:'#b7d7f6' }}>
                   <Text  onPress={() => this.props.navigation.navigate('MyExpense')}>Apply Expense</Text>
                 </View>
-                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#000' }}>
-                  <Text  onPress={() => this.props.navigation.navigate('ViewExpense')}>View Expense</Text>
+                <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff' ,backgroundColor:'#b7d7f6'}}>
+                  <Text  onPress={() => this.props.navigation.navigate('ViewExpense')}>Approve Expense</Text>
                 </View>
               </View>
             </CustomNavLink1>

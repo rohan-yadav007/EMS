@@ -85,38 +85,38 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
 
                         <ContentWrapper>
                             <CustomText>Middle Name</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Middle_Name', text)} value={profileData.t_Middle_Name === "null" ? '' : null} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Middle_Name', text)} value={profileData.t_Middle_Name === "null" ? '' : null} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Last Name</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Last_Name', text)} value={profileData?.t_Last_Name} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Last_Name', text)} value={profileData?.t_Last_Name} />
                         </ContentWrapper>
 
 
                         <ContentWrapper>
                             <CustomText>Father Name</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_FatherName', text)} value={profileData?.t_FatherName} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_FatherName', text)} value={profileData?.t_FatherName} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Mobile No</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Mobile', text)} value={profileData.t_Mobile} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Mobile', text)} value={profileData.t_Mobile} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Email Id</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Email', text)} value={profileData.t_Email} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Email', text)} value={profileData.t_Email} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Date Of Birth</CustomText>
-                            <Input onChangeText={(text) => handleChange('d_DOB', text)} value={profileData.d_DOB?.split('T')[0]} />
+                            <Input editable={false} onChangeText={(text) => handleChange('d_DOB', text)} value={profileData.d_DOB?.split('T')[0]} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Photograph</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_EmpImage', text)} value={profileData.t_EmpImage} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_EmpImage', text)} value={profileData.t_EmpImage} />
                         </ContentWrapper>
 
                         <ContentWrapper>
@@ -161,14 +161,14 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
 
                         <ContentWrapper>
                             <CustomText>Address</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Address1', text)} value={profileData.t_Address1} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Address1', text)} value={profileData.t_Address1} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>City</CustomText>
                             <View style={{ backgroundColor: '#fff', borderRadius: 10 }}>
                                 <Picker
-
+enabled={false}
                                     selectedValue={profileData?.n_CityId}
                                     onValueChange={(itemValue, itemIndex) =>
                                         handleChange('n_CityId', itemValue)
@@ -189,7 +189,7 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
                             <CustomText>State</CustomText>
                             <View style={{ backgroundColor: '#fff', borderRadius: 10 }}>
                                 <Picker
-
+enabled={false}
                                     selectedValue={profileData?.n_StateId}
                                     onValueChange={(itemValue, itemIndex) =>
                                         handleChange('n_StateId', itemValue)
@@ -209,7 +209,7 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
                             <CustomText>Country</CustomText>
                             <View style={{ backgroundColor: '#fff', borderRadius: 10 }}>
                                 <Picker
-
+enabled={false}
                                     selectedValue={profileData?.n_CountryId}
                                     onValueChange={(itemValue, itemIndex) =>
                                         handleChange('n_CountryId', itemValue)
@@ -227,18 +227,18 @@ const HandleTab = ({ state, handleChange, handleSave }) => {
 
                         <ContentWrapper>
                             <CustomText>Date Of Joining</CustomText>
-                            <Input onChangeText={(text) => handleChange('d_DOJ', text)} value={profileData?.d_DOJ?.split('T')[0]} />
+                            <Input editable={false} onChangeText={(text) => handleChange('d_DOJ', text)} value={profileData?.d_DOJ?.split('T')[0]} />
                         </ContentWrapper>
 
                         <ContentWrapper>
                             <CustomText>Alternate No</CustomText>
-                            <Input onChangeText={(text) => handleChange('t_Phone', text)} value={profileData?.t_Phone} />
+                            <Input editable={false} onChangeText={(text) => handleChange('t_Phone', text)} value={profileData?.t_Phone} />
                         </ContentWrapper>
 
                     </View>
-                    <View style={{ padding: 5 }}>
+                    {/* <View style={{ padding: 5 }}>
                         <Button onPress={handleSave} title='Update' color="green" />
-                    </View>
+                    </View> */}
 
                 </ScrollView>
             </View>

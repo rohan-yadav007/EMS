@@ -163,3 +163,32 @@ export const getLeaveType = postObj => async dispatch => {
       console.log(error);
     }
   };
+
+  export const  getLeaveStatus = leaveId=> async dispatch => {
+    const url = `CorporateRecruitment/ApproveLeave/GetApplyDetailLeaveForManager_Temp?a_ApplyLeaveId=${leaveId}`;
+  
+    try {
+      const data = await GET(url);
+      if (data) {
+       
+        dispatchAction(dispatch, leaveAction.GET_LEAVE_STATUS_SUCCESS, data, null, 'Success');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  export const  changeLeaveStatus = postObj=> async dispatch => {
+
+        const url = `CorporateRecruitment/ApproveLeave/SaveLeaveApproval`;
+      
+        try {
+          const data = await POST(url,postObj);
+          if (data) {
+           console.log(data)
+            dispatchAction(dispatch, leaveAction.CHANGE_LEAVE_STATUS_SUCCESS, data, null, 'Success');
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };

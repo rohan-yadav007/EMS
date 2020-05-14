@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useState } from 'react';
 import { Text, View, FlatList, TouchableOpacity, Modal, ImageBackground, StyleSheet, RefreshControl } from 'react-native';
 import Header from '../components/Header';
 import { Srnumber,TaskStatus, Tasklist1, Taskboder, ButtonMedium, } from '../css/TaskList.css';
@@ -16,6 +16,12 @@ const RenderTask = (props) => {
   let createdDate = '';
   if (d_ReportSubmissionDate) {
     createdDate = d_ReportSubmissionDate.split('T')[0];
+  }
+  
+  const [taskSelected,setTaskSelected] = useState(Task?.n_TaskStatusID);
+  const handleChange = (itemValue) => {
+    setTaskSelected(itemValue)
+    props.handleTask(Task.a_TaskId, itemValue)
   }
   return (
     <>
@@ -101,11 +107,11 @@ const RenderTask = (props) => {
               <Col style={{ width: '60%' }}>
                 <TaskStatus>
                   <Picker style={{ height: 55, width: '100%' }}
-                    selectedValue={Task?.n_TaskStatusID}
+                    selectedValue={taskSelected}
                     onValueChange={(itemValue, itemIndex) =>
-                      props.handleTask(Task.a_TaskId, itemValue)
+                      handleChange(itemValue)
                     }>
-                    <Picker.Item label="To do" value={1} />
+                    <Picker.Item label="To Do" value={1} />
                     <Picker.Item label="In Progress" value={2} />
                     <Picker.Item label="Done" value={3} />
                   </Picker>

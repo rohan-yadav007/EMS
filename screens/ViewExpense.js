@@ -92,7 +92,7 @@ class ViewExpense extends Component {
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
                                     color: selected !== 'tab1' ? '#000' : '#fff',
-                                }}>Approved</Text>
+                                }}>Pending</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity
@@ -106,7 +106,7 @@ class ViewExpense extends Component {
                                     style={{
                                         alignSelf: 'center', padding: 10,
                                         color: selected !== 'tab2' ? '#000' : '#fff',
-                                    }}>Pending</Text>
+                                    }}>Approved</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity

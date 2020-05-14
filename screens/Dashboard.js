@@ -19,6 +19,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/Header';
 import { Col, Grid } from 'react-native-easy-grid';
+import {getPendingLeave,getApprovedLeave} from '../redux/Action/Leave.action';
 
 class Dashboard extends Component {
   constructor(props) {
@@ -363,5 +364,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  {},
+  {getPendingLeave,getApprovedLeave},
 )(Dashboard);

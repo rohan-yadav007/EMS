@@ -1,129 +1,227 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, { Component } from 'react';
-import {
-    Text,
-    View,
-    RefreshControl,
-    TouchableOpacity,
-} from 'react-native';
+import React, { Component, useState, useEffect } from 'react';
+import { Modal, Text, View, RefreshControl, TouchableOpacity, TextInput, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
 import { Col, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
-import { getPendingLeave, getApprovedLeave } from '../redux/Action/Leave.action';
+import { getPendingLeave, changeLeaveStatus, getApprovedLeave, getLeaveStatus } from '../redux/Action/Leave.action';
 import { Srnumber, Tasklist1, Taskboder, } from '../css/TaskList.css';
 import { Searchbox, CustomInput } from '../css/AddLeave.css';
 import { FlatList } from 'react-native-gesture-handler';
+import Icon4 from "react-native-vector-icons/MaterialCommunityIcons"
+import { Picker } from '@react-native-community/picker';
+import { GetIP } from '../utils/deviceInfo';
+import { getData } from '../utils/AsyncStorage';
 
-const Item = ({ item, index, selected }) => {
+const UpdateLeaveStatus = ({ item, changeLeaveStatus, HandleModalClose }) => {
+    const [statusItem, setStatusItem] = useState(item);
+    const [remark, setRemark] = useState('');
+    const [leaveStatus, setLeaveStatus] = useState(null)
+    useEffect(() => setStatusItem(item));
+    const date = ((new Date).getFullYear()) + '-' + ((new Date).getMonth() + 1) + '-' + ((new Date).getDate());
+    const formDate = (date) => { return new Date(date).getFullYear() + '-' + ((new Date(date)).getMonth() + 1) + '-' + (new Date(date)).getDate() };
 
-    console.log(item)
+
+    const postObj = {
+        "n_ApplyLeaveId": item[0]?.a_ApplyLeaveId,
+        "n_EmployeeId": item[0]?.n_EmployeeId,
+        "t_Remarks": remark,
+        "n_ApprovedBy": '',
+        "n_Status": leaveStatus,
+        "n_ApproveDays": item[0]?.n_TotalDays,
+        "d_ApproveDate": date,
+        "n_CreatedBy": '',
+        "t_CreatedIP": "",
+        "d_LeaveFrom": formDate(item[0]?.FromDate),
+        "d_LeaveTo": formDate(item[0]?.ToDate),
+        "n_GroupId": ''
+    };
     return (
-        <View>
-            <Srnumber>
-                <Text>Sr No {index + 1} </Text>
-            </Srnumber>
-            <Tasklist1>
-                <Taskboder>
-                    <Grid>
-                        <Col>
-                            <Text style={{ fontWeight: 'bold' }}>Employee Name</Text>
-                        </Col>
-                        <Col style={{ width: '60%' }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                                {item?.t_EmployeeName}
-                            </Text>
-                        </Col>
-                    </Grid>
-                </Taskboder>
-                <Taskboder>
-                    <Grid>
-                        <Col>
-                            <Text style={{ fontWeight: 'bold' }}>
-                                From Date
-                            </Text>
-                        </Col>
-                        <Col style={{ width: '60%' }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                                {item?.d_FromDate}
-                            </Text>
-                        </Col>
-                    </Grid>
-                </Taskboder>
-                <Taskboder>
-                    <Grid>
-                        <Col>
-                            <Text style={{ fontWeight: 'bold' }}>To Date</Text>
-                        </Col>
-                        <Col style={{ width: '60%' }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                                {item?.d_ToDate}
-                            </Text>
-                        </Col>
-                    </Grid>
-                </Taskboder>
+        <View >
+            <Text style={{ fontSize: 20, fontWeight: 'bold', color: 'red', alignSelf: 'center' }}>Approve Leave</Text>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Employee Name</Text>
+                <Text style={{ width: '60%', textAlign: 'center', fontSize: 15 }}>{statusItem[0]?.t_EmployeeName}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }} >From Date</Text>
+                <Text style={{ width: '60%', textAlign: 'center', fontSize: 15 }}>{statusItem[0]?.FromDate}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>To Date</Text>
+                <Text style={{ width: '60%', textAlign: 'center', fontSize: 15 }}>{statusItem[0]?.ToDate}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ width: '40%', fontSize: 15, fontWeight: 'bold' }}>Total Days</Text>
+                <Text style={{ width: '60%', textAlign: 'center', fontSize: 15 }}>{statusItem[0]?.n_TotalDays}</Text>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ width: '40%', paddingTop: 10, fontWeight: 'bold', fontSize: 15 }}>Status</Text>
+                <Picker style={{ width: '40%', textAlign: 'center', height: 40 }}
+                    selectedValue={leaveStatus}
+                    onValueChange={(itemValue, itemIndex) => setLeaveStatus(itemValue)}
+                >
+                    <Picker.Item label="Select" value={null} />
+                    <Picker.Item label="Approve" value={1} />
+                    <Picker.Item label="Reject" value={0} />
+                </Picker>
+            </View>
+            <View style={{ flexDirection: 'row', padding: 15, justifyContent: 'space-between' }}>
+                <Text style={{ width: '30%', paddingTop: 10, fontWeight: 'bold', fontSize: 15 }}>Remarks</Text>
+                <TextInput style={{ width: '70%', borderRadius: 10, height: 100, textAlign: 'center', borderWidth: 1, borderColor: '#d3d3d3' }}
+                    multiline={true}
+                    onChangeText={(text) => setRemark(text)}
+                />
+            </View>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
+                <Button title='Submit' onPress={() => changeLeaveStatus(postObj)} />
+                <Button title='Cancel' onPress={() => HandleModalClose()} />
+            </View>
 
-                <Taskboder>
-                    <Grid>
-                        <Col>
-                            <Text style={{ fontWeight: 'bold' }}>Total Days</Text>
-                        </Col>
-                        <Col style={{ width: '60%' }}>
-                            <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                                {item?.n_TotalDays}
-                            </Text>
-                        </Col>
-                    </Grid>
-                </Taskboder>
-                
-                {selected === 'Pending' ? <Taskboder>
-                    <Grid>
-                        <Col>
-                            <Text style={{ fontWeight: 'bold' }}>Actions</Text>
-                        </Col>
-                        <Col style={{ width: '60%' }}>
-
-                            <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => () => console.log('pp')}>
-                                <Icon3 name="edit" size={25} color="#ed0631" />
-                            </TouchableOpacity>
-
-                        </Col>
-                    </Grid>
-                </Taskboder> : null}
-                {selected === 'Approved' ?
-                    <>
-                        <Taskboder>
-                            <Grid>
-                                <Col>
-                                    <Text style={{ fontWeight: 'bold' }}>Reporting Manager Status</Text>
-                                </Col>
-                                <Col style={{ width: '60%' }}>
-                                    <Text style={{ alignSelf: 'center', fontSize: 14 }}>
-                                        {item?.t_StatusRM}
-                                    </Text>
-                                </Col>
-                            </Grid>
-                        </Taskboder>
-                        <Taskboder>
-                            <Grid>
-                                <Col>
-                                    <Text style={{ fontWeight: 'bold' }}>Actions</Text>
-                                </Col>
-                                <Col style={{ width: '60%', }}>
-                                    <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => console.log('jj')}>
-                                        <Icon2 name="eye" size={25} color="#000" />
-                                    </TouchableOpacity>
-                                </Col>
-                            </Grid>
-                        </Taskboder>
-                    </>
-                    : null}
-
-            </Tasklist1>
         </View>
     )
 }
+
+
+const Item = (props) => {
+    const { item, index, selected, handleLeaveStatus, statusData, changeLeaveStatus } = props;
+    const [PopupShow, setPopupShow] = useState(false);
+    const [PopupAutoClose, setPopupAutoClose] = useState(false);
+    const [leaveStatus, setLeaveStatus] = useState(statusData)
+    const HandleModalClose = () => {
+        setPopupShow(false)
+    }
+    const HandlePopupShow = (LeaveId) => {
+        setPopupShow(true)
+        handleLeaveStatus(LeaveId)
+    }
+    useEffect(() => setLeaveStatus(statusData))
+
+    return (
+        <>
+            <Modal animationType="fade" transparent={true} visible={PopupShow}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: "center", }}>
+                    <View style={{ paddingBottom: 25, width: '95%', borderWidth: 1, borderRadius: 10, backgroundColor: '#fff', }}>
+                        <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 5 }} onPress={() => HandleModalClose()}>
+                            {!PopupAutoClose ? <Icon4 name="close-circle" size={20} color="#000" /> : null}
+                        </TouchableOpacity>
+                        <UpdateLeaveStatus
+                            item={leaveStatus}
+                            changeLeaveStatus={changeLeaveStatus}
+                            HandleModalClose={HandleModalClose}
+                        />
+
+                    </View>
+                </View>
+            </Modal>
+            <View>
+                <Srnumber>
+                    <Text>Sr No {index + 1} </Text>
+                </Srnumber>
+                <Tasklist1>
+                    <Taskboder>
+                        <Grid>
+                            <Col>
+                                <Text style={{ fontWeight: 'bold' }}>Employee Name</Text>
+                            </Col>
+                            <Col style={{ width: '60%' }}>
+                                <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                                    {item?.t_EmployeeName}
+                                </Text>
+                            </Col>
+                        </Grid>
+                    </Taskboder>
+                    <Taskboder>
+                        <Grid>
+                            <Col>
+                                <Text style={{ fontWeight: 'bold' }}>
+                                    From Date
+                            </Text>
+                            </Col>
+                            <Col style={{ width: '60%' }}>
+                                <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                                    {item?.d_FromDate}
+                                </Text>
+                            </Col>
+                        </Grid>
+                    </Taskboder>
+                    <Taskboder>
+                        <Grid>
+                            <Col>
+                                <Text style={{ fontWeight: 'bold' }}>To Date</Text>
+                            </Col>
+                            <Col style={{ width: '60%' }}>
+                                <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                                    {item?.d_ToDate}
+                                </Text>
+                            </Col>
+                        </Grid>
+                    </Taskboder>
+
+                    <Taskboder>
+                        <Grid>
+                            <Col>
+                                <Text style={{ fontWeight: 'bold' }}>Total Days</Text>
+                            </Col>
+                            <Col style={{ width: '60%' }}>
+                                <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                                    {item?.n_TotalDays}
+                                </Text>
+                            </Col>
+                        </Grid>
+                    </Taskboder>
+
+                    {selected === 'Pending' ? <Taskboder>
+                        <Grid>
+                            <Col>
+                                <Text style={{ fontWeight: 'bold' }}>Actions</Text>
+                            </Col>
+                            <Col style={{ width: '60%' }}>
+
+                                <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => HandlePopupShow(item.a_ApplyLeaveId)}>
+                                    <Icon3 name="edit" size={25} color="#ed0631" />
+                                </TouchableOpacity>
+
+                            </Col>
+                        </Grid>
+                    </Taskboder> : null}
+                    {selected === 'Approved' ?
+                        <>
+                            <Taskboder>
+                                <Grid>
+                                    <Col>
+                                        <Text style={{ fontWeight: 'bold' }}>Reporting Manager Status</Text>
+                                    </Col>
+                                    <Col style={{ width: '60%' }}>
+                                        <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                                            {item?.t_StatusRM}
+                                        </Text>
+                                    </Col>
+                                </Grid>
+                            </Taskboder>
+                            <Taskboder>
+                                <Grid>
+                                    <Col>
+                                        <Text style={{ fontWeight: 'bold' }}>Actions</Text>
+                                    </Col>
+                                    <Col style={{ width: '60%', }}>
+                                        <TouchableOpacity style={{ alignSelf: 'center' }} onPress={() => setPopupShow(true)}>
+                                            <Icon2 name="eye" size={25} color="#000" />
+                                        </TouchableOpacity>
+                                    </Col>
+                                </Grid>
+                            </Taskboder>
+                        </>
+                        : null}
+
+                </Tasklist1>
+            </View>
+        </>
+    )
+}
+
+
 
 class LeaveList extends Component {
     constructor(props) {
@@ -131,7 +229,11 @@ class LeaveList extends Component {
         this.state = {
             LeaveData: [],
             selected: this.props.selected,
-            refreshing: false
+            refreshing: false,
+            PopupAutoClose: false,
+            PopupShow: false,
+            LeaveStatus: [],
+            message: ''
         }
     }
     async componentDidMount() {
@@ -141,74 +243,141 @@ class LeaveList extends Component {
 
         this.setState({ refreshing: true });
         if (this.state.selected === 'Pending') {
-            console.log('Pending')
+
             await this.props.getPendingLeave();
             await this.setState({ LeaveData: this.props.PendingList })
         }
         if (this.state.selected === 'Approved') {
-            console.log('Approved')
+
             await this.props.getApprovedLeave();
             await this.setState({ LeaveData: this.props.ApprovedList })
         }
         if (this.state.selected === 'Rejected') {
             this.setState({ LeaveData: [] })
         }
-      
+
         this.setState({ refreshing: false })
     }
     componentDidUpdate(prevProps, preState) {
         if (preState.selected !== this.props.selected) {
+            // this.setState({ LeaveData: [] })
             this.setState({ selected: this.props.selected });
             this._onRefresh();
         }
+        if (prevProps.leaveStatus !== this.props.leaveStatus) {
+            this.setState({ LeaveStatus: this.props.leaveStatus })
+        }
     }
-    render() {
-        const { LeaveData } = this.state;
-        const { refreshing } = this.state;
-        console.log('selected', this.props.selected, this.props.PendingList)
-        return (
-            <View style={{ marginBottom: 100, paddingTop: 10, }}>
-                <View style={{ height: 50 }}>
-                    <Grid >
-                        <Col style={{ width: '80%' }}>
-                            <View>
-                                <CustomInput placeholder="Search" />
-                            </View>
-                        </Col>
-                        <Col>
-                            <View style={{ marginTop: 10, marginLeft: 10 }}>
-                                <Searchbox>
-                                    <Text>
-                                        <Icon name="search1" size={25} />
-                                    </Text>
-                                </Searchbox>
-                            </View>
-                        </Col>
-                    </Grid>
+    static getDerivedStateFromProps(props, state) {
+        if (props.selected !== state.selected) {
+            // this.setState({ LeaveData: [] })
+            return {
+                selected: props.selected
+            }
+        }
+        if (props.leaveStatus !== state.leaveStatus) {
+            return { 
+                LeaveStatus: props.leaveStatus 
+            }
+        }
+        //    this.setState({ selected: this.props.selected });
+        // this._onRefresh();
+    
+        return null
+    }
+HandleModalClose = () => {
+    this.setState({ PopupShow: false })
+}
+changeLeaveStatus = async (postObj) => {
+    const UserInfo = await getData('UserInfo');
+    console.log(UserInfo)
+    const n_CreatedBy = JSON.parse(UserInfo)?.n_UserId;
+    const n_GroupId = JSON.parse(UserInfo)?.n_GroupId;
+    const a_EmployeeID = JSON.parse(UserInfo)?.a_EmployeeID;
+    const t_CreatedIP = await GetIP;
+    const data = postObj;
+    data.n_CreatedBy = n_CreatedBy;
+    data.t_CreatedIP = t_CreatedIP;
+    data.n_GroupId = n_GroupId;
+    data.n_ApprovedBy = a_EmployeeID;
+    console.log(postObj)
+    await this.props.changeLeaveStatus(postObj);
+    console.log(this.props.message)
+    if (this.props.message) {
+        this.setState({ message: this.props.message, PopupShow: true, PopupAutoClose: true })
+        setTimeout(() => this.setState({ message: '', PopupShow: false, PopupAutoClose: false }), 2000)
+        await this._onRefresh()
+    }
+}
+render() {
+    const { LeaveData, PopupShow, refreshing, PopupAutoClose } = this.state;
+
+
+    return (
+        <View style={{ marginBottom: 100, paddingTop: 10, }}>
+            <Modal animationType="fade" transparent={true} visible={PopupShow}>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: "center", }}>
+                    <View style={{ paddingBottom: 25, width: '80%', borderRadius: 10, backgroundColor: '#0d76d5', }}>
+                        <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 5 }} onPress={() => this.HandleModalClose()}>
+                            {!PopupAutoClose ? <Icon4 name="close-circle" size={20} color="#fff" /> : null}
+                        </TouchableOpacity>
+                        <Text style={{ color: '#fff', alignSelf: 'center', paddingTop: 10 }}>
+                            {this.state.message}
+                        </Text>
+                    </View>
                 </View>
-                <View style={{ marginBottom: '40%' }}>
-                    {console.log(LeaveData)}
-                    {LeaveData ?
-                        <FlatList
-                            refreshControl={
-                                <RefreshControl
-                                    refreshing={refreshing}
+            </Modal>
+            <View style={{ height: 50 }}>
+                <Grid >
+                    <Col style={{ width: '80%' }}>
+                        <View>
+                            <CustomInput placeholder="Search" />
+                        </View>
+                    </Col>
+                    <Col>
+                        <View style={{ marginTop: 10, marginLeft: 10 }}>
+                            <Searchbox>
+                                <Text>
+                                    <Icon name="search1" size={25} />
+                                </Text>
+                            </Searchbox>
+                        </View>
+                    </Col>
+                </Grid>
+            </View>
+            <View style={{ marginBottom: '40%' }}>
+{console.log(LeaveData)}
+                {LeaveData ?
+                    <FlatList
+                        refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={this._onRefresh}
+                            />}
+                        data={LeaveData}
+                        renderItem={
+                            ({ item, index }) =>
+                                <Item item={item}
+                                    statusData={this.props.leaveStatus}
+                                    handleLeaveStatus={this.props.getLeaveStatus}
+                                    index={index} selected={this.state.selected}
+                                    changeLeaveStatus={this.changeLeaveStatus}
                                     onRefresh={this._onRefresh}
                                 />}
-                            data={LeaveData}
-                            renderItem={({ item, index }) => <Item item={item} index={index} selected={this.state.selected} />}
-                            keyExtractor={item => `${item?.a_ApplyLeaveId}`}
-                        />
-                        : null}
-                </View>
+                        keyExtractor={item => `${item?.a_ApplyLeaveId}`}
+                    />
+                    : null}
             </View>
-        );
-    }
+        </View>
+    );
+}
 }
 const mapStateToProps = state => {
 
     const ApprovedList = state.LeaveReducer.approvedList;
     const PendingList = state.LeaveReducer.pendingList;
-    return {  ApprovedList, PendingList }
+    const leaveStatus = state.LeaveReducer.leaveStatus;
+    const message = state.LeaveReducer.message;
+    return { ApprovedList, PendingList, leaveStatus, message }
 }
-export default connect(mapStateToProps, { getPendingLeave, getApprovedLeave })(LeaveList)
+export default connect(mapStateToProps, { getPendingLeave, getLeaveStatus, changeLeaveStatus, getApprovedLeave })(LeaveList)

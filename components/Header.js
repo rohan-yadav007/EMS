@@ -22,7 +22,7 @@ const Header = props => {
           {title ? <Text style={styles.headerText}>{title}</Text> : null}
         </View>
 
-        <TouchableOpacity onPress={() => props.handleLogout()}>
+        <TouchableOpacity onPress={() => props.handleLogout()} >
           <Icon1 name="login" size={25} style={{marginTop: 12}} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -46,20 +46,20 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingLeft: 10,
     paddingRight:10,
-    // alignContent:'center'
   },
   hamburger: {
-    position: 'absolute',
-    left: 10,
     marginTop: 10,
+    
   },
   headerText: {
     lineHeight: 27,
     color: '#fff',
     fontSize: 22,
+    alignSelf:'center'
   },
   logoutButton: {
+   
     padding: 12,
-    marginLeft: '33%',
+    
   },
 });
