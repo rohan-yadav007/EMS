@@ -19,6 +19,7 @@ export const WebsiteLogo = styled.Image`
 export const CustomText = styled.Text`
   text-align: ${props => props.ta || 'left'};
   color: ${props => props.color || 'transparent'};
+  font-family: 'RobotoSlab-Regular'; 
 `;
 
 export const LoginForm = styled.View`
@@ -34,6 +35,7 @@ export const InputGroup = styled.View`
 export const Input = styled.TextInput`
   padding: 5px;
   flex: 8;
+  font-family: 'RobotoSlab-Regular'; 
 `;
 export const InputBox = styled.View`
   border-bottom-width: 1px;
@@ -62,10 +64,19 @@ export const ForgotLink = styled.View`
   justify-content: space-between;
   margin-top: 15%;
   width: 100%;
+  font-family: 'RobotoSlab-Regular'; 
+`;
+export const LoginLink = styled.View`
+  position: relative;
+  align-items:flex-end;
+  margin-top: 15%;
+  width: 100%;
+  font-family: 'RobotoSlab-Regular'; 
 `;
 
 export const ErrorText = styled.Text`
   flex: 2;
   color: red;
   margin-top: 11px;
+  font-family: 'RobotoSlab-Regular'; 
 `;
