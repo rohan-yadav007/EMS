@@ -138,7 +138,7 @@ class Login extends Component {
                                                     <InputGroup >
                                                         <InputLogo><Icon name="envelope" size={27} color="#000" /></InputLogo>
                                                         <InputBox >
-                                                            <Input placeholder="Your Email" value={this.state.value} onChangeText={(text) => this.handleChange(text, 'userName')} />
+                                                            <Input placeholder="Enter your Username" value={this.state.value} onChangeText={(text) => this.handleChange(text, 'userName')} />
                                                         </InputBox>
                                                     </InputGroup>
                                                     <LoginLink style={{ alignItems: 'flex-end' }}>
