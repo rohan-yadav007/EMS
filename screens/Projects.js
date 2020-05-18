@@ -57,6 +57,7 @@ const Item = ({ item, props }) => {
                   color: '#fff',
                   fontSize: 15,
                   textTransform: 'uppercase',
+                  fontFamily:'RobotoSlab-Bold'
                 }}>
                 Project View
               </Text>
@@ -68,6 +69,7 @@ const Item = ({ item, props }) => {
                   color: '#fff',
                   fontSize: 15,
                   textTransform: 'uppercase',
+                  fontFamily:'RobotoSlab-Bold'
                 }}>
                 Task List
               </Text>
@@ -95,7 +97,7 @@ const Item = ({ item, props }) => {
                 <View style={{ flexDirection: 'row' }}>
                   <View style={{ flexDirection: 'row' }}>
                     <Customtext>
-                      <Text style={{ color: '#000' }}>
+                      <Text style={{ color: '#000' ,fontFamily:'RobotoSlab-Regular'}}>
                         {item.t_ProjectCode} ({item.t_ProjectTitle})
                     </Text>
                     </Customtext>
@@ -137,7 +139,14 @@ class ProjectList extends Component {
     await this.props.getProjectList();
     this.setState({ refreshing: false,projectData:this.props.projectData });
   };
-
+static getDerivedStateFromProps(props,state){
+  if(props.projectData !== state.projectData){
+    return {
+      projectData:props.projectData
+    }
+  }
+  return null;
+}
   render() {
     const { loading } = this.props;
     const { refreshing } = this.state;

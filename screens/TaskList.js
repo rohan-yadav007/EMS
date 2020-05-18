@@ -22,7 +22,7 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
+                <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Task Name</Text>
               </Col>
               <Col style={{ width: '60%' }}>
                 <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.t_TaskTitle}</Text>
@@ -33,7 +33,7 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Assignee</Text>
+                <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Assignee</Text>
               </Col>
               <Col style={{ width: '60%' }}>
                 <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.AssigneeName} </Text>
@@ -44,7 +44,7 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Department</Text>
+                <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Department</Text>
               </Col>
               <Col style={{ width: '60%' }}>
                 <Text style={{ alignSelf: 'center', fontSize: 14 }}> {Task?.DepartmentName} </Text>
@@ -55,7 +55,7 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Create Date</Text>
+                <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Create Date</Text>
               </Col>
               <Col style={{ width: '60%' }}>
                 <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task?.d_ReportSubmissionDate}</Text>
@@ -67,7 +67,7 @@ const RenderTask = (props) => {
             <Grid>
               <Col style={styles.ColKey}>
 
-                <Text style={{ fontWeight: 'bold' }}>Task Priority</Text>
+                <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Task Priority</Text>
 
               </Col>
               <Col style={{ width: '60%' }}>
@@ -89,7 +89,7 @@ const RenderTask = (props) => {
             <Grid>
               <Col style={styles.ColKey}>
                 <View>
-                  <Text style={{ fontWeight: 'bold' }}>Task Status</Text>
+                  <Text style={{  fontFamily:'RobotoSlab-Bold' }}>Task Status</Text>
                 </View>
               </Col>
               <Col style={{ width: '60%' }}>

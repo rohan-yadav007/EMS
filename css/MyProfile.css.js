@@ -27,15 +27,31 @@ background-color: #fff;
 flex: 5;
 border-radius: 8px;
 color:#000;
+font-family:'RobotoSlab-Regular';
 `;
 
 export const CustomText = styled.Text`
 flex: 2;
 padding-bottom: 10px;
+font-family:'RobotoSlab-Bold';
 `;
 
 export const ContentWrapper = styled.View`
 /* flex-direction: row; */
 /* justify-content: space-around; */
 margin-top: 20px;
+`;
+
+export const TextValue = styled.Text`
+font-size: 14px ;
+width:60%;
+font-family:'RobotoSlab-Regular';
+align-self: center;
+`;
+
+export const TextHead = styled.Text`
+
+width:40%;
+font-family:'RobotoSlab-Bold';
+/* font-weight: 900; */
 `;

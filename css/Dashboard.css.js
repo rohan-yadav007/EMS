@@ -14,7 +14,8 @@ export const CustomText = styled.Text`
   font-weight: ${props => props.fw || 900};
   color: #fff;
   align-self: center;
-  font-weight: bold;
+  font-family:'RobotoSlab-Bold';
+  padding-top:5px;
 `;
 export const CustomText2 = styled.Text`
   align-self: center;
@@ -42,6 +43,7 @@ export const ModuleBG2 = styled.ImageBackground`
   height:50px;
   border-radius: 8px;
   overflow: hidden;
+  padding-top:10px;
 `;
 
 export const Loader = styled.View`

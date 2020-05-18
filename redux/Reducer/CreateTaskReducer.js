@@ -59,7 +59,7 @@ const CreateTaskReducer = (state, action) => {
       return {
         ...state,
         MyTaskList: action.payload,
-        message: action.message
+        
       };
       case actions.TASK_UPDATE_SUCCESS:
       return {

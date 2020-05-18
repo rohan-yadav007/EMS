@@ -82,10 +82,12 @@ class LeaveMaster extends Component {
                                 style={{
                                     flex: 1,
                                     backgroundColor: selected === 'tab1' ? 'red' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
                                     color: selected === 'tab1' ? '#fff' : '#000',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>My Leave</Text>
                             </TouchableOpacity>
 
@@ -95,11 +97,13 @@ class LeaveMaster extends Component {
                                 style={{
                                     flex: 1,
                                     backgroundColor: selected === 'tab2' ? 'red' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>
                                 <Text
                                     style={{
                                         alignSelf: 'center', padding: 10,
                                         color: selected === 'tab2' ? '#fff' : '#000',
+                                        fontFamily:'RobotoSlab-Bold'
                                     }}>Apply</Text>
                             </TouchableOpacity>
                         </View>

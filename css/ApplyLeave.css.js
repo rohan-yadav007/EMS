@@ -14,7 +14,7 @@ export const LeaveTab = styled.View`
 export const CustomText = styled.Text`
 align-self:center;
 color:#fff;
-font-weight:${props=>props.fw || 'normal'};
+font-family:${props=>props.fw ? 'RobotoSlab-Bold' : 'RobotoSlab-Regular'};
 font-size: 14px;
 `;
 

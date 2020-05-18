@@ -27,17 +27,17 @@ const RenderTask = (props) => {
     <>
       <View>
         <Srnumber >
-          <Text>Sr No {props.index + 1}  </Text>
+          <Text style={{fontFamily:'RobotoSlab-Bold'}}>Sr No {props.index + 1}  </Text>
           <IconEdit name="edit" size={20} color="#fff" />
         </Srnumber>
         <Tasklist1>
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Project Name</Text>
+                <Text style={{ fontFamily:'RobotoSlab-Bold' }}>Project Name</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_ProjectTitle} ({Task.t_ProjectCode})</Text>
+                <Text style={{fontFamily:'RobotoSlab-Regular', alignSelf: 'center', fontSize: 14 }}>{Task.t_ProjectTitle} ({Task.t_ProjectCode})</Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -45,10 +45,10 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
+                <Text style={{ fontFamily:'RobotoSlab-Bold' }}>Task Name</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_TaskTitle}</Text>
+                <Text style={{fontFamily:'RobotoSlab-Regular', alignSelf: 'center', fontSize: 14 }}>{Task.t_TaskTitle}</Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -56,10 +56,10 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Assignee</Text>
+                <Text style={{ fontFamily:'RobotoSlab-Bold' }}>Assignee</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{Task.t_First_Name} </Text>
+                <Text style={{fontFamily:'RobotoSlab-Regular', alignSelf: 'center', fontSize: 14 }}>{Task.t_First_Name} </Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -67,10 +67,10 @@ const RenderTask = (props) => {
           <Taskboder>
             <Grid>
               <Col style={styles.ColKey}>
-                <Text style={{ fontWeight: 'bold' }}>Created Date</Text>
+                <Text style={{ fontFamily:'RobotoSlab-Bold' }}>Created Date</Text>
               </Col>
               <Col style={{ width: '60%' }}>
-                <Text style={{ alignSelf: 'center', fontSize: 14 }}>{createdDate}</Text>
+                <Text style={{fontFamily:'RobotoSlab-Regular', alignSelf: 'center', fontSize: 14 }}>{createdDate}</Text>
               </Col>
             </Grid>
           </Taskboder>
@@ -79,7 +79,7 @@ const RenderTask = (props) => {
             <Grid>
               <Col style={styles.ColKey}>
 
-                <Text style={{ fontWeight: 'bold', paddingTop: 14 }}>Task Priority</Text>
+                <Text style={{ fontFamily:'RobotoSlab-Bold', paddingTop: 14 }}>Task Priority</Text>
 
               </Col>
               <Col style={{ width: '60%' }}>
@@ -89,6 +89,7 @@ const RenderTask = (props) => {
                       alignSelf: 'center',
                       color: '#fff',
                       fontSize: 14,
+                      fontFamily:'RobotoSlab-Regular'
                     }}>
                     {Task.TaskPriority}
                   </Text>
@@ -101,12 +102,12 @@ const RenderTask = (props) => {
             <Grid>
               <Col style={styles.ColKey}>
                 <View>
-                  <Text style={{ fontWeight: 'bold', paddingTop: 14 }}>Task Status</Text>
+                  <Text style={{  paddingTop: 14,fontFamily:'RobotoSlab-Bold' }}>Task Status</Text>
                 </View>
               </Col>
               <Col style={{ width: '60%' }}>
                 <TaskStatus>
-                  <Picker style={{ height: 55, width: '100%' }}
+                  <Picker style={{ height: 55, width: '100%', }}
                     selectedValue={taskSelected}
                     onValueChange={(itemValue, itemIndex) =>
                       handleChange(itemValue)

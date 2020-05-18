@@ -176,10 +176,10 @@ class CustomDrawerContent extends Component {
             <CustomNavLink1 compName='LeaveMaster' text='Leave Master' {...this.props}>
               <View style={{ backgroundColor: '#fff' }}>
                 <View style={{ padding: 10,backgroundColor:'#b7d7f6', borderBottomWidth: 1, borderColor: '#fff' }}>
-                  <Text  onPress={() => this.props.navigation.navigate('LeaveMaster')}>Apply Leaves</Text>
+                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('LeaveMaster')}>Apply Leaves</Text>
                 </View>
                 <View style={{ padding: 10,backgroundColor:'#b7d7f6', borderBottomWidth: 1, borderColor: '#fff' }}>
-                  <Text  onPress={() => this.props.navigation.navigate('ViewLeaves')}>Approve Leave</Text>
+                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('ViewLeaves')}>Approve Leave</Text>
                 </View>
 
               </View>
@@ -187,10 +187,10 @@ class CustomDrawerContent extends Component {
             <CustomNavLink1 compName='Expense' text='Expense' {...this.props}>
               <View style={{ backgroundColor: '#fff' }}>
                 <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff',backgroundColor:'#b7d7f6' }}>
-                  <Text  onPress={() => this.props.navigation.navigate('MyExpense')}>Apply Expense</Text>
+                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('MyExpense')}>Apply Expense</Text>
                 </View>
                 <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff' ,backgroundColor:'#b7d7f6'}}>
-                  <Text  onPress={() => this.props.navigation.navigate('ViewExpense')}>Approve Expense</Text>
+                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('ViewExpense')}>Approve Expense</Text>
                 </View>
               </View>
             </CustomNavLink1>
@@ -353,5 +353,6 @@ const styles = StyleSheet.create({
   MainMenuText: {
     color: '#fff',
     lineHeight: 30,
+    fontFamily:'RobotoSlab-Regular',
   },
 });

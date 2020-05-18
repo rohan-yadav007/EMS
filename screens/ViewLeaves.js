@@ -88,10 +88,12 @@ class ViewLeaves extends Component {
                                 style={{
                                     flex: 1,
                                     backgroundColor: selected === 'Pending' ? 'red' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
                                     color: selected !== 'Pending' ? '#000' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>Pending</Text>
                             </TouchableOpacity>
 
@@ -101,10 +103,12 @@ class ViewLeaves extends Component {
                                 style={{
                                     flex: 1,
                                     backgroundColor: selected === 'Approved' ? 'red' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>
                                 <Text style={{
                                     alignSelf: 'center', padding: 10,
                                     color: selected !== 'Approved' ? '#000' : '#fff',
+                                    fontFamily:'RobotoSlab-Bold'
                                 }}>Approved</Text>
                             </TouchableOpacity>
 
@@ -119,6 +123,7 @@ class ViewLeaves extends Component {
                                     style={{
                                         alignSelf: 'center', padding: 10,
                                         color: selected !== 'Rejected' ? '#000' : '#fff',
+                                        fontFamily:'RobotoSlab-Bold'
                                     }}>Rejected</Text>
                             </TouchableOpacity>
                         </View>

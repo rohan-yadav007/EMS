@@ -39,11 +39,7 @@ class Dashboard extends Component {
         <ImageBackground
           style={{ flex: 1 }}
           source={require('../static/background2.png')}>
-          {loading && (
-            <Loader>
-              <ActivityIndicator size="large" color="#3875c3" />
-            </Loader>
-          )}
+          
           <SafeAreaView style={{ flex: 1 }}>
             <Header title={'Dashboard'} />
             <View style={{ flex: 1 }}>
@@ -53,8 +49,8 @@ class Dashboard extends Component {
                     style={{
                       fontSize: 25,
                       textAlign: 'center',
-                      fontWeight: 'bold',
                       marginTop: 10,
+                      fontFamily:'RobotoSlab-Bold'
                     }}>
                     Leaves
                   </Text>
@@ -78,10 +74,10 @@ class Dashboard extends Component {
 
                         source={require('../static/balance_bg.png')}>
                         <View>
-                          <CustomText fw={900} fs={'40px'}>
+                          <CustomText fw={900} fs={'35px'}>
                             40
                           </CustomText>
-                          <CustomText fs={'18px'}>
+                          <CustomText fs={'15px'}>
                             Balance Leaves
                           </CustomText>
                         </View>
@@ -105,11 +101,11 @@ class Dashboard extends Component {
 
                         source={require('../static/Reimbursements_Approval_bg.png')}>
                         <View>
-                          <CustomText style={{ alignSelf: 'center' }} fs={'40px'}>
+                          <CustomText style={{ alignSelf: 'center' }} fs={'35px'}>
                             3
                           </CustomText>
-                          <CustomText fs={'17px'}>
-                            Pending Approval
+                          <CustomText fs={'15px'}>
+                            Pending for Approval
                           </CustomText>
                         </View>
                       </ModuleBG>
@@ -122,8 +118,7 @@ class Dashboard extends Component {
                       activeOpacity={0.7}
                       style={{
                         borderRadius: 5,
-                        marginLeft: 5,
-                        marginRight: 5,
+                        margin: 5,
                         shadowColor: '#000',
                         shadowOffset: { width: 0, height: 1 },
                         shadowOpacity: 0.8,
@@ -137,16 +132,14 @@ class Dashboard extends Component {
                           <Col>
                             <View>
                               <CustomText
-                                style={{
-                                  marginTop: 4,
-                                }}
-                                fs={'17px'}>
+                               
+                                fs={'15px'}>
                                 Approve Leaves
                               </CustomText>
                             </View>
                           </Col>
                           <Col>
-                            <View style={{ marginTop: -7, }}>
+                            <View style={{ marginTop: -10, }}>
                               <CustomText
                                 style={{ alignSelf: 'center' }}
                                 fs={'30px'}>
@@ -174,9 +167,10 @@ class Dashboard extends Component {
                       style={{
                         fontSize: 25,
                         textAlign: 'center',
-                        fontWeight: 'bold',
+                       
                         marginBottom: 10,
                         marginTop: -70,
+                        fontFamily:'RobotoSlab-Bold'
                       }}>
                       Expenses
                     </Text>
@@ -200,11 +194,11 @@ class Dashboard extends Component {
 
                           source={require('../static/Markbg.png')}>
                           <View>
-                            <CustomText fw={900} fs={'40px'}>
+                            <CustomText fw={900} fs={'35px'}>
                               3
                             </CustomText>
-                            <CustomText fs={'17px'}>
-                              Pending Approval
+                            <CustomText fs={'15px'}>
+                              Pending for Approval
                             </CustomText>
                           </View>
                         </ModuleBG>
@@ -228,10 +222,10 @@ class Dashboard extends Component {
 
                           source={require('../static/Tasks_bg.png')}>
                           <View>
-                            <CustomText fs={'40px'}>
+                            <CustomText fs={'35px'}>
                               2
                             </CustomText>
-                            <CustomText fs={'17px'}>
+                            <CustomText fs={'15px'}>
                               Approved
                             </CustomText>
                           </View>
@@ -262,17 +256,17 @@ class Dashboard extends Component {
                           source={require('../static/balance_bg.png')}>
                           <Grid>
                             <Col>
-                              <View>
+                              <View >
                                 <CustomText
-                                  fs={'17px'}
-                                  style={{ marginTop: 4, }}
+                                  fs={'15px'}
+                                 
                                 >
                                   Approve Expenses
                                 </CustomText>
                               </View>
                             </Col>
                             <Col>
-                              <View style={{ marginTop: -5, }}>
+                              <View style={{ marginTop: -10, }}>
                                 <CustomText
 
                                   fs={'30px'}>
@@ -309,11 +303,11 @@ class Dashboard extends Component {
                         }}>
                         <ModuleBG source={require('../static/approval_bg.png')}>
                           <View>
-                            <CustomText fw={900} fs={'40px'}>
+                            <CustomText fw={900} fs={'35px'}>
                               30
                             </CustomText>
-                            <CustomText fs={'17px'}>
-                              Tasks Progress
+                            <CustomText fs={'15px'}>
+                              Tasks in Progress
                             </CustomText>
                           </View>
                         </ModuleBG>
@@ -339,7 +333,7 @@ class Dashboard extends Component {
                         <ModuleBG source={require('../static/reapppbg.png')}>
                           <View style={{ width: '100%', alignSelf: 'center' }}>
                             <Icon style={{ padding: 11, alignSelf: 'center' }} name="fingerprint" size={30} color="#fff" />
-                            <CustomText fs="17px">
+                            <CustomText fs="15px">
                               Mark Attendance
                           </CustomText>
                           </View>

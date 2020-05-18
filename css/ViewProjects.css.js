@@ -16,11 +16,12 @@ export const Basictext = styled.Text`
   font-weight: bold;
   padding: 8px;
   color: #fff;
+  font-family:'RobotoSlab-Bold';
 `;
 
 export const Boxborders = styled.View``;
 
-export const Nextbutton = styled.View`
+export const Backbutton = styled.View`
   background-color: #01498c;
   padding: 20px;
   margin: 30px 0px;

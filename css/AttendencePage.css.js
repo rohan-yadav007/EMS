@@ -22,4 +22,5 @@ export const Punch_status = styled.View`
 export const CustomText = styled.Text`
   color: #fff;
   font-size: 18px;
+  font-family:'RobotoSlab-Regular';
 `;

@@ -329,8 +329,8 @@ class ApplyLeave extends Component {
           <View style={{ paddingBottom: 100, flex: 1, }}>
             <View style={{ alignItems: 'center', flex: 1, marginTop: '60%' }}>
               <Icon name="emoticon-sad-outline" size={40} color="green" />
-              <Text>Unable to apply leave!</Text>
-              <Text>Please update your Reporting Manager</Text>
+              <Text style={{fontFamily:'RobotoSlab-Regular'}}>Unable to apply leave!</Text>
+              <Text style={{fontFamily:'RobotoSlab-Regular'}}>Please update your Reporting Manager</Text>
             </View>
 
           </View>
@@ -351,7 +351,7 @@ class ApplyLeave extends Component {
                 <TouchableOpacity style={{ alignSelf: 'flex-end', padding: 5 }} onPress={() => this.HandleModalClose()}>
                   {!PopupAutoClose ? <Icon name="close-circle" size={20} color="#fff" /> : null}
                 </TouchableOpacity>
-                <Text style={{ color: '#fff', alignSelf: 'center', paddingTop: 10, paddingLeft: 5, paddingRight: 5 }}>
+                <Text style={{ color: '#fff', alignSelf: 'center', paddingTop: 10, paddingLeft: 5, paddingRight: 5 ,fontFamily:'RobotoSlab-Bold'}}>
                   {this.state.message}
                 </Text>
               </View>
@@ -394,7 +394,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text style={{ marginTop: 10, marginBottom: 10 }}>
+                    <Text style={{ marginTop: 10, marginBottom: 10 , fontFamily:'RobotoSlab-Bold'}}>
                       Leave Type{' '}
                     </Text>
 
@@ -422,13 +422,14 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text >Leave Count</Text>
+                    <Text style={{ fontFamily:'RobotoSlab-Bold'}}>Leave Count</Text>
                     <InputGroup>
                       <TextInput
                         style={{
                           color: '#000',
                           height: 45,
                           borderRadius: 4,
+                          fontFamily:'RobotoSlab-Regular'
                         }}
                         value={`${leaveTypeCount}` || '0'}
                         editable={false}
@@ -443,7 +444,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text >Total Count</Text>
+                    <Text style={{ fontFamily:'RobotoSlab-Bold'}} >Total Count</Text>
                     <InputGroup>
                       <TextInput
                         style={{
@@ -465,7 +466,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text>From Date</Text>
+                    <Text style={{ fontFamily:'RobotoSlab-Bold'}}>From Date</Text>
                     <InputGroup>
                       <TextInput style={{ width: '87%' }}
                         onFocus={() => this.setState({ show: true, mode: "date", selectedInput: "d_FromDate" })}
@@ -496,7 +497,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text>To Date</Text>
+                    <Text style={{ fontFamily:'RobotoSlab-Bold'}}>To Date</Text>
                     <InputGroup>
                       <TextInput style={{ width: '87%' }}
                         onFocus={() => this.setState({ show: true, mode: "date", selectedInput: "d_ToDate" })}
@@ -524,12 +525,11 @@ class ApplyLeave extends Component {
                   {dayArr.map((item, index) => {
                     return (
                       <View key={index} style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <View><Text>{item}</Text></View>
-                        <View style={{}}></View>
+                        <View><Text style={{fontFamily:'RobotoSlab-Bold'}}>{item}</Text></View>
                         <View style={{ flexDirection: 'row' }}>
-                          <Text>Half</Text>
+                          <Text style={{fontFamily:'RobotoSlab-Regular'}}>Half</Text>
                           <CheckBox
-                            style={{ marginTop: -5 }}
+                            style={{ marginTop: -5 ,}}
                             value={this.state.halfCheck[index]?.HalfdayId}
                             onValueChange={() => this.markHalf(item, index)}
                           />
@@ -546,7 +546,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View>
-                    <Text style={{ marginTop: 10, marginBottom: 10 }}>
+                    <Text style={{ marginTop: 10, marginBottom: 10 , fontFamily:'RobotoSlab-Bold'}}>
                       Club Leave
                   </Text>
                     <InputGroup>
@@ -565,8 +565,8 @@ class ApplyLeave extends Component {
                     </InputGroup>
                     {clubLeaveCount !== 0 ?
                       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                        <Text>Available: {clubLeaveCount || 0}</Text>
-                        <Text>Clubbed: {PLeaveClub || 0}</Text>
+                        <Text style={{ fontFamily:'RobotoSlab-Bold'}}>Available: {clubLeaveCount || 0}</Text>
+                        <Text style={{ fontFamily:'RobotoSlab-Bold'}}>Clubbed: {PLeaveClub || 0}</Text>
                       </View> : null
                     }
                   </View>
@@ -578,7 +578,7 @@ class ApplyLeave extends Component {
               <Grid>
                 <Col>
                   <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text style={{ marginTop: 15 }}>Reason</Text>
+                    <Text style={{ marginTop: 15, fontFamily:'RobotoSlab-Bold' }}>Reason</Text>
                   </View>
 
                   <InputGroup h='100px'>

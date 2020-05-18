@@ -5,7 +5,7 @@ import {
   View,
   SafeAreaView,
   ImageBackground,
-  ActivityIndicator,
+  Button,
   ScrollView,
   RefreshControl
 } from 'react-native';
@@ -56,17 +56,19 @@ class ViewProjects extends Component {
     }
   }
   async componentDidMount() {
-    const {navigation} = this.props;
+    const { navigation } = this.props;
     this._unsubscribe = navigation.addListener('focus', async () => {
+      
       await this._onRefresh()
     });
   }
-  
+
   componentWillUnmount() {
     this._unsubscribe();
   }
   _onRefresh = async () => {
-    this.setState({ refreshing: true });
+    await this.setState({projectDetail:[],countryData:[],stateData:[],cityData:[],deparmentData:[],clientData:[],segmentData:[],serviceData:[]})
+    this.setState({ refreshing: true, });
     const ProjectId = this.props.route.params.ProjectId;
     await this.props.viewProjectDetail(ProjectId);
     await this.setState({ projectDetail: this.props.projectDetail })
@@ -86,10 +88,14 @@ class ViewProjects extends Component {
     await this.setState({ serviceData: this.props.serviceData })
     await this.props.getDesignation();
     await this.setState({ designationData: this.props.designationData })
-    await this.getFinalData();
-    await this.setState({ refreshing: false });
-  }
+    if(this.props.projectDetail){
 
+await this.setState({ refreshing: false });
+await this.getFinalData();
+    }
+    
+  }
+ 
   async getFinalData() {
     const projectDetail = this.state.projectDetail
     const country = this.state.countryData.filter((country) => country.a_CountryId === projectDetail.n_CountryId)
@@ -105,10 +111,10 @@ class ViewProjects extends Component {
     const city = this.state.cityData.filter((city) => city.a_CityId === projectDetail.n_CityId
       && city.n_CountryId === projectDetail.n_CountryId
       && city.n_StateId === projectDetail.n_StateId)
-      if (city.length !== 0) {
-        const presentcity = city[0]
-        this.setState({ city: presentcity.t_CityName })
-      }
+    if (city.length !== 0) {
+      const presentcity = city[0]
+      this.setState({ city: presentcity.t_CityName })
+    }
     const departmentData = this.state.deparmentData.filter((department) => department.a_DepartmentId === projectDetail.n_DepartmentId)
     if (departmentData.length !== 0) {
       const department = departmentData[0]
@@ -153,10 +159,10 @@ class ViewProjects extends Component {
       await this.setState({ locationData: this.props.locationData })
     }
     const basicDetail = {
-      "ProjectTitle": projectDetail?.t_ProjectTitle, "ProjectRefNo": projectDetail?.t_ProjectRefNo,
+      "Project Title": projectDetail?.t_ProjectTitle, "Project Ref No": projectDetail?.t_ProjectRefNo,
       "Status": projectDetail.n_status == 1 ? "In Progress" : projectDetail.n_status == 2 ? "Hold"
-              : projectDetail.n_status == 3 ? "Completed" : projectDetail.n_status == 4 ? "Insufficient"
-              : "Delay",
+        : projectDetail.n_status == 3 ? "Completed" : projectDetail.n_status == 4 ? "Insufficient"
+          : "Delay",
       "LOE Attachment": projectDetail.t_AttachamentLOEFile, "Remarks": projectDetail.t_ClientInfo
     }
     const assign = {
@@ -171,43 +177,41 @@ class ViewProjects extends Component {
       "Client SPOC Contact": projectDetail?.t_Mobile,
       "Client SPOC Email": projectDetail?.t_EmailId
     }
-  await this.setState({ basicDetail: basicDetail, clientDetail: clientDetail, assign: assign })
+    await this.setState({ basicDetail: basicDetail, clientDetail: clientDetail, assign: assign })
   }
- 
- renderData = (obj, headerName) => {
+
+  renderData = (obj, headerName) => {
     return (
-     <View>
+      <View>
         <Basiccontent>
-          <Basictext>
-            <Text>{headerName}</Text>
+          <Basictext style={{fontFamily:'RobotoSlab-Bold'}}>
+            {headerName}
           </Basictext>
           {Object.keys(obj).map((data, i) => {
             return (
               <View key={i}>
-                <Grid style={{ margin: 15 }}>
-                  <Col>
+                <Grid style={{padding:15 }}>
+                  <Col style={{width:'50%',alignItems:'flex-start'}}>
                     <View>
-                      <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>
-                        {data}
-                      </Text>
+                      <Text textBreakStrategy={"simple"} style={{fontFamily:'RobotoSlab-Bold',  alignSelf: 'center' }}>{data}</Text>
                     </View>
                   </Col>
-                  {data == "LOE Attachment"?
-                   <Col>
-                    <View>
-                      <Text style={{ alignSelf: 'center' }}>
-                          {obj[data]}}
+                  {data == "LOE Attachment" ?
+                    <Col style={{width:'50%'}}>
+                      <View style={{flexDirection:'column',alignItems:'center'}}>
+                        <Text textBreakStrategy={"simple"} style={{ alignSelf: 'center',fontFamily:'RobotoSlab-Regular' }}>
+                          {obj[data]}
+                        </Text>
                         <Icon name="clouddownload" size={27} color="#06b136" />
-                      </Text>
-                    </View>
-                  </Col>
-                  : <Col>
-                    <View>
-                      <Text style={{ alignSelf: 'center' }}>  {obj[data]} </Text>
-                    </View>
-                  </Col>
+                      </View>
+                    </Col>
+                    : <Col style={{width:'50%'}}>
+                      <View>
+                        <Text textBreakStrategy={"simple"} style={{ alignSelf: 'center',fontFamily:'RobotoSlab-Regular' }}>  {obj[data]} </Text>
+                      </View>
+                    </Col>
                   }
-                 
+
                 </Grid>
                 <Boxborders
                   style={{
@@ -230,45 +234,41 @@ class ViewProjects extends Component {
     });
     return newItem;
   };
-  render(){
+  render() {
     const { loading } = this.props;
-    const {refreshing} = this.state;
+    const { refreshing } = this.state;
     const contactDetail = {};
     const locationDetail = {};
+    
     this.state.contactData.map((data, i) =>
       Object.assign(contactDetail, data)
     )
     this.state.locationData.map((data, i) =>
       Object.assign(locationDetail, data)
     )
-    const replaceContactKeys = { t_ContectName: "Contact name", t_ContectNo: "Contact No",t_EmailId:"Email Id" };
+    const replaceContactKeys = { t_ContectName: "Contact name", t_ContectNo: "Contact No", t_EmailId: "Email Id" };
     const finalContactDetail = this.changeKeyObjects(contactDetail, replaceContactKeys);
-    const replaceLocationKeys = {t_Adress:"Address",t_Location:"Location",t_PinCode:"Pincode"}
-    const finalLocationDetail = this.changeKeyObjects(locationDetail,replaceLocationKeys)
+    const replaceLocationKeys = { t_Adress: "Address", t_Location: "Location", t_PinCode: "Pincode" }
+    const finalLocationDetail = this.changeKeyObjects(locationDetail, replaceLocationKeys)
     return (
       <>
         <ImageBackground
           style={{ flex: 1 }}
           source={require('../static/background2.png')}>
           <Header title="Project Detail" />
-          <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 40, }}>
+          <SafeAreaView style={{ paddingLeft: 10, paddingRight: 10, paddingBottom: 60, }}>
             <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />} >
-              {this.renderData(this.state.basicDetail, "Basic Project ")}
-              {this.renderData(this.state.assign, "Assign")}
-              {this.renderData(this.state.clientDetail, "Client Detail")}
-              {this.renderData(finalContactDetail, "Client Contact")}
-              {this.renderData(finalLocationDetail, "Client Location")}
-              <Nextbutton>
-                <Text
-                  style={{
-                    color: '#fff',
-                    fontSize: 20,
-                    textTransform: 'uppercase',
-                    textAlign: 'center',
-                  }}>
-                  Next
-                </Text>
-              </Nextbutton>
+             
+              {this.state.basicDetail ? this.renderData(this.state.basicDetail, "Basic Project "):null}
+              {this.state.assign ? this.renderData(this.state.assign, "Assign") : null}
+              {this.state.clientDetail ? this.renderData(this.state.clientDetail, "Client Detail"):null}
+              {finalContactDetail ? this.renderData(finalContactDetail, "Client Contact"): null}
+              {finalLocationDetail ? this.renderData(finalLocationDetail, "Client Location"):null}
+              <View style={{paddingTop:10}}>
+              <Button color={'#d81515'} title='Back' onPress={() => this.props.navigation.navigate('Projects')} />
+              </View>
+              
+
             </ScrollView>
           </SafeAreaView>
         </ImageBackground>
