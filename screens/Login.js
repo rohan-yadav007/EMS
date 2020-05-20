@@ -75,19 +75,18 @@ class Login extends Component {
     }
 
     handleForgot = () => {
-        // eslint-disable-next-line no-alert
-        // alert('will redirect to password reset');
+        
         this.setState({ PopupShow: true, passwordForgot: true })
     }
     handleForgotSubmit = async () => {
         const { userName } = this.state;
         const resEmail = await GET(`CorporateRecruitment/UserLogin/GetUserList?t_UserId=${userName}`);
         if (resEmail) {
-            console.log('called1')
+           
             const email = resEmail && resEmail[0]?.t_Email;
             const emailSentStatus = await GET(`CorporateRecruitment/UserLogin/ForgetPassword?t_EmailID=${email}`);
             if (emailSentStatus) {
-                console.log('called2')
+                
                 await this.setState({ emailSentMessage: 'Email sent. Check your email for credentials', emailSentStatus: true, })
             }
             else {
@@ -100,11 +99,7 @@ class Login extends Component {
         const { loading, errMessage } = this.props;
         return (
             <>
-                {/* <Modal visible={emailSentStatus}>
-                    <View>
-                        <Text>Email sent</Text>
-                    </View>
-                </Modal> */}
+                
                 <Modal animationType="fade" transparent={true} visible={emailSentStatus}>
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: "center", }}>
                         <View style={{ paddingBottom: 25, width: '80%', borderRadius: 10, backgroundColor: '#0d76d5', }}>
@@ -147,9 +142,7 @@ class Login extends Component {
                                                     <LoginButton onPress={this.handleForgotSubmit}>
                                                         <CustomText ta="center" color="#fff" >Submit</CustomText>
                                                     </LoginButton>
-                                                    {/* <Text onPress={() => this.setState({ passwordForgot: false, PopupShow: false, })} style={{ color: '#fff', alignSelf: 'center', padding: 10, fontFamily: 'RobotoSlab-Regular' }}>
-                                                        Login?
-                                                </Text> */}
+                                                   
                                                 </View>
                                             </View>
 

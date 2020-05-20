@@ -7,8 +7,8 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import Header from '../components/Header';
-import {Searchbox} from '../css/AddLeave.css';
+import Header from '../../components/Header';
+import {Searchbox} from '../../css/AddLeave.css';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/AntDesign';
@@ -21,8 +21,8 @@ import {
   ButtonMedium,
   AddTask,
   AddTaskText,
-} from '../css/TaskList.css';
-import {Tablelist1} from '../css/Expense.css';
+} from '../../css/TaskList.css';
+import {Tablelist1} from '../../css/Expense.css';
 import {Col, Grid} from 'react-native-easy-grid';
 
 export default class Expense extends Component {
@@ -68,7 +68,7 @@ export default class Expense extends Component {
               <View>
                 <ImageBackground
                   style={{padding: 12}}
-                  source={require('../static/approval_bg.png')}>
+                  source={require('../../static/approval_bg.png')}>
                   <Tablelist1>So No (1)</Tablelist1>
                 </ImageBackground>
 
@@ -182,7 +182,7 @@ export default class Expense extends Component {
               <View style={{marginTop: 20,}}>
                 <ImageBackground
                   style={{padding: 12}}
-                  source={require('../static/approval_bg.png')}>
+                  source={require('../../static/approval_bg.png')}>
                   <Tablelist1>So No (2)</Tablelist1>
                 </ImageBackground>
 
@@ -296,7 +296,7 @@ export default class Expense extends Component {
               <View style={{marginTop: 20, paddingBottom: 90}}>
                 <ImageBackground
                   style={{padding: 12}}
-                  source={require('../static/approval_bg.png')}>
+                  source={require('../../static/approval_bg.png')}>
                   <Tablelist1>So No (3)</Tablelist1>
                 </ImageBackground>
 

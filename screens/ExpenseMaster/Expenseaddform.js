@@ -13,12 +13,12 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
-import {Srnumber, Tasklist1, Taskboder} from '../css/TaskList.css';
-import {Input, InputGroup} from '../css/CreateTask.css';
-import {ModalTopContent, NavButton, CloseButton} from '../css/Expense.css';
-import Header from '../components/Header';
+import {Srnumber, Tasklist1, Taskboder} from '../../css/TaskList.css';
+import {Input, InputGroup} from '../../css/CreateTask.css';
+import {ModalTopContent, NavButton, CloseButton} from '../../css/Expense.css';
+import Header from '../../components/Header';
 import {connect} from 'react-redux';
-import {handlechangetask} from '../redux/Action/CreateTask.action';
+import {handlechangetask} from '../../redux/Action/CreateTask.action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Close from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';

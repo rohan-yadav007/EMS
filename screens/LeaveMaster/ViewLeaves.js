@@ -12,8 +12,8 @@ import {
 import Header from '../../components/Header';
 import { connect } from 'react-redux';
 import { getApplierList ,getPendingLeave,getApprovedLeave} from '../../redux/Action/Leave.action';
-import ApplyLeave from './LeaveMaster/ApplyLeaveForm';
-import LeaveList from './LeaveMaster/LeaveList';
+import ApplyLeave from './ApplyLeaveForm';
+import LeaveList from './LeaveList';
 
 
 const HandleTab = ({ selected, SetTabFromProp,selectedLeave,_onRefresh }) => {

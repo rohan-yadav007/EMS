@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React, { Component } from 'react';
 import {
     Text,
@@ -9,10 +8,10 @@ import {
     TouchableOpacity,
 } from 'react-native';
 // import {SearchBar} from 'react-native-elements';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import { connect } from 'react-redux';
-import { getApplierList } from '../redux/Action/Leave.action';
-import ApplyLeave from './ApplyLeave';
+import { getApplierList } from '../../redux/Action/Leave.action';
+import ApplyLeave from './ApplyLeaveForm';
 import AddLeave from './AddLeave';
 
 
@@ -65,7 +64,7 @@ class LeaveMaster extends Component {
             <>
                 <ImageBackground
                     style={{ flex: 1, paddingBottom: 10 }}
-                    source={require('../static/background2.png')}>
+                    source={require('../../static/background2.png')}>
                     <Header title={'Apply Leave'} />
                     <SafeAreaView
                         style={{

@@ -5,14 +5,14 @@ import Icon2 from 'react-native-vector-icons/AntDesign';
 import Icon3 from 'react-native-vector-icons/Feather';
 import { Col, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
-import { getPendingLeave, changeLeaveStatus, getApprovedLeave, getLeaveStatus } from '../redux/Action/Leave.action';
-import { Srnumber, Tasklist1, Taskboder, } from '../css/TaskList.css';
-import { Searchbox, CustomInput } from '../css/AddLeave.css';
+import { getPendingLeave, changeLeaveStatus, getApprovedLeave, getLeaveStatus } from '../../redux/Action/Leave.action';
+import { Srnumber, Tasklist1, Taskboder, } from '../../css/TaskList.css';
+import { Searchbox, CustomInput } from '../../css/AddLeave.css';
 import { FlatList } from 'react-native-gesture-handler';
 import Icon4 from "react-native-vector-icons/MaterialCommunityIcons"
 import { Picker } from '@react-native-community/picker';
-import { GetIP } from '../utils/deviceInfo';
-import { getData } from '../utils/AsyncStorage';
+import { GetIP } from '../../utils/deviceInfo';
+import { getData } from '../../utils/AsyncStorage';
 
 const ViewAppliedLeave = ({ item, changeLeaveStatus, HandleModalClose }) => {
     const formDate = (date) => {

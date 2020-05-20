@@ -6,10 +6,10 @@ import Icon3 from 'react-native-vector-icons/Feather';
 import Icon4 from "react-native-vector-icons/MaterialCommunityIcons";
 import { Col, Grid } from 'react-native-easy-grid';
 import { connect } from 'react-redux';
-import { getApplierList, getLeaveDataById } from '../redux/Action/Leave.action';
-import { Srnumber, Tasklist1, Taskboder, } from '../css/TaskList.css';
+import { getApplierList, getLeaveDataById } from '../../redux/Action/Leave.action';
+import { Srnumber, Tasklist1, Taskboder, } from '../../css/TaskList.css';
 
-import { Searchbox, CustomInput } from '../css/AddLeave.css';
+import { Searchbox, CustomInput } from '../../css/AddLeave.css';
 import { FlatList } from 'react-native-gesture-handler';
 
 const ViewAppliedLeave = ({ item, changeLeaveStatus, HandleModalClose }) => {

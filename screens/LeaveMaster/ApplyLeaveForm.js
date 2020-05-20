@@ -1,19 +1,19 @@
 import React, { Component, useState } from 'react';
 import { Text, View, SafeAreaView, ImageBackground, TextInput, RefreshControl, ScrollView, CheckBox, Modal, TouchableOpacity } from 'react-native';
-import { LeaveTab, Form, Savebut, InputGroup, Input, CustomText } from '../css/ApplyLeave.css';
-import { getLeaveType, getClubLeave, getLeaveDataById, getLeaveTypeId, getHalfdayLeave, saveLeaveApply, getRepoManagerStatus } from '../redux/Action/Leave.action';
+import { LeaveTab, Form, Savebut, InputGroup, Input, CustomText } from '../../css/ApplyLeave.css';
+import { getLeaveType, getClubLeave, getLeaveDataById, getLeaveTypeId, getHalfdayLeave, saveLeaveApply, getRepoManagerStatus } from '../../redux/Action/Leave.action';
 import { Col, Grid } from 'react-native-easy-grid';
-import Header from '../components/Header';
+import Header from '../../components/Header';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { connect } from 'react-redux';
-import { getData } from '../utils/AsyncStorage';
-import { GetIP } from '../utils/deviceInfo';
+import { getData } from '../../utils/AsyncStorage';
+import { GetIP } from '../../utils/deviceInfo';
 import { Picker } from '@react-native-community/picker';
 
 
 
-class ApplyLeave extends Component {
+class ApplyLeaveForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -632,4 +632,4 @@ const mapStateToProps = state => {
     typeList, clubLeave, message, repoManager, leaveData, leaveTypeById, halfDayData
   }
 }
-export default connect(mapStateToProps, { getLeaveType, getLeaveDataById, getLeaveTypeId, getHalfdayLeave, saveLeaveApply, getRepoManagerStatus, getClubLeave })(ApplyLeave)
+export default connect(mapStateToProps, { getLeaveType, getLeaveDataById, getLeaveTypeId, getHalfdayLeave, saveLeaveApply, getRepoManagerStatus, getClubLeave })(ApplyLeaveForm)

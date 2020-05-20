@@ -1,6 +1,5 @@
 import 'react-native-gesture-handler';
 import React, { Component, useState } from 'react';
-// eslint-disable-next-line prettier/prettier
 import { View, ScrollView, Text, TouchableOpacity, SafeAreaView, Image, StyleSheet } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
@@ -17,16 +16,16 @@ import CreateTask from '../screens/CreateTask';
 import ProjectList from '../screens/Projects';
 import ViewProjects from '../screens/ViewProjects';
 import TaskList from '../screens/TaskList';
-import ApplyLeave from '../screens/ApplyLeave';
-import AddLeave from '../screens/AddLeave';
-import Expense from '../screens/Expense';
-import Expenseaddform from '../screens/Expenseaddform';
+import ApplyLeaveForm from '../screens/LeaveMaster/ApplyLeaveForm';
+import AddLeave from '../screens/LeaveMaster/AddLeave';
+// import Expense from '../screens/ExpenseMaster/Expense';
+// import Expenseaddform from '../screens/ExpenseMaster/Expenseaddform';
 import MyTask from '../screens/MyTask';
 import MyProfile from '../screens/MyProfile';
-import LeaveMaster from '../screens/LeaveMaster';
-import ViewLeaves from '../screens/ViewLeaves';
-import MyExpense from '../screens/MyExpense';
-import ViewExpense from '../screens/ViewExpense';
+import LeaveMaster from '../screens/LeaveMaster/index';
+import ViewLeaves from '../screens/LeaveMaster/ViewLeaves';
+import MyExpense from '../screens/ExpenseMaster/MyExpense';
+import ViewExpense from '../screens/ExpenseMaster/ViewExpense';
 const CustomNavLink = (props) => {
   const [SubMenu, setSubMenu] = useState(false)
   return (
@@ -276,7 +275,7 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="ViewProjects" component={ViewProjects} />
               <Drawer.Screen name="TaskList" component={TaskList} />
               <Drawer.Screen name="LeaveMaster" component={LeaveMaster} />
-              <Drawer.Screen name="ApplyLeave" component={ApplyLeave} />
+              <Drawer.Screen name="ApplyLeave" component={ApplyLeaveForm} />
               <Drawer.Screen name="AddLeave" component={AddLeave} />
               <Drawer.Screen name="MyTask" component={MyTask} />
               <Drawer.Screen name="ViewLeaves" component={ViewLeaves} />
