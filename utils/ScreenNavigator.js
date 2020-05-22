@@ -18,14 +18,14 @@ import ViewProjects from '../screens/ViewProjects';
 import TaskList from '../screens/TaskList';
 import ApplyLeaveForm from '../screens/LeaveMaster/ApplyLeaveForm';
 import AddLeave from '../screens/LeaveMaster/AddLeave';
-// import Expense from '../screens/ExpenseMaster/Expense';
+import Expense from '../screens/ExpenseMaster/Expense';
 // import Expenseaddform from '../screens/ExpenseMaster/Expenseaddform';
 import MyTask from '../screens/MyTask';
 import MyProfile from '../screens/MyProfile';
 import LeaveMaster from '../screens/LeaveMaster/index';
 import ViewLeaves from '../screens/LeaveMaster/ViewLeaves';
 import MyExpense from '../screens/ExpenseMaster/MyExpense';
-import ViewExpense from '../screens/ExpenseMaster/ViewExpense';
+import ApproveExpense from '../screens/ExpenseMaster/ApproveExpense';
 const CustomNavLink = (props) => {
   const [SubMenu, setSubMenu] = useState(false)
   return (
@@ -183,13 +183,13 @@ class CustomDrawerContent extends Component {
 
               </View>
             </CustomNavLink1>
-            <CustomNavLink1 compName='Expense' text='Expense' {...this.props}>
+            <CustomNavLink1 text='Expense' >
               <View style={{ backgroundColor: '#fff' }}>
                 <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff',backgroundColor:'#b7d7f6' }}>
                   <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('MyExpense')}>Apply Expense</Text>
                 </View>
                 <View style={{ padding: 10, borderBottomWidth: 1, borderColor: '#fff' ,backgroundColor:'#b7d7f6'}}>
-                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('ViewExpense')}>Approve Expense</Text>
+                  <Text style={{fontFamily:'RobotoSlab-Regular',}} onPress={() => this.props.navigation.navigate('ApproveExpense')}>Approve Expense</Text>
                 </View>
               </View>
             </CustomNavLink1>
@@ -279,8 +279,9 @@ class CustomNavigator extends React.Component {
               <Drawer.Screen name="AddLeave" component={AddLeave} />
               <Drawer.Screen name="MyTask" component={MyTask} />
               <Drawer.Screen name="ViewLeaves" component={ViewLeaves} />
+              <Drawer.Screen name="Expense" component={Expense} />
               <Drawer.Screen name="MyExpense" component={MyExpense} />
-              <Drawer.Screen name="ViewExpense" component={ViewExpense} />
+              <Drawer.Screen name="ApproveExpense" component={ApproveExpense} />
             </>
           ) : (
               <>

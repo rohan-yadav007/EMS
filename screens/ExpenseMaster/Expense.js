@@ -1,414 +1,348 @@
-import React, {Component} from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   Text,
   View,
-  SafeAreaView,
+  TouchableOpacity,
   ImageBackground,
   TextInput,
-  ScrollView,
+  FlatList,
+  RefreshControl,
 } from 'react-native';
 import Header from '../../components/Header';
-import {Searchbox} from '../../css/AddLeave.css';
+import { Searchbox } from '../../css/AddLeave.css';
+import { NavigationContext } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import Icon2 from 'react-native-vector-icons/MaterialIcons';
 import Icon3 from 'react-native-vector-icons/AntDesign';
 import Icon4 from 'react-native-vector-icons/Feather';
-import {
-  Srnumber,
-  Tasklist1,
-  Taskboder,
-  Buttontext,
-  ButtonMedium,
-  AddTask,
-  AddTaskText,
-} from '../../css/TaskList.css';
-import {Tablelist1} from '../../css/Expense.css';
-import {Col, Grid} from 'react-native-easy-grid';
+import { Tasklist1, Taskboder, } from '../../css/TaskList.css';
+import { Tablelist1 } from '../../css/Expense.css';
+import { Picker } from '@react-native-community/picker';
+import { Col, Grid } from 'react-native-easy-grid';
+import { connect } from 'react-redux';
+import { getExpenseList, getEmployeeList, getProjectList } from '../../redux/Action/Expense.action';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
-export default class Expense extends Component {
-  constructor() {
-    super();
+const Item = ({ item, index }) => {
+
+  // const [renderItem, setRenderItem] = useState(item)
+  // useEffect(() => setRenderItem(item));
+  const renderItem = item
+  return (
+    <View >
+      <ImageBackground
+        style={{ padding: 12 }}
+        source={require('../../static/approval_bg.png')}>
+        <Tablelist1>So No ({index + 1})</Tablelist1>
+      </ImageBackground>
+
+      <Tasklist1>
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Employee Name</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem?.t_EmployeeName}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Project Name</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_ProjectName}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Task Name</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_TaskName}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Total Expense</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_TotalExpense}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Approved Amt</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_ApprovedAmount}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Pending Amt</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_PendingAmount}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Status</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <Text style={{ alignSelf: 'center', fontSize: 14 }}>
+                {renderItem.t_status}
+              </Text>
+            </Col>
+          </Grid>
+        </Taskboder>
+
+        <Taskboder>
+          <Grid>
+            <Col>
+              <Text style={{ fontWeight: 'bold' }}>Actions</Text>
+            </Col>
+            <Col style={{ width: '60%' }}>
+              <View style={{ alignSelf: 'center' }}>
+                <Icon3 name="eye" size={25} color="#000" />
+              </View>
+
+              <Col />
+            </Col>
+          </Grid>
+        </Taskboder>
+      </Tasklist1>
+    </View>)
+}
+
+class Expense extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ProjectList: [],
+      EmployeeList: [],
+      filterData: [],
+      ExpenseList: [],
+      selectedEmployee: null,
+      selectedProject: null,
+      fromDate: null,
+      toDate: null,
+      selectedDateType: '',
+      DatePickerEnabled: false,
+      refreshing: false,
+      selected:1
+    }
+   
+  }
+ 
+  async componentDidMount() {
+    
+      await this._onRefresh()
+
   }
 
+  _onRefresh = async () => {
+    const { selectedProject, selectedEmployee, fromDate, toDate, selected } = this.state;
+    this.setState({ refreshing: true })
+    await this.props.getExpenseList(selectedEmployee, selectedProject, fromDate, toDate, selected);
+    await this.setState({ ExpenseList: this.props.ExpenseList,});
+    await this.props.getEmployeeList();
+    await this.props.getProjectList();
+    if (this.props.AllProjectList.length !== 0 && this.props.AllEmployeeList.length !== 0) {
+
+      await this.setState({ ProjectList: this.props.AllProjectList, EmployeeList: this.props.AllEmployeeList });
+
+    }
+    this.setState({ refreshing: false, });
+
+  }
+
+  handleSelect = async (value, name) => {
+    await this.setState({ [name]: value });
+    const { selectedProject, selectedEmployee, fromDate, toDate, selected } = this.state;
+    await this.props.getExpenseList(selectedEmployee, selectedProject, fromDate, toDate, selected);
+    await this.setState({ ExpenseList: this.props.ExpenseList })
+  }
+  handleDateSelect = async (name) => {
+    const { selectedProject, selectedEmployee, fromDate, toDate, selected } = this.state;
+    await this.setState({ DatePickerEnabled: true, selectedDateType: name })
+    await this.props.getExpenseList(selectedEmployee, selectedProject, fromDate, toDate, selected);
+  }
+  onChange = (date) => {
+    const parseDate = JSON.stringify(date)?.split('"')[1]?.split('T')[0];
+    const { selectedDateType } = this.state;
+    if (selectedDateType !== 'fromDate') {
+      this.setState({ DatePickerEnabled: false, fromDate: parseDate })
+    }
+    else {
+      this.setState({ DatePickerEnabled: false, toDate: parseDate })
+    }
+
+  }
+
+  // static getDerivedStateFromProps(props, state) {
+  //   if (props.ExpenseList !== state.ExpenseList) {
+  //     return {
+  //       ExpenseList: props.ExpenseList
+  //     }
+  //   }
+
+  //   return null
+  // }
+
+async componentDidUpdate(prevProps, prevState) {
+    if (prevState.ExpenseList !== this.props.ExpenseList) {
+     
+      this.setState({ ExpenseList: this.props.ExpenseList });
+    }
+    if (prevProps.selected !== this.props.selected) {
+     
+     await this.setState({ selected: this.props.selected,selectedProject:null, selectedEmployee:null, fromDate:null, toDate:null, });
+      this._onRefresh()
+    }
+  }
   render() {
+
+    const { ExpenseList, selectedProject, ProjectList, selectedEmployee, EmployeeList, DatePickerEnabled, refreshing } = this.state;
+
+
     return (
       <>
-        
+        {DatePickerEnabled ? <DateTimePicker
+                    style={{ width: '100%', height: 55 }}
+                    // mode={mode}
+                    value={new Date()}
+                    // display={'date'}
+                    onChange={(event, date) => this.onChange(date)}
 
-            <Grid style={{marginBottom: 60}}>
-              <Col style={{width: '80%'}}>
-                <View>
-                  <TextInput
-                    style={{
-                      height: 45,
-                      backgroundColor: '#fff',
-                      borderWidth: 1,
-                      borderColor: '#d0d0d0',
-                      borderRadius: 4,
-                      marginBottom: 40,
-                      marginTop: 15,
-                    }}
-                    placeholder="Search"
-                  />
-                </View>
-              </Col>
-              <Col>
-                <View style={{marginTop: 25, marginLeft: 10}}>
-                  <Searchbox>
-                    <Text>
-                      <Icon name="search1" size={25} />
-                    </Text>
-                  </Searchbox>
-                </View>
-              </Col>
-            </Grid>
+                /> : null}
+        <View style={{ flexDirection: 'row', justifyContent: 'space-around', paddingTop: 20 }}>
+          <View style={{ width: '25%' }}>
+            <Text style={{ fontFamily: 'RobotoSlab-Regular', alignSelf: 'center' }}>Project</Text>
 
-            <ScrollView
-              style={{marginTop: 20, marginBottom: 20, paddingBottom: 40}}>
-              <View>
-                <ImageBackground
-                  style={{padding: 12}}
-                  source={require('../../static/approval_bg.png')}>
-                  <Tablelist1>So No (1)</Tablelist1>
-                </ImageBackground>
+            <Picker
 
-                <Tasklist1>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Employee Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Manoj
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Project Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Technical Support
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Task Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          New task
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+              mode={"dialog"}
+              selectedValue={selectedProject}
+              onValueChange={(itemValue, itemIndex) => this.handleSelect(itemValue, 'selectedProject')}
+              style={{ height: 50, }}>
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Total Expense</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          18302
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+              <Picker.Item key={0} label="Select" value={null} />
+              {ProjectList?.map((e, i) => {
+                return (
+                  <Picker.Item key={i + 1} label={e.t_ProjectTitle} value={e.a_ProjectId} />
+                )
+              })}
+            </Picker>
+          </View>
+          <View style={{ width: '25%' }}>
+            <Text style={{ fontFamily: 'RobotoSlab-Regular', alignSelf: 'center' }}>Employee</Text>
+            <Picker
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Approved Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          1836
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+              mode={"dialog"}
+              selectedValue={selectedEmployee}
+              onValueChange={(itemValue, itemIndex) => this.handleSelect(itemValue, 'selectedEmployee')}
+              style={{ height: 50, alignItems: 'center' }}>
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>padding Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          0
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+              <Picker.Item key={0} label="Select" value={null} />
+              {EmployeeList?.map((e, i) => {
+                return (
+                  <Picker.Item key={i + 1} label={`${e.t_First_Name} ${e.t_Last_Name || ''}`} value={e.a_EmployeeId} />
+                )
+              })}
+            </Picker>
+          </View>
+          <View style={{ width: '25%' }}>
+            <Text style={{ fontFamily: 'RobotoSlab-Regular', alignSelf: 'center' }}>From Date</Text>
+            <TouchableOpacity onPress={() => this.handleDateSelect('fromDate')}>
+              <Icon style={{ alignSelf: 'center', paddingTop: 15 }} name="calendar" size={20} color="#2696f2" />
+            </TouchableOpacity>
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Status</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Approved
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+          </View>
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Actions</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <View style={{alignSelf: 'center'}}>
-                          <Icon3 name="eye" size={25} color="#000" />
-                        </View>
+          <View style={{ width: '25%' }}>
+            <Text style={{ fontFamily: 'RobotoSlab-Regular', alignSelf: 'center' }}>To Date</Text>
 
-                        <Col />
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                </Tasklist1>
-              </View>
+            <TouchableOpacity onPress={() => this.handleDateSelect('toDate')}>
+              <Icon style={{ alignSelf: 'center', paddingTop: 15 }} name="calendar" size={20} color="#2696f2" />
+            </TouchableOpacity>
 
-              <View style={{marginTop: 20,}}>
-                <ImageBackground
-                  style={{padding: 12}}
-                  source={require('../../static/approval_bg.png')}>
-                  <Tablelist1>So No (2)</Tablelist1>
-                </ImageBackground>
+          </View>
 
-                <Tasklist1>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Employee Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Manoj
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Project Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Technical Support
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Task Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          New task
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+        </View>
+        <Grid style={{ marginBottom: 60 }}>
+          <Col style={{ width: '80%' }}>
+            <View>
+              <TextInput
+                style={{
+                  height: 45,
+                  backgroundColor: '#fff',
+                  borderWidth: 1,
+                  borderColor: '#d0d0d0',
+                  borderRadius: 4,
+                  marginBottom: 40,
+                  marginTop: 15,
+                }}
+                placeholder="Search"
+              />
+            </View>
+          </Col>
+          <Col>
+            <View style={{ marginTop: 25, marginLeft: 10 }}>
+              <Searchbox>
+                <Text>
+                  <Icon name="search1" size={25} />
+                </Text>
+              </Searchbox>
+            </View>
+          </Col>
+        </Grid>
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Total Expense</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          18302
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
+        <FlatList
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={this._onRefresh} />}
+          refreshing={refreshing}
+          data={ExpenseList}
+          renderItem={({ item, index }) => <Item item={item} index={index} />}
+          keyExtractor={(item) => `${item.t_ClaimRefNumber}`}
+        />
 
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Approved Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          1836
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>padding Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          0
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Status</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Approved
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Actions</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <View style={{alignSelf: 'center'}}>
-                          <Icon3 name="eye" size={25} color="#000" />
-                        </View>
-
-                        <Col />
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                </Tasklist1>
-              </View>
-
-              <View style={{marginTop: 20, paddingBottom: 90}}>
-                <ImageBackground
-                  style={{padding: 12}}
-                  source={require('../../static/approval_bg.png')}>
-                  <Tablelist1>So No (3)</Tablelist1>
-                </ImageBackground>
-
-                <Tasklist1>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Employee Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Manoj
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Project Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Technical Support
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Task Name</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          New task
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Total Expense</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          18302
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Approved Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          1836
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>padding Amt</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          0
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Status</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <Text style={{alignSelf: 'center', fontSize: 14}}>
-                          Approved
-                        </Text>
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-
-                  <Taskboder>
-                    <Grid>
-                      <Col>
-                        <Text style={{fontWeight: 'bold'}}>Actions</Text>
-                      </Col>
-                      <Col style={{width: '60%'}}>
-                        <View style={{alignSelf: 'center'}}>
-                          <Icon3 name="eye" size={25} color="#000" />
-                        </View>
-
-                        <Col />
-                      </Col>
-                    </Grid>
-                  </Taskboder>
-                </Tasklist1>
-              </View>
-            </ScrollView>
-          
       </>
     );
   }
 }
+const mapStateToProps = state => {
+  const ExpenseList = state.ExpenseReducer.ExpenseList;
+  const AllEmployeeList = state.ExpenseReducer.AllEmployeeList;
+  const AllProjectList = state.ExpenseReducer.AllProjectList
+  return { ExpenseList, AllEmployeeList, AllProjectList }
+}
+export default connect(mapStateToProps, { getExpenseList, getEmployeeList, getProjectList })(Expense)

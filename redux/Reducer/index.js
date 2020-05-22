@@ -6,6 +6,8 @@ import ProjectsReducer from './ProjectsReducer';
 import CreateTaskReducer from './CreateTaskReducer';
 import LeaveReducer from './LeaveReducer';
 import MyProfileReducer from './MyProfileReducer';
+import ExpenseReducer from './ExpenseReducer';
+
 const rootReducer = combineReducers({
   LoginReducer: LoginReducer,
   CommonReducer: CommonReducer,
@@ -14,5 +16,6 @@ const rootReducer = combineReducers({
   CreateTaskReducer: CreateTaskReducer,
   LeaveReducer: LeaveReducer,
   MyProfileReducer:MyProfileReducer,
+  ExpenseReducer:ExpenseReducer,
 });
 export default rootReducer;
