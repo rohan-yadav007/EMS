@@ -1,6 +1,6 @@
 import * as Actions from '../actionType/Expense.actionType';
 import * as commonAction from '../actionType/common.actionType';
-import { GET } from '../../utils/responseHelper';
+import { GET, POST } from '../../utils/responseHelper';
 import { getData } from '../../utils/AsyncStorage';
 const dispatchAction = (dispatch, actionType, data) => {
     dispatch({ type: actionType, payload: data });
@@ -74,4 +74,71 @@ export const getExpenseList = (UserId, ProjectId, fromDate, toDate, statusId) =>
         }
     }
 
+}
+
+export const getEmployeeProjectList = () => async dispatch => {
+
+    const UserInfo = JSON.parse(await getData('UserInfo'));
+    const url = `CorporateRecruitment/Task/GetProjectsBySpocAndEmpRole?n_EmployeeId=${UserInfo?.a_EmployeeID}&n_Role=0`;
+    try {
+        const data = await GET(url);
+        if (data && data.length > 0) {
+            dispatchAction(dispatch, Actions.GET_EMPLOYEE_PROJECT_LIST, data)
+
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const getEmployeeTaskListByProject = (ProjectId) => async dispatch => {
+
+    const UserInfo = JSON.parse(await getData('UserInfo'));
+    const url = `CorporateRecruitment/Task/GetAllTaskByProjectEmp?n_ProjectID=${ProjectId}&n_EmployeeID=${UserInfo?.a_EmployeeID}`;
+    try {
+        const data = await GET(url);
+       
+        if (data) {
+            dispatchAction(dispatch, Actions.GET_EMPLOYEE_TASK_LIST_BY_PROJECT, data)
+
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+
+export const getExpenseListByTask = (ProjectId,TaskId) => async dispatch => {
+
+    const UserInfo = JSON.parse(await getData('UserInfo'));
+    const url = `CorporateRecruitment/Reimbursement/GetAllExpenseDetailsByTask?ProjectId=${ProjectId}&TaskId=${TaskId}&EmployeeId=${UserInfo?.a_EmployeeID}`;
+    try {
+        const data = await GET(url);
+        console.log(url,data)
+        if (data) {
+            dispatchAction(dispatch, Actions.GET_EXPENSE_LIST_BY_TASK, data)
+
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const saveExpenseListByProject = (postObj) => async dispatch => {
+
+    const url = `CorporateRecruitment/Reimbursement/SaveUpdateReimbursement`;
+    try {
+        const data = await POST(url,postObj);
+        console.log(data)
+        if (data) {
+            dispatchAction(dispatch, Actions.SAVE_EXPENSE_LIST_BY_TASK, data)
+
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
 }

@@ -24,6 +24,7 @@ export const InputGroup = styled.View`
 export const Input = styled.TextInput`
   padding: 5px;
   flex: 8;
+  color:#000;
 `;
 export const InputBox = styled.View`
   border-bottom-width: 1px;

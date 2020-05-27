@@ -146,7 +146,7 @@ class ApproveExpense extends Component {
                             paddingLeft: 10,
                             paddingTop: 10,
                         }}>
-
+{/* 
                         <View style={{ flexDirection: 'row', position: 'relative' }}>
 
                             <TouchableOpacity
@@ -206,7 +206,7 @@ class ApproveExpense extends Component {
                                         fontFamily: 'RobotoSlab-Regular'
                                     }}>Hold</Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         
                         {/* <View style={{marginBottom:100}}> */}
                         <Handle SetFromProp={this.SetFromProp} _onRefresh={this._onRefresh}  selected={selected} />
