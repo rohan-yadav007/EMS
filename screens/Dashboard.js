@@ -20,6 +20,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Header from '../components/Header';
 import { Col, Grid } from 'react-native-easy-grid';
 import {getPendingLeave,getApprovedLeave} from '../redux/Action/Leave.action';
+import {getData} from '../utils/AsyncStorage'
 
 class Dashboard extends Component {
   constructor(props) {
@@ -28,12 +29,16 @@ class Dashboard extends Component {
       user: [{ name: 'rohan' }],
     };
   }
-
+async componentDidMount(){
+  const UserInfo = JSON.parse(await getData('UserInfo'));
+  console.log(UserInfo)
+}
   toggler = () => {
     this.props.navigation.toggleDrawer();
   };
   render() {
     const { loading } = this.props;
+    
     return (
       <>
         <ImageBackground

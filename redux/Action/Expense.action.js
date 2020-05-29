@@ -1,8 +1,8 @@
 import * as Actions from '../actionType/Expense.actionType';
 import * as commonAction from '../actionType/common.actionType';
-import { GET, POST } from '../../utils/responseHelper';
+import { GET, POST ,DELETE} from '../../utils/responseHelper';
 import { getData } from '../../utils/AsyncStorage';
-const dispatchAction = (dispatch, actionType, data) => {
+const dispatchAction = (dispatch, actionType, data,error,message) => {
     dispatch({ type: actionType, payload: data });
 };
 
@@ -116,7 +116,7 @@ export const getExpenseListByTask = (ProjectId,TaskId) => async dispatch => {
     const url = `CorporateRecruitment/Reimbursement/GetAllExpenseDetailsByTask?ProjectId=${ProjectId}&TaskId=${TaskId}&EmployeeId=${UserInfo?.a_EmployeeID}`;
     try {
         const data = await GET(url);
-        console.log(url,data)
+        // console.log(url,data)
         if (data) {
             dispatchAction(dispatch, Actions.GET_EXPENSE_LIST_BY_TASK, data)
 
@@ -132,10 +132,69 @@ export const saveExpenseListByProject = (postObj) => async dispatch => {
     const url = `CorporateRecruitment/Reimbursement/SaveUpdateReimbursement`;
     try {
         const data = await POST(url,postObj);
-        console.log(data)
-        if (data) {
-            dispatchAction(dispatch, Actions.SAVE_EXPENSE_LIST_BY_TASK, data)
+        
+        if (data && data.length) {
+            dispatchAction(dispatch, Actions.SAVE_EXPENSE_LIST_BY_TASK, data,null,'Success')
 
+        }
+        else{
+            dispatchAction(dispatch, Actions.SAVE_EXPENSE_LIST_BY_TASK, data,null,'Error Occured!')
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const getExpenseFormData = () => async dispatch => {
+    const UserInfo = JSON.parse(await getData('UserInfo'));
+    const url = `CorporateRecruitment/Employee/Getdetailsempbyid?a_EmployeeId=${UserInfo?.n_UserId}`;
+    try {
+        const data = await GET(url);
+        
+        if (data && data.length) {
+            console.log('data')
+            dispatchAction(dispatch, Actions.GET_EXPENSE_FORM_DATA, data,null,'Success')
+        }
+        else{
+            console.log('nodata')
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const deleteExpenseFromList = async (expenseId) => {
+    const url = `CorporateRecruitment/Reimbursement/DeleteReimbursement?ExpenseMapId=${expenseId}`;
+    
+    try {
+        const data = await DELETE(url);
+        
+        if (data === "Ok") {
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+export const ExpenseListByReimbursementID = (ReimbursementID,StatusID) => async dispatch =>  {
+    const url = `CorporateRecruitment/Reimbursement/GetExpenseMapListByRemId?a_ReimbursementID=${ReimbursementID}&StatusID=${StatusID}`;
+    
+    try {
+        const data = await GET(url);
+        
+        if (data && data.length) {
+            console.log('data',data)
+            dispatchAction(dispatch, Actions.GET_EXPENSE_LIST_BY_REMID, data,null,'Success')
+        }
+        else{
+            console.log('nodata')
         }
     }
     catch (error) {

@@ -44,6 +44,21 @@ export const POST = async (posturl, data) => {
   return ResponseData;
 };
 
+export const DELETE = async (deleteurl) => {
+  const url = `${base_url.concat(deleteurl)}`;
+  // console.log(url);
+
+  const ResponseData = await fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'content-type': 'application/json',
+    },
+  })
+    .then(response => response.json())
+    .catch(error => console.log(error));
+  return ResponseData;
+};
+
 // export const POST_FORM = async (posturl, data) => {
 //   const url = `${base_url.concat(posturl)}`;
 //   const Data = JSON.stringify(data);

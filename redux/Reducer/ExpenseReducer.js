@@ -6,7 +6,9 @@ const initialState = {
     EmpProjectList: [],
     EmpTaskListByProject: [],
     ExpenseListByTask: [],
-    SaveExpenseListByTask:[]
+    SaveExpenseListByTask: '',
+    ExpenseFormData: [],
+    ExpenseListByRemId: null
 };
 
 const AttendenceReducer = (state, action) => {
@@ -48,7 +50,17 @@ const AttendenceReducer = (state, action) => {
         case actions.SAVE_EXPENSE_LIST_BY_TASK:
             return {
                 ...state,
-                SaveExpenseListByTask: action.payload,
+                SaveExpenseListByTask: action.message,
+            };
+        case actions.GET_EXPENSE_FORM_DATA:
+            return {
+                ...state,
+                ExpenseFormData: action.payload,
+            };
+        case actions.GET_EXPENSE_LIST_BY_REMID:
+            return {
+                ...state,
+                ExpenseListByRemId: action.payload,
             };
         default:
             return state;

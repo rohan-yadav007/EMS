@@ -44,11 +44,11 @@ export const Customtext = styled.Text`
   padding:5px;
   font-family: 'RobotoSlab-Regular';
 `;
-export const Srnumber = styled.Text`
+export const Srnumber = styled.TouchableOpacity`
   font-size: 14px;
   background-color: red;
   border-top-right-radius: 5px;
-  text-align: center;
+  align-items: center;
   font-weight: bold;
   padding: 15px;
   color: #fff;

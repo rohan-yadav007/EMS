@@ -18,7 +18,7 @@ import Header from '../../components/Header';
 import { connect } from 'react-redux';
 import { handlechangetask } from '../../redux/Action/CreateTask.action';
 import { getProfileData, getDepartment, getDesignation } from '../../redux/Action/MyProfile.action';
-import { getEmployeeProjectList, getExpenseListByTask, saveExpenseListByProject, getEmployeeTaskListByProject, } from '../../redux/Action/Expense.action';
+import { getEmployeeProjectList,deleteExpenseFromList, getExpenseListByTask, saveExpenseListByProject, getEmployeeTaskListByProject,getExpenseFormData } from '../../redux/Action/Expense.action';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import LinearGradient from 'react-native-linear-gradient';
 import ImagePicker from 'react-native-image-picker';
@@ -44,8 +44,9 @@ const myPickerTheme = {
   },
 };
 let ExpenseMapArray = [];
-const ExpenseItem = ({ item, index, handleExpenseChange }) => {
 
+const ExpenseItem = ({ item, index, handleExpenseChange,handleDeleteExpense }) => {
+console.log(item,index)
   const [Popup, setPopup] = useState(false);
   const [expenseType, setExpenseType] = useState(item?.n_ExpenseTypeId || 0);
   const [amount, setAmount] = useState(`${item?.t_Amount || 0}`);
@@ -55,7 +56,8 @@ const ExpenseItem = ({ item, index, handleExpenseChange }) => {
   const [transportType, setTransportType] = useState(0);
   const [distance, setDistance] = useState('');
   const [rate, setRate] = useState('');
-  const [transportAmount, setTransportAmount] = useState()
+  const [transportAmount, setTransportAmount] = useState();
+
   const handleExpenseType = (type) => {
     if (type === 1) {
       setPopup(true);
@@ -81,41 +83,12 @@ const ExpenseItem = ({ item, index, handleExpenseChange }) => {
   }
   ExpenseMapArray[index] = xmlObject;
   const handleTransportSave = () => {
-    setAmount(`${distance * rate}`)
+    setAmount(`${distance * rate}`);
+    setPopup(false)
   }
+
   return (
     <>
-      {/* <Modal animationType='fade' transparent={true} visible={Popup}>
-        <View style={{ flex: 1 ,width:'80%',justifyContent:'center', backgroundColor:'#fff'}}>
-        <TouchableOpacity
-              onPress={() => {
-                setPopup(false)
-              }}
-              style={{ position: 'absolute', bottom: 20, right: 20, zIndex: 2, padding: 18, backgroundColor: 'green', borderRadius: 100 }}>
-              <View>
-                <Icon name="plus" color="#fff" size={30} />
-              </View>
-            </TouchableOpacity>
-          <View>
-            <Text>Transport Detail</Text>
-            <View>
-            <Picker
-                    style={{ height: 55, width: '100%' }}
-                    selectedValue={transportType}
-                    onValueChange={(itemValue, itemIndex) =>
-                      setTransportType(itemValue)
-                    }>
-                    <Picker.Item label='Select' value={0} />
-                    <Picker.Item label='Cab' value={1} />
-                    <Picker.Item label='Auto' value={2} />
-                    <Picker.Item label='Bike' value={3} />
-                    <Picker.Item label='Car' value={4} />
-                    <Picker.Item label='Others' value={5} />
-                  </Picker>
-            </View>
-          </View>
-        </View>
-      </Modal> */}
       <Modal animationType="fade" transparent={true} visible={Popup}>
         <View style={{ flex: 1, justifyContent: 'center', alignItems: "center", }}>
           <View style={{ paddingBottom: 25, padding: 10, width: '90%', borderRadius: 10, backgroundColor: '#90d3f9', borderWidth: 1, borderColor: '#0d76d5' }}>
@@ -163,9 +136,9 @@ const ExpenseItem = ({ item, index, handleExpenseChange }) => {
           </View>
         </View>
       </Modal>
-      <View key={index}>
-        <Srnumber>
-          <Icon name='trash-can' color='#fff' size={25} />
+      <View key={index} >
+        <Srnumber  onPress={()=>handleDeleteExpense(index,item?.a_ReimbursementExpenseMapId)}>
+          <Icon name='trash-can' color='#fff' size={25}  />
         </Srnumber>
 
         <Tasklist1>
@@ -274,19 +247,18 @@ class Expenseaddform extends Component {
       taskId: null,
       ExpenseListByTask: [],
       xmlArray: [],
-      xmlObject: {}
+      xmlObject: {},
+      PopupResponse: false
     };
   }
   componentDidMount() {
     this._onRefresh();
   }
   _onRefresh = async () => {
-    await this.props.getProfileData();
-
-    this.setState({ profileData: this.props.profileData });
-    await this.props.getDepartment();
-    await this.props.getDesignation();
+  
     await this.props.getEmployeeProjectList();
+    await this.props.getExpenseFormData();
+    this.setState({ profileData: this.props.ExpenseFormData });
   }
 
   handleChange = async (text, name) => {
@@ -298,18 +270,27 @@ class Expenseaddform extends Component {
   };
 
   handleTaskList = async (ProjectId) => {
+    const {profileData} = this.state;
+    const nonProject = {t_TaskTitle: `Non_ProjectTask_${profileData[0]?.t_EmpPunchCardNo}`,t_Amount:0}
+    if (ProjectId === '-1') {
 
-    await this.props.getEmployeeTaskListByProject(ProjectId);
-    this.setState({ EmpTaskListByProject: this.props.EmpTaskListByProject, selectedProject: ProjectId, })
+      this.setState({ EmpTaskListByProject: [nonProject] ,selectedProject: ProjectId, });
+    } else {
+      await this.props.getEmployeeTaskListByProject(ProjectId);
+      this.setState({ EmpTaskListByProject: this.props.EmpTaskListByProject, selectedProject: ProjectId, })
+    }
+
   }
 
   handleAddExpense = async () => {
     ExpenseMapArray = [];
     const expenseObj = {}
     const prevState = [];
-    await this.state.ExpenseListByTask?.map(e => {
-      prevState.push(e)
-    })
+    if(this.state.ExpenseListByTask.length){
+      await this.state.ExpenseListByTask?.map(e => {
+        prevState.push(e)
+      })
+    }
     prevState.push(expenseObj)
 
     this.setState({ ExpenseListByTask: prevState })
@@ -325,7 +306,7 @@ class Expenseaddform extends Component {
       mode = 'UPDATE'
     }
 
-    const objStr = JSON.stringify(ExpenseMapArray).toString();
+    const objStr = JSON.stringify(ExpenseMapArray);
     const userInfo = JSON.parse(await getData('UserInfo'));
 
     const postObj = {
@@ -347,41 +328,48 @@ class Expenseaddform extends Component {
       n_Total: 1000
     }
 
-    console.log('postObj', postObj)
-    await this.props.saveExpenseListByProject(postObj)
-  }
-
-  static getDerivedStateFromProps(Props, State) {
-    if (State.EmpTaskListByProject !== Props.EmpTaskListByProject) {
-      return {
-        EmpTaskListByProject: Props.EmpTaskListByProject
-      }
+    // console.log('postObj', postObj)
+    await this.props.saveExpenseListByProject(postObj);
+    if (this.props.SaveExpenseListByTask) {
+      this.setState({ PopupResponse: true });
+      setTimeout(() => this.setState({ PopupResponse: false }), 2000)
     }
-    return null;
-  }
 
+  }
+  handleDeleteExpense = async (index,ExpenseMapId) => {
+console.log(index,ExpenseMapId)
+    const deleteRes = await deleteExpenseFromList(ExpenseMapId);
+    console.log(deleteRes)
+    if(deleteRes || ExpenseMapId === undefined){
+      let prevExpenseList = this.state.ExpenseListByTask;
+     
+      prevExpenseList.splice(index,1);
+   console.log(prevExpenseList)
+      this.setState({ExpenseListByTask:prevExpenseList})
+    }
+  }
 
   render() {
-    const { Popup, profileData, selectedProject, taskId, EmpTaskListByProject, selectedTask, ExpenseListByTask } = this.state;
+    const { Popup, profileData, PopupResponse, selectedProject, taskId, EmpTaskListByProject, selectedTask, ExpenseListByTask } = this.state;
     const { EmpProjectList, } = this.props;
-    let DepartmentName = '';
-    let Designation = '';
+    
     let totalAmount = '';
     const ReimbursementID = ExpenseListByTask.length && ExpenseListByTask[0]?.n_ReimbursementId;
-    totalAmount = ExpenseListByTask?.map(e => { return (totalAmount + e.t_Amount) });
+    totalAmount = ExpenseListByTask.length && ExpenseListByTask?.map(e => { return parseInt(totalAmount + e?.t_Amount) });
+    
 
-    if (this.props.departmentData?.length !== 0) {
-      const GetDepartment = this.props.departmentData.filter(e => e.a_DepartmentId === profileData?.n_DepartmentId);
-      DepartmentName = GetDepartment[0]?.t_DepartmentName;
-    }
-    if (this.props.designationData?.length !== 0) {
-      const getDesignation = this.props.designationData.filter(e => e.a_DesignationId === profileData?.n_DesignationId);
-      Designation = getDesignation[0]?.Designation;
-    }
     return (
       <>
         <Modal animationType='slide' transparent={true} visible={Popup}>
-
+          {/* <Modal animationType="fade" transparent={true} visible={PopupResponse}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: "center", }}>
+              <View style={{ paddingBottom: 25, width: '80%', borderRadius: 10, backgroundColor: '#0d76d5', }}>
+                <Text style={{ color: '#fff', alignSelf: 'center', paddingTop: 10 }}>
+                  {this.props.SaveExpenseListByTask}
+                </Text>
+              </View>
+            </View>
+          </Modal> */}
           <View style={{ backgroundColor: '#000000aa', flex: 1, paddingBottom: 50 }}>
             <TouchableOpacity
               onPress={() => {
@@ -399,14 +387,14 @@ class Expenseaddform extends Component {
                 <Icon name="close-circle" color="#fff" size={30} />
               </CloseButton>
               <TaskTitle>
-                Task Name: {selectedTask}
+                {selectedTask}
               </TaskTitle>
             </View>
             <ModalTopContent>
               <ScrollView>
-                {ExpenseListByTask?.map((item, index) => {
+                {ExpenseListByTask.length && ExpenseListByTask?.map((item, index) => {
                   return (
-                    <ExpenseItem key={index} item={item} index={index} handleExpenseChange={this.handleExpenseChange} />
+                    <ExpenseItem key={index} item={item} index={index} handleExpenseChange={this.handleExpenseChange} handleDeleteExpense={this.handleDeleteExpense} />
                   )
                 })}
                 <Taskborder>
@@ -416,7 +404,7 @@ class Expenseaddform extends Component {
                     </Col>
                     <Col style={{ width: '60%' }}>
                       <InputGroup>
-                        <Input editable={false} value={totalAmount[0]} style={{ alignSelf: 'center', fontSize: 14 }} />
+                        <Input editable={false} value={totalAmount ? `${totalAmount && totalAmount.reduce((a, b) => a + b)}`:''} style={{ alignSelf: 'center', fontSize: 14 }} />
                       </InputGroup>
                     </Col>
                   </Grid>
@@ -472,7 +460,7 @@ class Expenseaddform extends Component {
             <InputGroup>
               <Input
                 editable={false}
-                value={`${profileData?.t_First_Name} ${profileData?.t_Last_Name}`}
+                value={`${profileData[0]?.emp_name}`}
                 onChangeText={text => this.handleChange(text, 'Supre')}
               />
             </InputGroup>
@@ -481,10 +469,8 @@ class Expenseaddform extends Component {
             <InputGroup>
               <Input
                 editable={false}
-                value={DepartmentName}
-                onChangeText={text =>
-                  this.handleChange(text, 'Sales & Marketing')
-                }
+                value={`${profileData[0]?.t_DepartmentName}`}
+               
               />
             </InputGroup>
 
@@ -492,8 +478,7 @@ class Expenseaddform extends Component {
             <InputGroup>
               <Input
                 editable={false}
-                value={Designation}
-                onChangeText={text => this.handleChange(text, 'Sale Head')}
+                value={`${profileData[0]?.Designation}`}
               />
             </InputGroup>
 
@@ -501,17 +486,15 @@ class Expenseaddform extends Component {
             <InputGroup>
               <Input
                 editable={false}
-                value={`${profileData?.a_EmployeeId}`}
-                onChangeText={text => this.handleChange(text, '111')}
+                value={`${profileData[0]?.t_EmpPunchCardNo}`}
               />
             </InputGroup>
 
-            <ExpenseText style={{ marginTop: 15 }}>Reporting Manager Id</ExpenseText>
+            <ExpenseText style={{ marginTop: 15 }}>Reporting Manager</ExpenseText>
             <InputGroup>
               <Input
                 editable={false}
-                value={profileData?.n_ReportingManagerId !== null ? `${profileData?.n_ReportingManagerId}` : 'N/A'}
-                onChangeText={text => this.handleChange(text, '111')}
+                value={profileData[0]?.repo_Name !== null ? `${profileData[0]?.repo_Name}` : 'N/A'}
               />
             </InputGroup>
 
@@ -525,7 +508,7 @@ class Expenseaddform extends Component {
 
                 }>
                 <Picker.Item key={0} label='Select' value={0} />
-                <Picker.Item key={1} label='Non Project' value={-1} />
+                <Picker.Item key={1} label='Non Project' value={'-1'} />
                 {EmpProjectList && EmpProjectList.map((e, i) => {
                   return (
                     <Picker.Item key={i + 2} label={e.t_ProjectTitle} value={e.a_ProjectId} />
@@ -568,25 +551,22 @@ class Expenseaddform extends Component {
 
 const mapStateToProps = state => {
   const taskName = state.CreateTaskReducer.taskName;
-  const profileData = state.MyProfileReducer.profileData;
-  const departmentData = state.MyProfileReducer.departmentData;
-  const designationData = state.MyProfileReducer.designationData;
   const EmpProjectList = state.ExpenseReducer.EmpProjectList;
   const EmpTaskListByProject = state.ExpenseReducer.EmpTaskListByProject;
   const ExpenseListByTask = state.ExpenseReducer.ExpenseListByTask;
-  const SaveExpenseListByTask = state.ExpenseReducer.ExpenseListByTask;
-  return { taskName, profileData, departmentData, designationData, saveExpenseListByProject, EmpProjectList, EmpTaskListByProject, ExpenseListByTask };
+  const SaveExpenseListByTask = state.ExpenseReducer.SaveExpenseListByTask;
+  const ExpenseFormData = state.ExpenseReducer.ExpenseFormData;
+  return { taskName, ExpenseFormData, EmpProjectList, EmpTaskListByProject, SaveExpenseListByTask, ExpenseListByTask };
 };
 
 export default connect(
   mapStateToProps,
   {
     handlechangetask,
-    getProfileData,
-    getDepartment,
-    getDesignation,
     getEmployeeProjectList,
     getExpenseListByTask,
-    getEmployeeTaskListByProject
+    getEmployeeTaskListByProject,
+    saveExpenseListByProject,
+    getExpenseFormData
   },
 )(Expenseaddform);
